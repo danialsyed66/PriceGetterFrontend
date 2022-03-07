@@ -1,0 +1,21 @@
+.zoom-box {
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s; /* Animation */
+}
+
+.zoom-box:hover {
+  -webkit-transform: scale(1.5);
+  transform: scale(1.1);
+}
+
+.cat_img {
+  min-height: 100px;
+}
+
+@media screen and (max-width: 720px) {
+  .cat_img {
+    width: 75px;
+  }
+}

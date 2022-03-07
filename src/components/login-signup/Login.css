@@ -1,0 +1,39 @@
+.LOGIN_PAGE_TEXT {
+  width: 212px;
+  font-family: var(--font-family);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 80px;
+  color: #224957;
+  text-align: center;
+  margin: auto;
+}
+.errorText {
+  color: red;
+}
+.main_div {
+  max-height: 100vh;
+}
+.LOGIN_PAGE_IMG {
+  position: absolute;
+  bottom: 0;
+}
+
+@media screen and (max-width: 1050px) {
+  .LOGIN_PAGE_IMG {
+    display: none;
+  }
+  .main_div {
+    min-height: 100vh;
+  }
+}
+.css-ap4fib-MuiFormControl-root {
+  margin: 0px !important;
+}
+.css-ygkvo7-MuiButtonBase-root-MuiButton-root:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: rgba(25, 118, 210, 0.04);
+  border: 1px solid black !important;
+}

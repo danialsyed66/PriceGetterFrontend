@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--color-bg);
+}
+a {
+  color: unset;
+  text-decoration: none;
+}
+.gradient__text {
+  background: var(--gradient-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gradient__bg {
+  /* ff 3.6+ */
+  background: -moz-radial-gradient(
+    ellipse at 6% 0%,
+    rgba(14, 48, 14, 1) 4%,
+    rgba(255, 255, 255, 0) 71%
+  );
+
+  /* safari 5.1+,chrome 10+ */
+  background: -webkit-radial-gradient(
+    ellipse at 6% 0%,
+    rgba(14, 48, 14, 1) 4%,
+    rgba(255, 255, 255, 0) 71%
+  );
+
+  /* opera 11.10+ */
+  background: -o-radial-gradient(
+    ellipse at 6% 0%,
+    rgba(14, 48, 14, 1) 4%,
+    rgba(255, 255, 255, 0) 71%
+  );
+
+  /* ie 10+ */
+  background: -ms-radial-gradient(
+    ellipse at 6% 0%,
+    rgba(14, 48, 14, 1) 4%,
+    rgba(255, 255, 255, 0) 71%
+  );
+
+  /* global 92%+ browsers support */
+  background: radial-gradient(
+    ellipse at 6% 0%,
+    rgba(14, 48, 14, 1) 4%,
+    rgba(255, 255, 255, 0) 71%
+  );
+}
+
+.section__margin {
+  margin: 4rem 6rem;
+}
+.section__padding {
+  padding: 4rem 6rem;
+}
+.scale-up-center {
+  -webkit-animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1)
+    both;
+  animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+@-webkit-keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@media screen and (max-width: 700px) {
+  .section__margin {
+    margin: 4rem;
+  }
+  .section__padding {
+    padding: 4rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  .section__margin {
+    margin: 4rem 2rem;
+  }
+  .section__padding {
+    padding: 4rem 2rem;
+  }
+}
