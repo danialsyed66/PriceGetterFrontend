@@ -25,15 +25,15 @@ const LoginPage = () => {
   });
 
   const handleGoogle = () => {
-    window.open('http://localhost:8000/auth/google', '_self');
+    window.open('/api/v1/auth/google', '_self');
   };
   const handleTwitter = () => {
-    window.open('http://localhost:8000/auth/twitter', '_self');
+    window.open('/api/v1/auth/twitter', '_self');
   };
   const handleFacebook = () => {
-    window.open('http://localhost:8000/auth/facebook', '_self');
+    window.open('/api/v1/auth/facebook', '_self');
   };
-  // window.open('http://localhost:8000/auth/logout', '_self');
+  // window.open('/api/v1/auth/logout', '_self');
 
   const [values, setValues] = React.useState(false);
   const handleClickShowPassword = () => setValues(!values);
