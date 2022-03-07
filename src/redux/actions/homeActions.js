@@ -15,7 +15,9 @@ export const getHome = userData => async dispatch => {
 
     const {
       data: { data },
-    } = await axios.get('/api/v1/products/getHomePage?resPerPage=10');
+    } = await axios.get(
+      'https://price-getter-backend.herokuapp.com/api/v1/products/getHomePage?resPerPage=10'
+    );
 
     dispatch({
       type: HOME_PAGE_SUCCESS,

@@ -39,7 +39,11 @@ const SignupPage = () => {
       const create = async userData => {
         const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
-        await axios.post('/api/v1/seller', userData, config);
+        await axios.post(
+          'https://price-getter-backend.herokuapp.com/api/v1/seller',
+          userData,
+          config
+        );
       };
       create(formData);
     } catch (err) {

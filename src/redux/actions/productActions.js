@@ -18,7 +18,7 @@ export const getProducts =
         type: ALL_PRODUCTS_REQUEST,
       });
 
-      const link = `/api/v1/products?page=${currentPage}
+      const link = `https://price-getter-backend.herokuapp.com/api/v1/products?page=${currentPage}
       &price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}
       &rating[gte]=${rating}
       ${keyword ? `&keyword=${keyword}` : ''}
@@ -89,7 +89,9 @@ export const getProductDetails = id => async dispatch => {
       data: {
         data: { data },
       },
-    } = await axios.get(`/api/v1/products/${id}`);
+    } = await axios.get(
+      `https://price-getter-backend.herokuapp.com/api/v1/products/${id}`
+    );
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,

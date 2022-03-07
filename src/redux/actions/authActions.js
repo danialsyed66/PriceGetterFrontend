@@ -27,7 +27,11 @@ export const login = userData => async dispatch => {
 
     const {
       data: { data },
-    } = await axios.post('/api/v1/login', userData, config);
+    } = await axios.post(
+      'https://price-getter-backend.herokuapp.com/api/v1/login',
+      userData,
+      config
+    );
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -87,7 +91,11 @@ export const register = userData => async dispatch => {
 
     const {
       data: { data },
-    } = await axios.post('/api/v1/register', userData, config);
+    } = await axios.post(
+      'https://price-getter-backend.herokuapp.com/api/v1/register',
+      userData,
+      config
+    );
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -109,7 +117,9 @@ export const loadUser = () => async dispatch => {
 
     const {
       data: { data },
-    } = await axios.get('/api/v1/profile');
+    } = await axios.get(
+      'https://price-getter-backend.herokuapp.com/api/v1/profile'
+    );
 
     dispatch({
       type: LOAD_USER_SUCCESS,
@@ -125,7 +135,9 @@ export const loadUser = () => async dispatch => {
 
 export const logout = () => async dispatch => {
   try {
-    await axios.post('/api/v1/logout');
+    await axios.post(
+      'https://price-getter-backend.herokuapp.com/api/v1/logout'
+    );
 
     dispatch({
       type: LOGOUT_SUCCESS,
