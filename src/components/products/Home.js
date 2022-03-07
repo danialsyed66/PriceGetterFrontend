@@ -1,15 +1,13 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 import './Home.css';
 import Product from './Product';
-import Loader from '../components/loader/Loader';
-import { Navbar } from '../components';
-import { Category, Footer, Header } from '../containers';
-import { getProducts } from '../redux/actions/productActions';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import { Category, Footer, Navbar, Header, Loader } from '../layouts';
+import { getProducts } from '../../redux/actions/productActions';
 
 const Home = () => {
   const responsive = {

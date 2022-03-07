@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import { Checkbox } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import './Home.css';
-import { handleFavourite as handleFavouriteAction } from '../redux/actions/userActions';
-import { loadUser } from '../redux/actions/authActions';
-import { HANDLE_FAVOURITE_RESET } from '../redux/consts';
-import { useNavigate } from 'react-router-dom';
+import { handleFavourite as handleFavouriteAction } from '../../redux/actions/userActions';
+import { loadUser } from '../../redux/actions/authActions';
+import { HANDLE_FAVOURITE_RESET } from '../../redux/consts';
 
 const Product = ({ product, col, callbackRef }) => {
   const dispatch = useDispatch();

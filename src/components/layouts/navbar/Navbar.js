@@ -4,9 +4,9 @@ import { ImCross } from 'react-icons/all';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import './navbar.css';
-import priceGetter from '../../assets/logoh.svg';
-import { logout } from '../../redux/actions/authActions';
+import './Navbar.css';
+import priceGetter from '../../../assets/logoh.svg';
+import { logout } from '../../../redux/actions/authActions';
 
 const Menu = () => (
   <>

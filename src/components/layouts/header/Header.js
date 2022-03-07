@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-
-import './header.css';
-import ai from '../../assets/ai.png';
 import { useNavigate } from 'react-router-dom';
+
+import './Header.css';
+import ai from '../../../assets/ai.png';
 
 const Header = () => {
   const [query, setQuery] = useState('');

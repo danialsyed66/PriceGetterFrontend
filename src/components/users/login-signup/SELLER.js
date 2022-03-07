@@ -5,8 +5,8 @@ import { Button, FormControl } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 
 import './Login.css';
-import priceGetter from '../../assets/PriceGetter.svg';
-import vector from '../../assets/Vectors.svg';
+import priceGetter from '../../../assets/PriceGetter.svg';
+import vector from '../../../assets/Vectors.svg';
 import { InputText } from './InputText';
 
 const SignupPage = () => {
@@ -39,11 +39,7 @@ const SignupPage = () => {
       const create = async userData => {
         const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
-        await axios.post(
-          'http://localhost:8000/api/v1/seller',
-          userData,
-          config
-        );
+        await axios.post('/api/v1/seller', userData, config);
       };
       create(formData);
     } catch (err) {

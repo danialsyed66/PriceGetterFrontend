@@ -6,15 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
 import { Facebook, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-
-import './Login.css';
-import priceGetter from '../../assets/PriceGetter.svg';
-import vector from '../../assets/Vectors.svg';
-import { InputText } from './InputText';
-import { login } from '../../redux/actions/authActions';
 import GoogleIcon from '@mui/icons-material/Google';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import DoneIcon from '@mui/icons-material/Done';
+
+import './Login.css';
+import priceGetter from '../../../assets/PriceGetter.svg';
+import vector from '../../../assets/Vectors.svg';
+import { InputText } from './InputText';
+import { login } from '../../../redux/actions/authActions';
 
 const LoginPage = () => {
   const SignupSchema = Yup.object().shape({

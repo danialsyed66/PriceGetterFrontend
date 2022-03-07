@@ -8,11 +8,11 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 import './Login.css';
-import priceGetter from '../../assets/PriceGetter.svg';
-import vector from '../../assets/Vectors.svg';
+import priceGetter from '../../../assets/PriceGetter.svg';
+import vector from '../../../assets/Vectors.svg';
 import { InputText } from './InputText';
 import { Checkboxmui } from './Checkboxmui';
-import { register } from '../../redux/actions/authActions';
+import { register } from '../../../redux/actions/authActions';
 
 const SignupPage = () => {
   const [avatar, setAvatar] = useState('');

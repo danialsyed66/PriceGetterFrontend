@@ -3,11 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useSearchParams } from 'react-router-dom';
 
 import './Home.css';
-import Product from './Product';
-import Loader from '../components/loader/Loader';
-import { Navbar } from '../components';
-import { Category, Footer, Header } from '../containers';
-import { getProducts } from '../redux/actions/productActions';
+import { Product } from '../products';
+import { Category, Footer, Navbar, Loader } from '../layouts';
+import { getProducts } from '../../redux/actions/productActions';
 
 const Filter = () => {
   const [currentPage, setCurrentPage] = useState(1);

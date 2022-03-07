@@ -1,19 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import './App.css';
-import Home from './Pages/Home';
-import { Login, Signup, SELLER } from './components';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
+import { Home, Filter } from './products';
+import { Login, Signup, SELLER } from './users';
+import { getHome } from '../redux/actions/homeActions';
 import {
   loadUser,
   socialLogin,
   clearErrors,
-} from './redux/actions/authActions';
-import { getHome } from './redux/actions/homeActions';
-import Swal from 'sweetalert2';
-import Filter from './Pages/Filter';
+} from '../redux/actions/authActions';
 
 const App = () => {
   const dispatch = useDispatch();
