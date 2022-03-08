@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './axios';
 
 import {
   UPDATE_PROFILE_REQUEST,
@@ -21,11 +21,7 @@ export const updateProfile = userData => async dispatch => {
 
     const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
-    const { data } = await axios.post(
-      'https://price-getter-backend.herokuapp.com/api/v1/profile/edit',
-      userData,
-      config
-    );
+    const { data } = await axios.post('/api/v1/profile/edit', userData, config);
 
     dispatch({
       type: UPDATE_PROFILE_SUCCESS,
@@ -45,10 +41,7 @@ export const changePassword = userData => async dispatch => {
       type: CHANGE_PASSWORD_REQUEST,
     });
 
-    const { data } = await axios.patch(
-      'https://price-getter-backend.herokuapp.com/api/v1/changePassword',
-      userData
-    );
+    const { data } = await axios.patch('/api/v1/changePassword', userData);
 
     dispatch({
       type: CHANGE_PASSWORD_SUCCESS,
@@ -68,9 +61,7 @@ export const handleFavourite = productId => async dispatch => {
       type: HANDLE_FAVOURITE_REQUEST,
     });
 
-    const { data } = await axios.patch(
-      `https://price-getter-backend.herokuapp.com/api/v1/favourites/${productId}`
-    );
+    const { data } = await axios.patch(`/api/v1/favourites/${productId}`);
 
     dispatch({
       type: HANDLE_FAVOURITE_SUCCESS,

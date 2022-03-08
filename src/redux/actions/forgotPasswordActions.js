@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './axios';
 
 import {
   FORGOT_PASSWORD_REQUEST,
@@ -16,10 +16,7 @@ export const forgotPassword = email => async dispatch => {
       type: FORGOT_PASSWORD_REQUEST,
     });
 
-    const { data } = await axios.post(
-      'https://price-getter-backend.herokuapp.com/api/v1/forgotPassword',
-      { email }
-    );
+    const { data } = await axios.post('/api/v1/forgotPassword', { email });
 
     dispatch({
       type: FORGOT_PASSWORD_SUCCESS,
@@ -40,7 +37,7 @@ export const resetPassword = (token, userData) => async dispatch => {
     });
 
     const { data } = await axios.patch(
-      `https://price-getter-backend.herokuapp.com/api/v1/resetPassword/${token}`,
+      `/api/v1/resetPassword/${token}`,
       userData
     );
 
