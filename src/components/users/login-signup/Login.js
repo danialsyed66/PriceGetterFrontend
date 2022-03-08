@@ -188,6 +188,9 @@ const LoginPage = () => {
                   style={{ width: '45%', margin: 'auto' }}
                   variant="outlined"
                   startIcon={<DoneIcon style={{ color: 'Green' }} />}
+                  onClick={() => {
+                    navigate('/register');
+                  }}
                 >
                   Register
                 </Button>
