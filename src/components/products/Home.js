@@ -1,13 +1,11 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 import './Home.css';
 import Product from './Product';
-import { Category, Footer, Navbar, Header, Loader } from '../layouts';
-import { getProducts } from '../../redux/actions/productActions';
+import { Category, Footer, Navbar, Header } from '../layouts';
 
 const Home = () => {
   const responsive = {
@@ -27,57 +25,7 @@ const Home = () => {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
-  const [currentPage, setCurrentPage] = useState(1);
-  const [priceRange /*,setPriceRange*/] = useState([1, 1000]);
-  // const [sliderRange, setSliderRange] = useState([1, 1000]);
-  const [category /*,setCategory*/] = useState();
-  const [rating /*,setRating*/] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
-  const { keyword } = useParams();
-  const observer = useRef();
-  const dispatch = useDispatch();
-
-  const { products, loading, totalProducts } = useSelector(
-    state => state.products
-  );
-
-  const { home, loading: load } = useSelector(state => state.home);
-
-  const length = products.length;
-  // const { currentProduct } = useSelector(state => state.productDetails);
-
-  useEffect(() => {
-    if (length >= totalProducts) setHasMore(false);
-  }, [length, totalProducts]);
-
-  useEffect(() => {
-    dispatch(getProducts(currentPage, keyword, priceRange, category, rating));
-  }, [dispatch, currentPage, keyword, priceRange, category, rating]);
-
-  // useEffect(() => {
-  //   if (!currentProduct) return;
-
-  //   document
-  //     .querySelector(`[data-id='${currentProduct}']`)
-  //     .scrollIntoView({ behavior: 'smooth' });
-  // }, [currentProduct]);
-
-  const observerCallBack = useCallback(
-    node => {
-      if (loading) return;
-
-      if (observer.current) observer.current.disconnect();
-
-      observer.current = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting && hasMore) {
-          setCurrentPage(currentPage => currentPage + 1);
-        }
-      });
-
-      if (node) observer.current.observe(node);
-    },
-    [loading, hasMore]
-  );
+  const { home } = useSelector(state => state.home);
 
   return (
     <div>
@@ -164,26 +112,6 @@ const Home = () => {
             </>
           ) : (
             <div />
-          )}
-
-          <div className="col-md-12 ml-4">
-            <h1 id="products_heading">Find the best deals in the Pk here</h1>
-          </div>
-
-          {length ? (
-            <>
-              {products.map((prod, i) => (
-                <Product
-                  col={3}
-                  key={prod._id}
-                  product={prod}
-                  callbackRef={i === length - 10 ? observerCallBack : null}
-                />
-              ))}
-              {!loading || <Loader />}
-            </>
-          ) : (
-            <>{!loading || <Loader />}</>
           )}
         </div>
       </section>

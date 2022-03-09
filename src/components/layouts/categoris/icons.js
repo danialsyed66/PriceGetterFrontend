@@ -16,59 +16,73 @@ import shoes from '../../../assets/shoes.png';
 const icons = [
   {
     src: home,
-    text: 'Home & Interior',
+    text: 'Home',
+    val: 'Home',
   },
   {
     src: food,
     text: 'Food',
+    val: 'Food',
   },
   {
     src: cloth,
     text: 'Clothes',
+    val: 'Clothes',
   },
   {
     src: books,
     text: 'Books',
+    val: 'Books',
   },
   {
     src: sports,
     text: 'Sports',
+    val: 'Sports',
   },
   {
     src: computer,
     text: 'Computer',
+    val: 'Laptops',
   },
   {
     src: phone,
     text: 'Phone',
+    val: 'Phones',
   },
   {
     src: outdoor,
     text: 'Outdoor',
+    val: 'Outdoor',
   },
   {
     src: accessories,
     text: 'Accessories',
+    val: 'Accessories',
   },
   {
     src: camera,
     text: 'Camera',
+    val: 'Cameras',
   },
   {
     src: electronics,
     text: 'Electronics',
+    val: 'Electronics',
   },
   {
     src: headphones,
     text: 'Headphones',
+    val: 'Headphones',
   },
   {
     src: health,
     text: 'Health',
+    val: 'Health',
   },
   {
     src: shoes,
     text: 'Shoes',
+    val: 'Shoes',
   },
 ];
 

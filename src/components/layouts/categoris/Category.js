@@ -28,10 +28,10 @@ const Category = ({ first }) => {
     else setitemsShow(2);
   }, [mQuery]);
 
-  const render = (src, text) => (
+  const render = (src, text, val) => (
     // <div className="zoom-box justify-content-center col col-lg-1 col-md-4 col-sm-6">
     <div className="zoom-box d-flex justify-content-center align-items-center flex-column">
-      <Link to={`/filter?cat=${text}`}>
+      <Link nk to={`/filter?cat=${val}`}>
         <img className="cat_img" src={src} alt={text} />
         <p className="h5 p-2 m-2">{text}</p>
       </Link>
@@ -40,11 +40,11 @@ const Category = ({ first }) => {
   return (
     // <div className="row category_layout p-4 justify-content-around align-content-center pl-5 pr-5">
     <div className="category_layout p-4 d-flex justify-content-around align-content-center flex-column flex-md-row pl-5 pr-5">
-      {icons.map(({ src, text }, i) => {
+      {icons.map(({ src, text, val }, i) => {
         if (first)
-          if (i < itemsShow) return render(src, text);
+          if (i < itemsShow) return render(src, text, val);
           else return null;
-        else if (i >= itemsShow) return render(src, text);
+        else if (i >= itemsShow) return render(src, text, val);
         else return null;
       })}
     </div>

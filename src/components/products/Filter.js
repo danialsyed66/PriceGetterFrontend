@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useSearchParams } from 'react-router-dom';
+import {
+  useNavigate,
+  useSearchParams,
+  createSearchParams,
+} from 'react-router-dom';
 
 import './Home.css';
 import { Product } from '../products';
@@ -8,28 +12,45 @@ import { Category, Footer, Navbar, Loader } from '../layouts';
 import { getProducts } from '../../redux/actions/productActions';
 
 const Filter = () => {
+  const [queryParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [priceRange /*,setPriceRange*/] = useState([1, 1000]);
   // const [sliderRange, setSliderRange] = useState([1, 1000]);
   // const [category /*,setCategory*/] = useState();
   const [rating /*,setRating*/] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
-  // const { keyword } = useParams();
-  const [queryParams] = useSearchParams();
-  const observer = useRef();
-  const dispatch = useDispatch();
-  const [category, setCategory] = useState(queryParams.get('cat'));
+  const [hasMore /* , setHasMore */] = useState(true);
+  const [category /* , setCategory */] = useState(queryParams.get('cat'));
   const [query, setQuery] = useState(queryParams.get('q'));
 
-  const { products, loading, totalProducts } = useSelector(
+  const observer = useRef();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { products, loading /* , totalProducts */ } = useSelector(
     state => state.products
   );
   const length = products.length;
   // const { currentProduct } = useSelector(state => state.productDetails);
 
+  const [queryObject, setQueryObject] = useState({});
+
   useEffect(() => {
-    setCategory(queryParams.get('cat'));
-  }, [queryParams]);
+    queryParams.set('q', query);
+    const obj = {};
+    [...queryParams.keys()].forEach(element => {
+      obj[element] = queryParams.get(element);
+    });
+
+    setQueryObject(obj);
+    // eslint-disable-next-line
+  }, [query]);
+
+  useEffect(() => {
+    navigate({
+      path: '/filter',
+      search: `?${createSearchParams(queryObject)}`,
+    });
+  }, [navigate, queryObject]);
+
   useEffect(() => {
     dispatch(getProducts(currentPage, query, priceRange, category, rating));
   }, [dispatch, currentPage, query, priceRange, category, rating]);
@@ -62,7 +83,7 @@ const Filter = () => {
   return (
     <div>
       <div>
-        <Navbar />
+        <Navbar setQuery={setQuery} />
         <Category />
       </div>
       <section id="products" className="container mt-5">

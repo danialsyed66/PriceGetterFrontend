@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BsList } from 'react-icons/bs';
 import { ImCross } from 'react-icons/all';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -38,7 +38,7 @@ const Menu = () => (
     </p>
   </>
 );
-const Navbar = () => {
+const Navbar = ({ setQuery }) => {
   const path = useLocation().pathname;
 
   const { isAuth, loading, user } = useSelector(state => state.auth);
@@ -47,6 +47,15 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const dropDownMenu = useRef(null);
   const dropDownMenu2 = useRef(null);
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    const timer = setTimeout(() => setQuery(search), 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [setQuery, search]);
 
   return (
     <div className="gpt3__navbar">
@@ -67,6 +76,7 @@ const Navbar = () => {
                 type="text"
                 placeholder="What are u looking for today?"
                 className="form-control"
+                onChange={e => setSearch(e.target.value)}
               />
             )}
           </div>
