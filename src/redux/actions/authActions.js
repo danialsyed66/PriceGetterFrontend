@@ -30,8 +30,10 @@ export const login = userData => async dispatch => {
     };
 
     const {
-      data: { data },
+      data: { data, token },
     } = await axios.post('/api/v1/login', userData, config);
+
+    localStorage.setItem('token', token);
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -56,7 +58,7 @@ export const socialLogin = () => async dispatch => {
     } = await axios.get('/api/v1/auth/login/success', config);
 
     const {
-      data: { data },
+      data: { data, token },
     } = await axios.post(
       '/api/v1/auth/saveUser',
       {
@@ -68,6 +70,8 @@ export const socialLogin = () => async dispatch => {
       },
       config
     );
+
+    localStorage.setItem('token', token);
 
     dispatch({
       type: SOCIAL_LOGIN_SUCCESS,
@@ -90,8 +94,10 @@ export const register = userData => async dispatch => {
     const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
     const {
-      data: { data },
+      data: { data, token },
     } = await axios.post('/api/v1/register', userData, config);
+
+    localStorage.setItem('token', token);
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -129,7 +135,8 @@ export const loadUser = () => async dispatch => {
 
 export const logout = () => async dispatch => {
   try {
-    await axios.post('/api/v1/logout');
+    // await axios.post('/api/v1/logout');
+    localStorage.removeItem('token');
 
     dispatch({
       type: LOGOUT_SUCCESS,
