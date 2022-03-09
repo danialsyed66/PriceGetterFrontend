@@ -18,14 +18,14 @@ const Filter = () => {
   // const [sliderRange, setSliderRange] = useState([1, 1000]);
   // const [category /*,setCategory*/] = useState();
   const [rating /*,setRating*/] = useState(0);
-  const [hasMore /* , setHasMore */] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
   const [category /* , setCategory */] = useState(queryParams.get('cat'));
   const [query, setQuery] = useState(queryParams.get('q'));
 
   const observer = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { products, loading /* , totalProducts */ } = useSelector(
+  const { products, loading, totalProducts } = useSelector(
     state => state.products
   );
   const length = products.length;
@@ -62,6 +62,10 @@ const Filter = () => {
   //     .querySelector(`[data-id='${currentProduct}']`)
   //     .scrollIntoView({ behavior: 'smooth' });
   // }, [currentProduct]);
+
+  useEffect(() => {
+    if (length >= totalProducts) setHasMore(false);
+  }, [length, totalProducts]);
 
   const observerCallBack = useCallback(
     node => {
