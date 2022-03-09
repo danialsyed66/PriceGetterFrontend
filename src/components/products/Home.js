@@ -96,15 +96,9 @@ const Home = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  <Product col={10} product={home?.categories?.books[0]} />
-                  <Product col={10} product={home?.categories?.books[1]} />
-                  <Product col={10} product={home?.categories?.books[2]} />
-                  <Product col={10} product={home?.categories?.books[3]} />
-                  <Product col={10} product={home?.categories?.books[4]} />
-                  <Product col={10} product={home?.categories?.books[5]} />
-                  <Product col={10} product={home?.categories?.books[6]} />
-                  <Product col={10} product={home?.categories?.books[7]} />
-                  <Product col={10} product={home?.categories?.books[8]} />
+                  {home?.categories?.books.map(prod => (
+                    <Product col={10} key={prod._id} product={prod} />
+                  ))}
                 </Carousel>
               </div>
               <div className="col-md-12 ml-4">
@@ -112,7 +106,7 @@ const Home = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.food.map((prod, i) => (
+                  {home?.categories?.food.map(prod => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -122,7 +116,7 @@ const Home = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.clothes.map((prod, i) => (
+                  {home?.categories?.clothes.map(prod => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -132,7 +126,7 @@ const Home = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.cameras.map((prod, i) => (
+                  {home?.categories?.cameras.map(prod => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -142,7 +136,7 @@ const Home = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.laptops.map((prod, i) => (
+                  {home?.categories?.laptops.map(prod => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -152,7 +146,7 @@ const Home = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.smartPhones.map((prod, i) => (
+                  {home?.categories?.smartPhones.map(prod => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -162,7 +156,7 @@ const Home = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.sports.map((prod, i) => (
+                  {home?.categories?.sports.map(prod => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -172,12 +166,6 @@ const Home = () => {
             <div />
           )}
 
-          {/* <div className="col-md-12 ml-4">
-            <h1 id="products_heading">food</h1>
-          </div>
-          <div className="col-md-12">
-            <Carousals home={home?.categories?.food} />
-          </div> */}
           <div className="col-md-12 ml-4">
             <h1 id="products_heading">Find the best deals in the Pk here</h1>
           </div>

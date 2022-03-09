@@ -29,7 +29,6 @@ const reducer = (state = {}, { type, payload }) => {
       return { ...state, loading: false, isAuth: true, user: payload };
 
     case LOGIN_FAIL:
-    case SOCIAL_LOGIN_FAIL:
     case REGISTER_FAIL:
       return {
         ...state,
@@ -37,6 +36,13 @@ const reducer = (state = {}, { type, payload }) => {
         isAuth: false,
         user: null,
         error: payload,
+      };
+
+    case SOCIAL_LOGIN_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: state.isAuth ? null : payload,
       };
 
     case LOAD_USER_FAIL:

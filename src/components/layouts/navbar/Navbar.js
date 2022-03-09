@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { BsList } from 'react-icons/bs';
 import { ImCross } from 'react-icons/all';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -41,10 +41,12 @@ const Menu = () => (
 const Navbar = () => {
   const path = useLocation().pathname;
 
-  const { isAuth, loading } = useSelector(state => state.auth);
+  const { isAuth, loading, user } = useSelector(state => state.auth);
   const [Toggle, setToggle] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const dropDownMenu = useRef(null);
+  const dropDownMenu2 = useRef(null);
 
   return (
     <div className="gpt3__navbar">
@@ -99,9 +101,57 @@ const Navbar = () => {
           </div>
           <div className=" mx-1 gpt3__navbar-sign">
             {isAuth ? (
-              <button type="button" onClick={() => dispatch(logout())}>
-                Log Out
-              </button>
+              <div className="ml-4 dropdown d-inline">
+                <Link
+                  to="#!"
+                  className="btn dropdown-toggle text-white mr-4"
+                  type="button"
+                  id="dropDownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  onClick={() => {
+                    dropDownMenu.current.classList.toggle('show');
+                  }}
+                >
+                  <figure className="avatar avatar-nav">
+                    <img
+                      src={user.avatar?.url}
+                      alt={user.name}
+                      className="rounded-circle"
+                    />
+                  </figure>
+                  <span>{user.name}</span>
+                </Link>
+
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="dropDownMenuButton"
+                  ref={dropDownMenu}
+                >
+                  <Link to="/profile" className="dropdown-item">
+                    Profile
+                  </Link>
+
+                  {user.role === 'admin' ? (
+                    <Link to="/dashboard" className="dropdown-item">
+                      Dashboard
+                    </Link>
+                  ) : (
+                    <Link to="/orders" className="dropdown-item">
+                      Orders
+                    </Link>
+                  )}
+
+                  <Link
+                    to="/"
+                    className="dropdown-item text-danger"
+                    onClick={() => dispatch(logout())}
+                  >
+                    Logout
+                  </Link>
+                </div>
+              </div>
             ) : null}
           </div>
           <div className="gpt__navbar-menu">
@@ -120,7 +170,59 @@ const Navbar = () => {
                   <Menu />
                 </div>
                 <div className="gpt3__navbar-sign-menu">
-                  {isAuth ? null : (
+                  {isAuth ? (
+                    <div className="ml-4 dropdown d-inline">
+                      <Link
+                        to="#!"
+                        className="btn dropdown-toggle text-white mr-4"
+                        type="button"
+                        id="dropDownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        onClick={() => {
+                          dropDownMenu2.current.classList.toggle('show');
+                        }}
+                      >
+                        <figure className="avatar avatar-nav">
+                          <img
+                            src={user.avatar?.url}
+                            alt={user.name}
+                            className="rounded-circle"
+                          />
+                        </figure>
+                        <span>{user.name}</span>
+                      </Link>
+
+                      <div
+                        className="dropdown-menu"
+                        aria-labelledby="dropDownMenuButton"
+                        ref={dropDownMenu2}
+                      >
+                        <Link to="/profile" className="dropdown-item">
+                          Profile
+                        </Link>
+
+                        {user.role === 'admin' ? (
+                          <Link to="/dashboard" className="dropdown-item">
+                            Dashboard
+                          </Link>
+                        ) : (
+                          <Link to="/orders" className="dropdown-item">
+                            Orders
+                          </Link>
+                        )}
+
+                        <Link
+                          to="/"
+                          className="dropdown-item text-danger"
+                          onClick={() => dispatch(logout())}
+                        >
+                          Logout
+                        </Link>
+                      </div>
+                    </div>
+                  ) : (
                     <button
                       type="button"
                       onClick={() => {
