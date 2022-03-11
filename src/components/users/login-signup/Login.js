@@ -41,6 +41,7 @@ const LoginPage = () => {
       '779694171785-2umgkrr1laq4ro4herg15ahl7fq3jvj6.apps.googleusercontent.com',
     onLogoutSuccess: googleSuccess,
     onFailure: googleFail,
+    cookiePolicy: 'single_host_origin',
   });
 
   const handleGoogle = () => {
