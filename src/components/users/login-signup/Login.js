@@ -4,12 +4,17 @@ import * as Yup from 'yup';
 import { Button, FormControl, IconButton, Stack } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
-import { Facebook, Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+  Facebook,
+  SignpostOutlined,
+  Visibility,
+  VisibilityOff,
+} from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import GoogleIcon from '@mui/icons-material/Google';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import DoneIcon from '@mui/icons-material/Done';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin, useGoogleLogout } from 'react-google-login';
 
 import './Login.css';
 import priceGetter from '../../../assets/PriceGetter.svg';
@@ -26,11 +31,17 @@ const LoginPage = () => {
   });
 
   const googleSuccess = res => {
-    console.log(res);
+    console.log(1, res);
   };
   const googleFail = res => {
     console.log(res);
   };
+  const { signOut } = useGoogleLogout({
+    clientId:
+      '779694171785-2umgkrr1laq4ro4herg15ahl7fq3jvj6.apps.googleusercontent.com',
+    onLogoutSuccess: googleSuccess,
+    onFailure: googleFail,
+  });
 
   const handleGoogle = () => {
     window.open(
@@ -190,13 +201,11 @@ const LoginPage = () => {
                   )}
                 />
                 <Button
-                  sx={{ color: 'red', borderColor: 'red' }}
                   style={{ width: '45%', margin: 'auto' }}
                   variant="outlined"
-                  startIcon={<GoogleIcon style={{ color: 'red' }} />}
-                  onClick={handleGoogle}
+                  onClick={() => signOut()}
                 >
-                  Google
+                  Logout
                 </Button>
               </div>
               <div className="d-flex justify-content-center align-content-center mb-2 ">

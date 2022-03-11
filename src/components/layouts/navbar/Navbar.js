@@ -3,6 +3,7 @@ import { BsList } from 'react-icons/bs';
 import { ImCross } from 'react-icons/all';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useGoogleLogout } from 'react-google-login';
 
 import './Navbar.css';
 import priceGetter from '../../../assets/logoh.svg';
@@ -48,6 +49,8 @@ const Navbar = () => {
   const dropDownMenu = useRef(null);
   const dropDownMenu2 = useRef(null);
   const [search, setSearch] = useState('');
+
+  // const { signOut } = useGoogleLogout();
 
   // useEffect(() => {
   //   const timer = setTimeout(() => setQuery(search), 1000);
@@ -226,7 +229,10 @@ const Navbar = () => {
                         <Link
                           to="/"
                           className="dropdown-item text-danger"
-                          onClick={() => dispatch(logout())}
+                          onClick={() => {
+                            // signOut();
+                            dispatch(logout());
+                          }}
                         >
                           Logout
                         </Link>
