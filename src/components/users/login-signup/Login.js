@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import GoogleIcon from '@mui/icons-material/Google';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import DoneIcon from '@mui/icons-material/Done';
+import { GoogleLogin } from 'react-google-login';
 
 import './Login.css';
 import priceGetter from '../../../assets/PriceGetter.svg';
@@ -23,6 +24,13 @@ const LoginPage = () => {
       .required('Please enter the Email'),
     password: Yup.string().required('please enter the password'),
   });
+
+  const googleSuccess = res => {
+    console.log(res);
+  };
+  const googleFail = res => {
+    console.log(res);
+  };
 
   const handleGoogle = () => {
     window.open(
@@ -164,6 +172,23 @@ const LoginPage = () => {
                 >
                   Facebook
                 </Button>
+                <GoogleLogin
+                  clientId="779694171785-2umgkrr1laq4ro4herg15ahl7fq3jvj6.apps.googleusercontent.com"
+                  onSuccess={googleSuccess}
+                  onFailure={googleFail}
+                  cookiePolicy={'single_host_origin'}
+                  render={props => (
+                    <Button
+                      sx={{ color: 'red', borderColor: 'red' }}
+                      style={{ width: '45%', margin: 'auto' }}
+                      variant="outlined"
+                      startIcon={<GoogleIcon style={{ color: 'red' }} />}
+                      onClick={props.onClick}
+                    >
+                      Googles
+                    </Button>
+                  )}
+                />
                 <Button
                   sx={{ color: 'red', borderColor: 'red' }}
                   style={{ width: '45%', margin: 'auto' }}
