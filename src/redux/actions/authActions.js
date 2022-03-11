@@ -50,12 +50,14 @@ export const login = userData => async dispatch => {
 export const socialLogin = () => async dispatch => {
   try {
     const config = { headers: { 'Content-Type': 'application/json' } };
+    console.log('socialLogin', 1);
 
     const {
       data: {
         user: { id, displayName, emails, photos, provider },
       },
     } = await axios.get('/api/v1/auth/login/success', config);
+    console.log('socialLogin', 2, displayName);
 
     const {
       data: { data, token },
@@ -70,6 +72,7 @@ export const socialLogin = () => async dispatch => {
       },
       config
     );
+    console.log('socialLogin', 3, token);
 
     localStorage.setItem('token', token);
 
@@ -133,7 +136,7 @@ export const loadUser = () => async dispatch => {
   }
 };
 
-export const logout = () => async dispatch => {
+export const logout = () => dispatch => {
   try {
     // await axios.post('/api/v1/logout');
     localStorage.removeItem('token');
