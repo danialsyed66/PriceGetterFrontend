@@ -38,7 +38,7 @@ const Menu = () => (
     </p>
   </>
 );
-const Navbar = ({ setQuery }) => {
+const Navbar = () => {
   const path = useLocation().pathname;
 
   const { isAuth, loading, user } = useSelector(state => state.auth);
@@ -49,13 +49,13 @@ const Navbar = ({ setQuery }) => {
   const dropDownMenu2 = useRef(null);
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    const timer = setTimeout(() => setQuery(search), 1000);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setQuery(search), 1000);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [setQuery, search]);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [setQuery, search]);
 
   return (
     <div className="gpt3__navbar">

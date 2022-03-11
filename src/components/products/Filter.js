@@ -87,7 +87,7 @@ const Filter = () => {
   return (
     <div>
       <div>
-        <Navbar setQuery={setQuery} />
+        <Navbar />
         <Category />
       </div>
       <section id="products" className="container mt-5">
