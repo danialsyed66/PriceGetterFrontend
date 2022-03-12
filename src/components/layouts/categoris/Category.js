@@ -30,8 +30,11 @@ const Category = ({ first }) => {
 
   const render = (src, text, val) => (
     // <div className="zoom-box justify-content-center col col-lg-1 col-md-4 col-sm-6">
-    <div className="zoom-box d-flex justify-content-center align-items-center flex-column">
-      <Link nk to={`/filter?cat=${val}`}>
+    <div
+      className="zoom-box d-flex justify-content-center align-items-center flex-column"
+      key={val}
+    >
+      <Link to={`/filter?cat=${val}`}>
         <img className="cat_img" src={src} alt={text} />
         <p className="h5 p-2 m-2">{text}</p>
       </Link>
@@ -93,5 +96,3 @@ export default function RecipeReviewCard() {
     </Card>
   );
 }
-
-// export default Category;

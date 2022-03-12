@@ -7,11 +7,7 @@ import './App.css';
 import { Home, Filter } from './products';
 import { Login, Signup, SELLER } from './users';
 import { getHome } from '../redux/actions/homeActions';
-import {
-  loadUser,
-  socialLogin,
-  clearErrors,
-} from '../redux/actions/authActions';
+import { loadUser, clearErrors } from '../redux/actions/authActions';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -58,7 +54,6 @@ const App = () => {
 
   useEffect(() => {
     const func = async () => {
-      dispatch(socialLogin());
       await Promise.all([dispatch(getHome()), dispatch(loadUser())]);
       dispatch(clearErrors());
     };

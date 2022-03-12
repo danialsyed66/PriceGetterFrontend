@@ -47,31 +47,29 @@ export const login = userData => async dispatch => {
   }
 };
 
-export const socialLogin = () => async dispatch => {
+export const socialLogin = socialData => async dispatch => {
   try {
     const config = { headers: { 'Content-Type': 'application/json' } };
-    console.log('socialLogin', 1);
+    // console.log('socialLogin', 1);
 
-    const {
-      data: {
-        user: { id, displayName, emails, photos, provider },
-      },
-    } = await axios.get('/api/v1/auth/login/success', config);
-    console.log('socialLogin', 2, displayName);
+    // const {
+    //   data: {
+    //     user: { id, displayName, emails, photos, provider },
+    //   },
+    // } = await axios.get('/api/v1/auth/login/success', config);
+    // console.log('socialLogin', 2, displayName);
+
+    // {
+    //   name: displayName,
+    //   email: emails[0].value,
+    //   avatar: { url: photos[0].value },
+    //   provider,
+    //   socialId: id,
+    // },
 
     const {
       data: { data, token },
-    } = await axios.post(
-      '/api/v1/auth/saveUser',
-      {
-        name: displayName,
-        email: emails[0].value,
-        avatar: { url: photos[0].value },
-        provider,
-        socialId: id,
-      },
-      config
-    );
+    } = await axios.post('/api/v1/auth/saveUser', socialData, config);
     console.log('socialLogin', 3, token);
 
     localStorage.setItem('token', token);

@@ -4,23 +4,16 @@ import * as Yup from 'yup';
 import { Button, FormControl, IconButton, Stack } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
-import {
-  Facebook,
-  SignpostOutlined,
-  Visibility,
-  VisibilityOff,
-} from '@mui/icons-material';
+import { Facebook, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import GoogleIcon from '@mui/icons-material/Google';
-import TwitterIcon from '@mui/icons-material/Twitter';
 import DoneIcon from '@mui/icons-material/Done';
-import { GoogleLogin, useGoogleLogout } from 'react-google-login';
 
 import './Login.css';
 import priceGetter from '../../../assets/PriceGetter.svg';
 import vector from '../../../assets/Vectors.svg';
 import { InputText } from './InputText';
 import { login } from '../../../redux/actions/authActions';
+import { GoogleLogin, TwitterLogin } from './SocialLogin';
 
 const LoginPage = () => {
   const SignupSchema = Yup.object().shape({
@@ -30,39 +23,12 @@ const LoginPage = () => {
     password: Yup.string().required('please enter the password'),
   });
 
-  const googleSuccess = res => {
-    console.log(1, res);
-  };
-  const googleFail = res => {
-    console.log(res);
-  };
-  const { signOut } = useGoogleLogout({
-    clientId:
-      '779694171785-2umgkrr1laq4ro4herg15ahl7fq3jvj6.apps.googleusercontent.com',
-    onLogoutSuccess: googleSuccess,
-    onFailure: googleFail,
-    // cookiePolicy: 'single_host_origin',
-  });
-
-  const handleGoogle = () => {
-    window.open(
-      'https://price-getter-backend.herokuapp.com/api/v1/auth/google',
-      '_self'
-    );
-  };
-  const handleTwitter = () => {
-    window.open(
-      'https://price-getter-backend.herokuapp.com/api/v1/auth/twitter',
-      '_self'
-    );
-  };
   const handleFacebook = () => {
     window.open(
       'https://price-getter-backend.herokuapp.com/api/v1/auth/facebook',
       '_self'
     );
   };
-  // window.open('https://price-getter-backend.herokuapp.com/api/v1/auth/logout', '_self');
 
   const [values, setValues] = React.useState(false);
   const handleClickShowPassword = () => setValues(!values);
@@ -84,7 +50,7 @@ const LoginPage = () => {
       });
       navigate('/');
     }
-  }, [dispatch, navigate, isAuth]);
+  }, [navigate, isAuth]);
 
   return (
     <div
@@ -184,40 +150,10 @@ const LoginPage = () => {
                 >
                   Facebook
                 </Button>
-                <GoogleLogin
-                  clientId="779694171785-2umgkrr1laq4ro4herg15ahl7fq3jvj6.apps.googleusercontent.com"
-                  onSuccess={googleSuccess}
-                  onFailure={googleFail}
-                  // cookiePolicy={'single_host_origin'}
-                  render={props => (
-                    <Button
-                      sx={{ color: 'red', borderColor: 'red' }}
-                      style={{ width: '45%', margin: 'auto' }}
-                      variant="outlined"
-                      startIcon={<GoogleIcon style={{ color: 'red' }} />}
-                      onClick={props.onClick}
-                    >
-                      Googles
-                    </Button>
-                  )}
-                />
-                <Button
-                  style={{ width: '45%', margin: 'auto' }}
-                  variant="outlined"
-                  onClick={() => signOut()}
-                >
-                  Logout
-                </Button>
+                <GoogleLogin />
               </div>
               <div className="d-flex justify-content-center align-content-center mb-2 ">
-                <Button
-                  style={{ width: '45%', margin: 'auto' }}
-                  variant="outlined"
-                  startIcon={<TwitterIcon />}
-                  onClick={handleTwitter}
-                >
-                  Twitter
-                </Button>
+                <TwitterLogin />
                 <Button
                   sx={{ color: 'green', borderColor: 'green' }}
                   style={{ width: '45%', margin: 'auto' }}

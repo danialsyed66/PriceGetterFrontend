@@ -20,7 +20,7 @@ const Filter = () => {
   const [rating /*,setRating*/] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [category /* , setCategory */] = useState(queryParams.get('cat'));
-  const [query, setQuery] = useState(queryParams.get('q'));
+  const [query /* , setQuery */] = useState(queryParams.get('q'));
 
   const observer = useRef();
   const dispatch = useDispatch();
