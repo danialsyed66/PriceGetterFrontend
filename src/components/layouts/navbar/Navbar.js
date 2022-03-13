@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import './Navbar.css';
 import priceGetter from '../../../assets/logoh.svg';
 import { logout } from '../../../redux/actions/authActions';
-import { GoogleLogout } from '../../users/login-signup/SocialLogin';
 
 const Menu = () => (
   <>
@@ -89,7 +88,6 @@ const Navbar = () => {
         <Link to="/profile" className="dropdown-item">
           Profile
         </Link>
-
         {user.role === 'admin' ? (
           <Link to="/dashboard" className="dropdown-item">
             Dashboard
@@ -99,20 +97,16 @@ const Navbar = () => {
             Orders
           </Link>
         )}
-
-        {user.provider === 'google' ? (
-          <GoogleLogout />
-        ) : (
-          <Link
-            to="/"
-            className="dropdown-item text-danger"
-            onClick={() => {
-              dispatch(logout());
-            }}
-          >
-            Logout
-          </Link>
-        )}
+        <Link
+          to="/"
+          className="dropdown-item text-danger"
+          onClick={() => {
+            dispatch(logout());
+          }}
+        >
+          Logout
+        </Link>
+        )
       </div>
     </div>
   );
