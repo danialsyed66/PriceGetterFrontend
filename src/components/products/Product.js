@@ -1,22 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Favorite, FavoriteBorder } from '@mui/icons-material';
-import { Checkbox } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from "react";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { Checkbox } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import './Home.css';
-import { handleFavourite as handleFavouriteAction } from '../../redux/actions/userActions';
-import { loadUser } from '../../redux/actions/authActions';
-import { HANDLE_FAVOURITE_RESET } from '../../redux/consts';
-import PriceGetter from '../../assets/PriceGetter.png';
+import "./Home.css";
+import { handleFavourite as handleFavouriteAction } from "../../redux/actions/userActions";
+import { loadUser } from "../../redux/actions/authActions";
+import { HANDLE_FAVOURITE_RESET } from "../../redux/consts";
+import PriceGetter from "../../assets/PriceGetter.png";
 
 const Product = ({ product, col, callbackRef }) => {
+  console.log(product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const imgRef = useRef(null);
 
-  const { isUpdated } = useSelector(state => state.user);
-  const { user } = useSelector(state => state.auth);
+  const { isUpdated } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
   const [isFavourite, setIsFavourite] = useState(false);
 
   useEffect(() => {
@@ -28,24 +29,28 @@ const Product = ({ product, col, callbackRef }) => {
 
   useEffect(() => {
     // if (!user || !product) return;
-    const favourites = user?.favourites?.map(favourite => favourite.product);
+    const favourites = user?.favourites?.map((favourite) => favourite.product);
 
     setIsFavourite(favourites?.includes(product?._id));
   }, [user, product]);
 
   const handleFavourite = (e, id) => {
-    if (!user) navigate('/login');
+    if (!user) navigate("/login");
 
     dispatch(handleFavouriteAction(id));
   };
-
+  const isImage = (url) =>
+    /\http(|s):(.*?).(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
-        entry.target.setAttribute('src', entry.target.dataset.src);
-
-        entry.target.addEventListener('load', function () {
-          entry.target.classList.remove('lazy-img');
+        if (isImage(entry.target.dataset.src)) {
+          entry.target.setAttribute("src", entry.target.dataset.src);
+        } else {
+          entry.target.classList.remove("lazy-img");
+        }
+        entry.target.addEventListener("load", function () {
+          entry.target.classList.remove("lazy-img");
         });
       }
     });
@@ -60,25 +65,51 @@ const Product = ({ product, col, callbackRef }) => {
   return (
     <div
       className={`col-sm-10 col-md-6 col-lg-${col}`}
-      style={{ borderRadius: '20px' }}
+      style={{ borderRadius: "20px" }}
       ref={callbackRef}
       key={product._id}
       data-id={product._id}
     >
-      <div className="product_box m-3 zoom-box">
+      <div className="product_box my-2  ">
         <div className="py-3 px-1">
           <div className="d-flex flex-column justify-content-center align-content-center pl-2">
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-between align-items-center mb-2">
               <Checkbox
                 icon={<FavoriteBorder />}
                 checkedIcon={<Favorite color="red" />}
                 className="zoom-box"
-                onClick={e => handleFavourite(e, product._id)}
+                onClick={(e) => handleFavourite(e, product._id)}
                 checked={isFavourite}
               />
+              {product.discount && (
+                <div
+                  className="d-flex justify-content-center align-items-center"
+                  style={{
+                    background: "#FFE6E6",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    borderRadius: "4px",
+
+                    height: "20px",
+                    width: "40px",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: "12px",
+                      lineHeight: "12px",
+                      verticalAlign: "center",
+                      textAlign: "center",
+                      marginBottom: "0",
+                      color: "#E61919",
+                    }}
+                  >
+                    {product.discount}
+                  </p>
+                </div>
+              )}
               {product?.seller?.logo?.url && (
                 <img
-                  style={{ width: '60px' }}
+                  style={{ width: "60px" }}
                   alt="seller pic"
                   src={product?.seller?.logo?.url}
                 />
@@ -86,8 +117,8 @@ const Product = ({ product, col, callbackRef }) => {
             </div>
 
             <img
-              style={{ borderRadius: '20px' }}
-              className="m-auto card-img-top lazy-img"
+              style={{ borderRadius: "20px" }}
+              className="m-auto card-img-top lazy-img zoom-box"
               alt="product pic"
               src={PriceGetter}
               data-src={product.images[0]?.url}
@@ -97,13 +128,13 @@ const Product = ({ product, col, callbackRef }) => {
           <div
             className="card-body d-flex flex-column pl-3"
             style={{
-              padding: 'auto',
-              marginTop: '20px',
-              borderRadius: '20px ',
+              padding: "auto",
+              marginTop: "20px",
+              borderRadius: "20px ",
             }}
           >
             <h5 className="card-title">
-              {product.name.replace(/^(.{15}[^\s]*).*/, '$1')}{' '}
+              {product.name.replace(/^(.{15}[^\s]*).*/, "$1")}{" "}
             </h5>
 
             <div className="ratings mt-auto">
@@ -115,7 +146,12 @@ const Product = ({ product, col, callbackRef }) => {
               </div>
               <span id="no_of_reviews">{product.noOfReviews}</span>
             </div>
-            <p className="card-text">Rs. {product.price}</p>
+            <div className="d-flex">
+              <p className="card-text">
+                <del>Rs. {product.oldPrice}</del>
+              </p>
+              <p className="card-text"> {product.price}</p>
+            </div>
           </div>
         </div>
       </div>

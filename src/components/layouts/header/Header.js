@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import './Header.css';
-import ai from '../../../assets/ai.png';
+import "./Header.css";
+import ai from "../../../assets/ai-low.png";
 
 const Header = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
   return (
     <div className="gpt3__header section__padding" id="home">
@@ -20,7 +20,7 @@ const Header = () => {
             type="email"
             placeholder="What are u looking for today?"
             value={query}
-            onChange={e => setQuery(e.target.value)}
+            onChange={(e) => setQuery(e.target.value)}
           />
           <button
             type="button"

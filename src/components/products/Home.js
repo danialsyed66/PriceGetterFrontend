@@ -1,13 +1,89 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import React from "react";
+import { useSelector } from "react-redux";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import PropTypes from "prop-types";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+import "./Home.css";
+import Product from "./Product";
+import { Category, Footer, Navbar, Header } from "../layouts";
+import Zoom from "@mui/material/Zoom";
+import { AppBar } from "@mui/material";
+import Fab from "@mui/material/Fab";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import Box from "@mui/material/Box";
+function ScrollTop(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
 
-import './Home.css';
-import Product from './Product';
-import { Category, Footer, Navbar, Header } from '../layouts';
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector(
+      "#back-to-top-anchor"
+    );
 
-const Home = () => {
+    if (anchor) {
+      anchor.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+
+  return (
+    <Zoom in={trigger}>
+      <Box
+        onClick={handleClick}
+        role="presentation"
+        sx={{ position: "fixed", bottom: 16, right: 16 }}
+      >
+        {children}
+      </Box>
+    </Zoom>
+  );
+}
+
+ScrollTop.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+
+function ElevationScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window() : undefined,
+  });
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0,
+  });
+}
+
+ElevationScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+
+const Home = (props) => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -25,12 +101,16 @@ const Home = () => {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
-  const { home } = useSelector(state => state.home);
+  const { home } = useSelector((state) => state.home);
 
   return (
     <div>
-      <div>
-        <Navbar />
+      <div id="back-to-top-anchor">
+        <ElevationScroll {...props}>
+          <AppBar>
+            <Navbar />
+          </AppBar>
+        </ElevationScroll>
         <Header />
         <Category />
       </div>
@@ -38,13 +118,13 @@ const Home = () => {
         <div className="row mt-4">
           {home?.categories ? (
             <>
-              {' '}
+              {" "}
               <div className="col-md-12 ml-4">
                 <h1 id="products_heading">Escape the real world with a book</h1>
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.books.map(prod => (
+                  {home?.categories?.books.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -54,7 +134,7 @@ const Home = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.food.map(prod => (
+                  {home?.categories?.food.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -64,7 +144,7 @@ const Home = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.clothes.map(prod => (
+                  {home?.categories?.clothes.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -74,7 +154,7 @@ const Home = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.cameras.map(prod => (
+                  {home?.categories?.cameras.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -84,7 +164,7 @@ const Home = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.laptops.map(prod => (
+                  {home?.categories?.laptops.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -94,7 +174,7 @@ const Home = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.smartPhones.map(prod => (
+                  {home?.categories?.smartPhones.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -104,7 +184,7 @@ const Home = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.sports.map(prod => (
+                  {home?.categories?.sports.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -114,6 +194,16 @@ const Home = () => {
             <div />
           )}
         </div>
+        <ScrollTop {...props}>
+          <Fab
+            color="secondary"
+            size="small"
+            aria-label="scroll back to top"
+            style={{ backgroundColor: "green" }}
+          >
+            <KeyboardArrowUpIcon color="green" />
+          </Fab>
+        </ScrollTop>
       </section>
       <div className="d-flex justify-content-center mt-6 align-content-center"></div>
       <Footer />

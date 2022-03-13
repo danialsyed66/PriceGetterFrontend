@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react';
-import { BsList } from 'react-icons/bs';
-import { ImCross } from 'react-icons/all';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useRef, useState } from "react";
+import { BsList } from "react-icons/bs";
+import { ImCross } from "react-icons/all";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-import './Navbar.css';
-import priceGetter from '../../../assets/PriceGetter.svg';
-import { logout } from '../../../redux/actions/authActions';
+import "./Navbar.css";
+import priceGetter from "../../../assets/headericon.svg";
+import { logout } from "../../../redux/actions/authActions";
 
 const Menu = () => (
   <>
@@ -41,12 +41,12 @@ const Menu = () => (
 const Navbar = () => {
   const path = useLocation().pathname;
 
-  const { isAuth, loading, user } = useSelector(state => state.auth);
+  const { isAuth, loading, user } = useSelector((state) => state.auth);
   const [Toggle, setToggle] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const dropDownMenu = useRef(null);
-  const [/* search, */ setSearch] = useState('');
+  const [/* search, */ setSearch] = useState("");
 
   // useEffect(() => {
   //   const timer = setTimeout(() => setQuery(search), 1000);
@@ -67,7 +67,7 @@ const Navbar = () => {
         aria-haspopup="true"
         aria-expanded="false"
         onClick={() => {
-          dropDownMenu.current.classList.toggle('show');
+          dropDownMenu.current.classList.toggle("show");
         }}
       >
         <figure className="avatar avatar-nav">
@@ -88,7 +88,7 @@ const Navbar = () => {
         <Link to="/profile" className="dropdown-item">
           Profile
         </Link>
-        {user.role === 'admin' ? (
+        {user.role === "admin" ? (
           <Link to="/dashboard" className="dropdown-item">
             Dashboard
           </Link>
@@ -114,22 +114,22 @@ const Navbar = () => {
     <div className="gpt3__navbar">
       <div className="gpt3__navbar-links">
         <div className="gpt3__navbar-links_logo">
-          <Link to={'/'}>
+          <Link to={"/"}>
             <img src={priceGetter} alt="logo" />
           </Link>
         </div>
         <div className="gpt3__navbar-links_container">
           <div className="d-flex justify-content-between align-items-center">
             <Menu />
-            {path === '/' ? (
+            {path === "/" ? (
               <div />
             ) : (
               <input
-                style={{ width: '300px', marginLeft: '10px' }}
+                style={{ width: "300px", marginLeft: "10px" }}
                 type="text"
                 placeholder="What are u looking for today?"
                 className="form-control"
-                onChange={e => setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
               />
             )}
           </div>
@@ -143,10 +143,10 @@ const Navbar = () => {
               <button
                 type="button"
                 onClick={() => {
-                  navigate('/login');
+                  navigate("/login");
                 }}
               >
-                Sign in{' '}
+                Sign in{" "}
               </button>
             )}
           </div>
@@ -155,7 +155,7 @@ const Navbar = () => {
               <button
                 type="button"
                 onClick={() => {
-                  navigate('/register');
+                  navigate("/register");
                 }}
               >
                 Register now
@@ -187,7 +187,7 @@ const Navbar = () => {
                     <button
                       type="button"
                       onClick={() => {
-                        navigate('/login');
+                        navigate("/login");
                       }}
                     >
                       Sign in
@@ -199,7 +199,7 @@ const Navbar = () => {
                     <button
                       type="button"
                       onClick={() => {
-                        navigate('/signin');
+                        navigate("/signin");
                       }}
                     >
                       Register now

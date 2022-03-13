@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { styled } from "@mui/material/styles";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import './Category.css';
-import icons from './icons';
+import "./Category.css";
+import icons from "./icons";
 
 const Category = ({ first }) => {
   const [mQuery, setMQuery] = useState({
@@ -18,7 +18,7 @@ const Category = ({ first }) => {
   const [itemsShow, setitemsShow] = useState(7);
 
   useEffect(() => {
-    let mediaQuery = window.matchMedia('(min-width: 1000px)');
+    let mediaQuery = window.matchMedia("(min-width: 1000px)");
     mediaQuery.addListener(setMQuery);
 
     return () => mediaQuery.removeListener(setMQuery);
@@ -34,9 +34,12 @@ const Category = ({ first }) => {
       className="zoom-box d-flex justify-content-center align-items-center flex-column"
       key={val}
     >
-      <Link to={`/filter?cat=${val}`}>
+      <Link
+        className="d-flex  justify-content-center align-items-center flex-column "
+        to={`/filter?cat=${val}`}
+      >
         <img className="cat_img" src={src} alt={text} />
-        <p className="h5 p-2 m-2">{text}</p>
+        <p className="h5 pl-2 mt-2">{text}</p>
       </Link>
     </div>
   );
@@ -54,13 +57,13 @@ const Category = ({ first }) => {
   );
 };
 
-const ExpandMore = styled(props => {
+const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  margin: 'auto',
-  transition: theme.transitions.create('transform', {
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  margin: "auto",
+  transition: theme.transitions.create("transform", {
     duration: theme.transitions.duration.shortest,
   }),
 }));
@@ -77,15 +80,15 @@ export default function RecipeReviewCard() {
       <CardContent>
         <Category first />
       </CardContent>
-      <CardActions disableSpacing sx={{ alignItems: 'center' }}>
+      <CardActions disableSpacing sx={{ alignItems: "center" }}>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
-          sx={{ alignItems: 'center' }}
+          sx={{ alignItems: "center" }}
         >
-          <ExpandMoreIcon sx={{ justifyContent: 'center' }} />
+          <ExpandMoreIcon sx={{ justifyContent: "center" }} />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>

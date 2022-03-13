@@ -11,11 +11,12 @@
 }
 
 .cat_img {
-  min-height: 100px;
+  height: 70px;
+  width: 70px;
 }
 
 @media screen and (max-width: 720px) {
   .cat_img {
-    width: 75px;
+    width: 30px;
   }
 }

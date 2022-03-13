@@ -1,9 +1,9 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
+import React from "react";
+import { Helmet } from "react-helmet";
 
 const MetaData = ({ title }) => (
   <Helmet>
-    <title>{`${title} - ShopIt`}</title>
+    <title>{`${title} - PriceGetter`}</title>
   </Helmet>
 );
 
