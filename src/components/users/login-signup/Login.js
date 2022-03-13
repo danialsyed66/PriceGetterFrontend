@@ -4,7 +4,13 @@ import * as Yup from 'yup';
 import { Button, FormControl, IconButton, Stack } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
-import { Facebook, Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+  Facebook,
+  Visibility,
+  VisibilityOff,
+  Google,
+  Twitter,
+} from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import DoneIcon from '@mui/icons-material/Done';
 
@@ -13,7 +19,6 @@ import priceGetter from '../../../assets/PriceGetter.svg';
 import vector from '../../../assets/Vectors.svg';
 import { InputText } from './InputText';
 import { login } from '../../../redux/actions/authActions';
-import { GoogleLogin, TwitterLogin } from './SocialLogin';
 
 const LoginPage = () => {
   const SignupSchema = Yup.object().shape({
@@ -26,6 +31,18 @@ const LoginPage = () => {
   const handleFacebook = () => {
     window.open(
       'https://price-getter-backend.herokuapp.com/api/v1/auth/facebook',
+      '_self'
+    );
+  };
+  const handleGoogle = () => {
+    window.open(
+      'https://price-getter-backend.herokuapp.com/api/v1/auth/google',
+      '_self'
+    );
+  };
+  const handleTwitter = () => {
+    window.open(
+      'https://price-getter-backend.herokuapp.com/api/v1/auth/twitter',
       '_self'
     );
   };
@@ -150,10 +167,25 @@ const LoginPage = () => {
                 >
                   Facebook
                 </Button>
-                <GoogleLogin />
+                <Button
+                  sx={{ color: 'red', borderColor: 'red' }}
+                  style={{ width: '45%', margin: 'auto' }}
+                  variant="outlined"
+                  startIcon={<Google style={{ color: 'red' }} />}
+                  onClick={handleGoogle}
+                >
+                  Google
+                </Button>
               </div>
               <div className="d-flex justify-content-center align-content-center mb-2 ">
-                <TwitterLogin />
+                <Button
+                  style={{ width: '45%', margin: 'auto' }}
+                  variant="outlined"
+                  startIcon={<Twitter />}
+                  onClick={handleTwitter}
+                >
+                  Twitter
+                </Button>
                 <Button
                   sx={{ color: 'green', borderColor: 'green' }}
                   style={{ width: '45%', margin: 'auto' }}
