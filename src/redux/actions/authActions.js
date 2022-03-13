@@ -50,16 +50,18 @@ export const login = userData => async dispatch => {
 export const socialLogin = () => async dispatch => {
   try {
     const config = { headers: { 'Content-Type': 'application/json' } };
-    console.log('socialLogin', 1);
 
     const {
       data: {
-        user: { id, displayName, emails, photos, provider },
+        user: { id, displayName, emails, photos, provider, username },
       },
     } = await axios.get('/api/v1/auth/login/success', config);
 
+    let email;
+    if (provider === 'google') email = emails[0].value;
+    if (provider === 'twitter') email = `${username}@twitter.com`;
+
     await axios.get('/api/v1/auth/login/clear', config);
-    console.log('socialLogin', 2, displayName);
 
     const {
       data: { data, token },
@@ -67,14 +69,13 @@ export const socialLogin = () => async dispatch => {
       '/api/v1/auth/saveUser',
       {
         name: displayName,
-        email: emails[0].value,
+        email,
         avatar: { url: photos[0].value },
         provider,
         socialId: id,
       },
       config
     );
-    console.log('socialLogin', 3, token);
 
     localStorage.setItem('token', token);
 

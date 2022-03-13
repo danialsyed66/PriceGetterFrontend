@@ -46,6 +46,7 @@ const LoginPage = () => {
       '_self'
     );
   };
+  // http://localhost:8000/
 
   const [values, setValues] = React.useState(false);
   const handleClickShowPassword = () => setValues(!values);
