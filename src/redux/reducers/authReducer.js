@@ -42,9 +42,7 @@ const reducer = (state = {}, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: state.isAuth
-          ? null
-          : payload || 'Could not login with your Social Account',
+        error: !state.isAuth && payload,
       };
 
     case LOAD_USER_FAIL:

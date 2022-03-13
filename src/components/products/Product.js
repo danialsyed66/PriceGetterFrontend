@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import { Checkbox } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,10 +8,12 @@ import './Home.css';
 import { handleFavourite as handleFavouriteAction } from '../../redux/actions/userActions';
 import { loadUser } from '../../redux/actions/authActions';
 import { HANDLE_FAVOURITE_RESET } from '../../redux/consts';
+import PriceGetter from '../../assets/PriceGetter.png';
 
 const Product = ({ product, col, callbackRef }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const imgRef = useRef(null);
 
   const { isUpdated } = useSelector(state => state.user);
   const { user } = useSelector(state => state.auth);
@@ -37,6 +39,24 @@ const Product = ({ product, col, callbackRef }) => {
     dispatch(handleFavouriteAction(id));
   };
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        entry.target.setAttribute('src', entry.target.dataset.src);
+
+        entry.target.addEventListener('load', function () {
+          entry.target.classList.remove('lazy-img');
+        });
+      }
+    });
+    const { current: img } = imgRef;
+    if (img) observer.observe(img);
+
+    return () => {
+      if (img) observer.unobserve(img);
+    };
+  }, [imgRef]);
+
   return (
     <div
       className={`col-sm-10 col-md-6 col-lg-${col}`}
@@ -56,22 +76,22 @@ const Product = ({ product, col, callbackRef }) => {
                 onClick={e => handleFavourite(e, product._id)}
                 checked={isFavourite}
               />
-              {product?.seller?.logo?.url ? (
+              {product?.seller?.logo?.url && (
                 <img
                   style={{ width: '60px' }}
-                  alt="product pic"
+                  alt="seller pic"
                   src={product?.seller?.logo?.url}
                 />
-              ) : (
-                ''
               )}
             </div>
 
             <img
               style={{ borderRadius: '20px' }}
-              className="m-auto card-img-top"
+              className="m-auto card-img-top lazy-img"
               alt="product pic"
-              src={product.images[0]?.url}
+              src={PriceGetter}
+              data-src={product.images[0]?.url}
+              ref={imgRef}
             />
           </div>
           <div
