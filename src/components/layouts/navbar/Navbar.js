@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './Navbar.css';
-import priceGetter from '../../../assets/logoh.svg';
+import priceGetter from '../../../assets/PriceGetter.svg';
 import { logout } from '../../../redux/actions/authActions';
 
 const Menu = () => (
