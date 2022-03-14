@@ -1,8 +1,9 @@
 import axios from 'axios';
 
+import { SERVER_URI } from '../consts';
+
 export default axios.create({
-  // baseURL: 'http://localhost:8000',
-  baseURL: 'https://price-getter-backend.herokuapp.com',
+  baseURL: SERVER_URI,
   headers: {
     token: localStorage.getItem('token'),
   },

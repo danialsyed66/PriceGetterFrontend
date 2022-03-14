@@ -2,7 +2,7 @@
   -webkit-transition: -webkit-transform 0.2s;
   transition: -webkit-transform 0.2s;
   transition: transform 0.2s;
-  transition: transform 0.2s, -webkit-transform 0.2s; /* Animation */
+  transition: transform 0.2s, -webkit-transform 0.2s;
 }
 
 .zoom-box:hover {

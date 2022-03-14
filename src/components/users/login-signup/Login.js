@@ -19,6 +19,7 @@ import priceGetter from '../../../assets/PriceGetter.svg';
 import vector from '../../../assets/Vectors.svg';
 import { InputText } from './InputText';
 import { login } from '../../../redux/actions/authActions';
+import { SERVER_URI } from '../../../redux/consts';
 
 const LoginPage = () => {
   const SignupSchema = Yup.object().shape({
@@ -29,24 +30,14 @@ const LoginPage = () => {
   });
 
   const handleFacebook = () => {
-    window.open(
-      'https://price-getter-backend.herokuapp.com/api/v1/auth/facebook',
-      '_self'
-    );
+    window.open(`${SERVER_URI}/api/v1/auth/facebook`, '_self');
   };
   const handleGoogle = () => {
-    window.open(
-      'https://price-getter-backend.herokuapp.com/api/v1/auth/google',
-      '_self'
-    );
+    window.open(`${SERVER_URI}/api/v1/auth/google`, '_self');
   };
   const handleTwitter = () => {
-    window.open(
-      'https://price-getter-backend.herokuapp.com/api/v1/auth/twitter',
-      '_self'
-    );
+    window.open(`${SERVER_URI}/api/v1/auth/twitter`, '_self');
   };
-  // http://localhost:8000/
 
   const [values, setValues] = React.useState(false);
   const handleClickShowPassword = () => setValues(!values);

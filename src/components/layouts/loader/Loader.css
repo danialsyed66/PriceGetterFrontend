@@ -8,7 +8,7 @@
   padding-left: 0;
 }
 .loader:after {
-  content: " ";
+  content: ' ';
   display: block;
   width: 64px;
   height: 64px;
@@ -25,4 +25,22 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.shimmer {
+  -webkit-mask: linear-gradient(-50deg, #000 30%, #0005, #000 70%) right/300%
+    100%;
+  mask: url('../../../assets/PriceGetter.png');
+  animation: shimmer 1s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    -webkit-mask-position: left;
+  }
+}
+
+.center {
+  display: block;
+  margin: auto;
 }

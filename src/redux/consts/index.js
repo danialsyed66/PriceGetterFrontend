@@ -60,4 +60,10 @@ export const HANDLE_FAVOURITE_SUCCESS = 'HANDLE_FAVOURITE_SUCCESS';
 export const HANDLE_FAVOURITE_FAIL = 'HANDLE_FAVOURITE_FAIL';
 export const HANDLE_FAVOURITE_RESET = 'HANDLE_FAVOURITE_RESET';
 
+export const SET_FILTERS = 'SET_FILTERS';
+export const UPDATE_FILTERS = 'UPDATE_FILTERS';
+
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+
+export const SERVER_URI = 'http://localhost:8000';
+// export const SERVER_URI = 'https://price-getter-backend.herokuapp.com';

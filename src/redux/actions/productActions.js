@@ -10,74 +10,84 @@ import {
   CLEAR_ERRORS,
 } from '../consts';
 
-export const getProducts =
-  (currentPage = 1, keyword, priceRange, category, rating) =>
-  async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: ALL_PRODUCTS_REQUEST,
-      });
+export const getProducts = filters => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ALL_PRODUCTS_REQUEST,
+    });
 
-      const link = `/api/v1/products?page=${currentPage}
+    const {
+      currentPage,
+      query: keyword,
+      priceRange,
+      category,
+      rating,
+      seller,
+      sort,
+    } = filters;
+
+    const link = `/api/v1/products?page=${currentPage}
       &price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}
       &rating[gte]=${rating}
       ${keyword ? `&keyword=${keyword}` : ''}
-      ${category ? `&category=${category}` : ''}`;
+      ${category ? `&category=${category}` : ''}
+      ${sort ? `&sort=${sort}` : ''}
+      ${seller ? `&seller=${seller}` : ''}`;
 
-      const {
-        data: { data },
-      } = await axios.get(link);
+    const {
+      data: { data },
+    } = await axios.get(link);
 
-      const { products: prevProducts } = getState();
+    const { products: prevProducts } = getState();
 
-      const { options: prevOptions } = prevProducts;
+    const { options: prevOptions } = prevProducts;
 
-      let newReq = false;
+    let newReq = false;
 
-      if (prevOptions) {
-        if (prevOptions.keyword !== keyword) newReq = true;
-        if (prevOptions.category !== category) newReq = true;
-        if (prevOptions.rating !== rating) newReq = true;
-        if (prevOptions.priceRange[0] !== priceRange[0]) newReq = true;
-        if (prevOptions.priceRange[1] !== priceRange[1]) newReq = true;
-      }
+    if (prevOptions) {
+      if (prevOptions.keyword !== keyword) newReq = true;
+      if (prevOptions.category !== category) newReq = true;
+      if (prevOptions.rating !== rating) newReq = true;
+      if (prevOptions.priceRange[0] !== priceRange[0]) newReq = true;
+      if (prevOptions.priceRange[1] !== priceRange[1]) newReq = true;
+    }
 
-      if (
-        !(prevProducts.length + data.data.length === data.numOfDocs) &&
-        !data.data.length
-      )
-        return dispatch({
-          type: ALL_PRODUCTS_FAIL,
-          payload: {
-            error: 'There are no products by this name',
-          },
-        });
-
-      dispatch({
-        type: ALL_PRODUCTS_SUCCESS,
-        payload: {
-          products: data.data,
-          totalProducts: data.numOfDocs,
-          resPerPage: data.resPerPage,
-          options: {
-            currentPage,
-            keyword,
-            priceRange,
-            category,
-            rating,
-            newReq,
-          },
-        },
-      });
-    } catch (err) {
-      dispatch({
+    if (
+      !(prevProducts.length + data.data.length === data.numOfDocs) &&
+      !data.data.length
+    )
+      return dispatch({
         type: ALL_PRODUCTS_FAIL,
         payload: {
-          error: err?.response?.data?.message || 'Could not get all products',
+          error: 'There are no products by this name',
         },
       });
-    }
-  };
+
+    dispatch({
+      type: ALL_PRODUCTS_SUCCESS,
+      payload: {
+        products: data.data,
+        totalProducts: data.numOfDocs,
+        resPerPage: data.resPerPage,
+        options: {
+          currentPage,
+          keyword,
+          priceRange,
+          category,
+          rating,
+          newReq,
+        },
+      },
+    });
+  } catch (err) {
+    dispatch({
+      type: ALL_PRODUCTS_FAIL,
+      payload: {
+        error: err?.response?.data?.message || 'Could not get all products',
+      },
+    });
+  }
+};
 
 export const getProductDetails = id => async dispatch => {
   try {
