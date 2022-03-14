@@ -146,11 +146,54 @@ const Product = ({ product, col, callbackRef }) => {
               </div>
               <span id="no_of_reviews">{product.noOfReviews}</span>
             </div>
-            <div className="d-flex">
-              <p className="card-text">
-                <del>Rs. {product.oldPrice}</del>
-              </p>
-              <p className="card-text"> {product.price}</p>
+            <div className="d-flex justify-content-between align-items-center">
+              <div>
+                <p
+                  className="card-text"
+                  style={{
+                    fontSize: "12px",
+                    color: "#5B6370",
+                    margin: "0",
+                  }}
+                >
+                  {product.oldPrice && <del>Rs.{product.oldPrice}</del>}
+                </p>
+                <p
+                  className="card-text"
+                  style={{ fontSize: "16px", color: "#282B30" }}
+                >
+                  Rs.{product.price}
+                </p>
+              </div>
+
+              {product.stock === "In Stock" || product.stock > 0 ? (
+                <div
+                  className="d-flex justify-content-center align-items-center"
+                  style={{
+                    background: "#9aeb91  ",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    borderRadius: "4px",
+
+                    height: "20px",
+                    width: "50px",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: "12px",
+                      lineHeight: "12px",
+                      verticalAlign: "center",
+                      textAlign: "center",
+                      marginBottom: "0",
+                      color: "black",
+                    }}
+                  >
+                    In stock
+                  </p>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
