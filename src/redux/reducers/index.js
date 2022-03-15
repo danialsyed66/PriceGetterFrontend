@@ -5,6 +5,7 @@ import productReducer from './productReducer';
 import authReducer from './authReducer';
 import userReducer from './userReducer';
 import homeReducer from './homeReducer';
+import filtersReducer from './filtersReducer';
 
 export default combineReducers({
   products: productsReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   auth: authReducer,
   user: userReducer,
   home: homeReducer,
+  filters: filtersReducer,
 });

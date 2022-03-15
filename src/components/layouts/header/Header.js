@@ -1,12 +1,16 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import "./Header.css";
-import ai from "../../../assets/ai-low.png";
+import './Header.css';
+import ai from '../../../assets/ai-low.png';
+import { setFilters } from '../../../redux/actions/filterActions';
+import { useDispatch } from 'react-redux';
 
 const Header = () => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   return (
     <div className="gpt3__header section__padding" id="home">
       <div className="gpt3__header-content">
@@ -20,12 +24,13 @@ const Header = () => {
             type="email"
             placeholder="What are u looking for today?"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={e => setQuery(e.target.value)}
           />
           <button
             type="button"
             onClick={() => {
-              navigate(`/filter?q=${query}`);
+              dispatch(setFilters({ query }));
+              navigate('/filter');
             }}
           >
             Search

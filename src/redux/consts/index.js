@@ -65,5 +65,5 @@ export const UPDATE_FILTERS = 'UPDATE_FILTERS';
 
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
-export const SERVER_URI = 'http://localhost:8000';
-// export const SERVER_URI = 'https://price-getter-backend.herokuapp.com';
+// export const SERVER_URI = 'http://localhost:8000';
+export const SERVER_URI = 'https://price-getter-backend.herokuapp.com';

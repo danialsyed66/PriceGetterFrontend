@@ -1,10 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import './Home.css';
-import { Product } from '../products';
-import { Footer, Navbar, Loader } from '../layouts';
-// import { getProducts } from '../../redux/actions/productActions';
 import {
   Checkbox,
   FormControl,
@@ -14,19 +9,33 @@ import {
   Slider,
 } from '@mui/material';
 
+import './Home.css';
+import { Product } from '../products';
+import { Footer, Navbar, Loader, CATEGORIES, SELLERS } from '../layouts';
+import { getProducts } from '../../redux/actions/productActions';
+import { updateFilters } from '../../redux/actions/filterActions';
+
 const Filter = () => {
   const handleChange = (event, newValue) => {
     setPriceRange(newValue);
   };
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [priceRange, setPriceRange] = React.useState([0, 500000]);
-  const [rating /*,setRating*/] = useState(0);
+  const { page, price, leastRating, query, sellers, categories, newReq } =
+    useSelector(state => state.filters);
+
+  const [currentPage, setCurrentPage] = useState(page);
+  const [priceRange, setPriceRange] = React.useState(price);
+  const [rating /*,setRating*/] = useState(leastRating);
   const [hasMore, setHasMore] = useState(true);
-  const [category /* , setCategory */] = useState();
-  const [query /* , setQuery */] = useState();
-  const [seller /* , setSeller */] = useState();
+  const [category, setCategory] = useState(categories);
+  const [seller, setSeller] = useState(sellers);
   const [sort /* , setSort */] = useState();
+  const [categoriesCheckBox, setCategoriesCheckBox] = useState(
+    CATEGORIES.map(({ val }) => category.includes(val))
+  );
+  const [sellerCheckBox, setSellerCheckBox] = useState(
+    SELLERS.map(({ val }) => seller.includes(val))
+  );
 
   const observer = useRef();
   const dispatch = useDispatch();
@@ -36,27 +45,44 @@ const Filter = () => {
   const length = products.length;
   // const { currentProduct } = useSelector(state => state.productDetails);
 
+  const pushOrPullFromArray = (array, val) => {
+    const arr = [...array];
+    const likeIndex = arr.indexOf(val);
+
+    if (likeIndex >= 0) arr.splice(likeIndex, 1);
+    else arr.push(val);
+
+    return arr;
+  };
+
+  const categoriesCheckBoxHandler = pos => {
+    setCategoriesCheckBox(
+      categoriesCheckBox.map((item, i) => (i === pos ? !item : item))
+    );
+
+    setCategory(pushOrPullFromArray(category, CATEGORIES[pos].val));
+  };
+
+  const sellerCheckBoxHandler = pos => {
+    setSellerCheckBox(
+      sellerCheckBox.map((item, i) => (i === pos ? !item : item))
+    );
+
+    setSeller(pushOrPullFromArray(seller, SELLERS[pos].val));
+  };
+
   useEffect(() => {
-    // dispatch(
-    //   getProducts({
-    //     currentPage,
-    //     query,
-    //     priceRange,
-    //     category,
-    //     rating,
-    //     seller,
-    //     sort,
-    //   })
-    // );
-    console.log({
-      currentPage,
-      query,
-      priceRange,
-      category,
-      rating,
-      seller,
-      sort,
-    });
+    dispatch(
+      updateFilters({
+        query,
+        page: currentPage,
+        price: priceRange,
+        leastRating: rating,
+        sellers: seller,
+        categories: category,
+        newReq: true,
+      })
+    );
   }, [
     dispatch,
     currentPage,
@@ -67,6 +93,18 @@ const Filter = () => {
     seller,
     sort,
   ]);
+  useEffect(() => {
+    dispatch(
+      getProducts({
+        page,
+        query,
+        price,
+        leastRating,
+        sellers,
+        categories,
+      })
+    );
+  }, [dispatch, page, query, price, leastRating, sellers, categories]);
 
   // useEffect(() => {
   //   if (!currentProduct) return;
@@ -124,29 +162,29 @@ const Filter = () => {
                 name="radio-buttons-group"
               >
                 <FormControlLabel
-                  value="1000"
+                  value={[0, 1000]}
                   control={<Radio color="secondary" />}
-                  label="Up to Rs.1000"
+                  label="Upto Rs. 1000"
                 />
                 <FormControlLabel
-                  value="5000"
+                  value={[0, 5000]}
                   control={<Radio color="secondary" />}
-                  label="Up to Rs.5000"
+                  label="Upto Rs. 5000"
                 />
                 <FormControlLabel
-                  value="others"
+                  value={[10000, 50000]}
                   control={<Radio color="secondary" />}
-                  label="10000RS-50000RS"
+                  label="Rs. 10,000 - Rs. 50,000"
                 />
                 <FormControlLabel
-                  value="otherss"
+                  value={[50000, 100000]}
                   control={<Radio color="secondary" />}
-                  label="50000RS-100000RS"
+                  label="Rs. 50,000 - Rs. 100,000"
                 />
                 <FormControlLabel
-                  value="othersss"
+                  value={[100000]}
                   control={<Radio color="secondary" />}
-                  label="Atleast Rs.100000"
+                  label={`Atleast Rs. 100,000`}
                 />
               </RadioGroup>
             </FormControl>
@@ -154,73 +192,55 @@ const Filter = () => {
               <p style={{ margin: '0', fontWeight: 'bold' }}>Categorys</p>
             </div>
 
-            <div className="d-flex mb-2">
-              <Checkbox aria-label="checks" color="secondary" className="p-0" />
-              <p style={{ margin: '0' }}>Headphones & Gaming Headsets</p>
-            </div>
-            <div className="d-flex mb-2">
-              <Checkbox aria-label="checks" />
-              <p style={{ margin: '0' }}>Mobile Phones</p>
-            </div>
-            <div className="d-flex mb-2">
-              <Checkbox aria-label="checks" />
-              <p style={{ margin: '0' }}>Game Consoles</p>
-            </div>
-            <div className="d-flex mb-2">
-              <Checkbox aria-label="checks" />
-              <p style={{ margin: '0' }}>Shoes</p>
-            </div>
+            {CATEGORIES.map(({ val }, i) => (
+              <div className="d-flex mb-2" key={val}>
+                <Checkbox
+                  aria-label="checks"
+                  color="secondary"
+                  className="p-0"
+                  name={val}
+                  value={val}
+                  checked={categoriesCheckBox[i]}
+                  onChange={() => categoriesCheckBoxHandler(i)}
+                />
+                <p style={{ margin: '0' }}>{val}</p>
+              </div>
+            ))}
 
-            <div className="d-flex mb-2">
-              <Checkbox aria-label="checks" />
-              <p style={{ margin: '0' }}>TVs</p>
-            </div>
-
-            <div className="d-flex mb-2">
-              <Checkbox aria-label="checks" />
-              <p style={{ margin: '0' }}>Wearables</p>
-            </div>
-            <div className="d-flex mb-2">
-              <Checkbox aria-label="checks" />
-              <p style={{ margin: '0' }}>Food</p>
-            </div>
-            <div className="d-flex mb-2">
-              <Checkbox aria-label="checks" />
-              <p style={{ margin: '0' }}>Home</p>
-            </div>
-            <div className="d-flex mb-2">
-              <Checkbox aria-label="checks" />
-              <p style={{ margin: '0' }}>Books</p>
-            </div>
             <div className="d-flex mb-2">
               <p style={{ margin: '0', fontWeight: 'bold' }}>From Sites</p>
             </div>
-            <div className="d-flex mb-2">
-              <Checkbox aria-label="checks" />
-              <p style={{ margin: '0' }}>Daraz</p>
-            </div>
-            <div className="d-flex mb-2">
-              <Checkbox aria-label="checks" />
-              <p style={{ margin: '0' }}>Yayvo</p>
-            </div>
-            <div className="d-flex mb-2">
-              <Checkbox aria-label="checks" />
-              <p style={{ margin: '0' }}>PriceGetter</p>
-            </div>
+            {SELLERS.map(({ val, text }, i) => (
+              <div className="d-flex mb-2" key={val}>
+                <Checkbox
+                  aria-label="checks"
+                  color="secondary"
+                  className="p-0"
+                  name={text}
+                  value={val}
+                  checked={sellerCheckBox[i]}
+                  onChange={() => sellerCheckBoxHandler(i)}
+                />
+                <p style={{ margin: '0' }}>{text}</p>
+              </div>
+            ))}
           </div>
           <div className="col-md-10">
             <h1 id="products_heading">Search Related Products</h1>
             <div className="row">
               {length ? (
                 <>
-                  {products.map((prod, i) => (
-                    <Product
-                      col={3}
-                      key={prod._id}
-                      product={prod}
-                      callbackRef={i === length - 10 ? observerCallBack : null}
-                    />
-                  ))}
+                  {(!loading || !newReq) &&
+                    products.map((prod, i) => (
+                      <Product
+                        col={3}
+                        key={prod._id}
+                        product={prod}
+                        callbackRef={
+                          i === length - 10 ? observerCallBack : null
+                        }
+                      />
+                    ))}
                   {!loading || <Loader />}
                 </>
               ) : (

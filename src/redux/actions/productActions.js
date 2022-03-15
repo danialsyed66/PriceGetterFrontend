@@ -17,22 +17,25 @@ export const getProducts = filters => async (dispatch, getState) => {
     });
 
     const {
-      currentPage,
+      page: currentPage,
       query: keyword,
-      priceRange,
-      category,
-      rating,
-      seller,
+      price: priceRange,
+      leastRating: rating,
+      sellers,
+      categories,
       sort,
     } = filters;
+
+    const seller = sellers.join(',');
+    const category = categories.join(',');
 
     const link = `/api/v1/products?page=${currentPage}
       &price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}
       &rating[gte]=${rating}
       ${keyword ? `&keyword=${keyword}` : ''}
-      ${category ? `&category=${category}` : ''}
+      ${category.length ? `&category=${category}` : ''}
       ${sort ? `&sort=${sort}` : ''}
-      ${seller ? `&seller=${seller}` : ''}`;
+      ${seller.length ? `&seller=${seller}` : ''}`;
 
     const {
       data: { data },

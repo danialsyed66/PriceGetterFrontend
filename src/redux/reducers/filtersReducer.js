@@ -1,15 +1,28 @@
 import { SET_FILTERS, UPDATE_FILTERS } from '../consts';
 
-const reducer = (state = {}, { type, payload }) => {
+const reducer = (
+  state = {
+    page: 1,
+    price: [0, 500000],
+    leastRating: 0,
+    sellers: [],
+    categories: [],
+  },
+  { type, payload }
+) => {
   switch (type) {
     case SET_FILTERS:
-      return { ...state, filters: payload };
+      return {
+        page: 1,
+        price: [0, 500000],
+        leastRating: 0,
+        sellers: [],
+        categories: [],
+        ...payload,
+      };
 
     case UPDATE_FILTERS:
-      return {
-        ...state,
-        filters: { ...state.filters, ...payload },
-      };
+      return { ...state, ...payload };
 
     default:
       return state;

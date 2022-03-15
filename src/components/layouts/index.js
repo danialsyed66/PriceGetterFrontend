@@ -5,3 +5,6 @@ export { default as Navbar } from './navbar/Navbar';
 export { default as Loader } from './loader/Loader';
 export { default as MetaData } from './MetaData';
 export { default as ProtectedRoute } from './ProtectedRoute';
+
+export { default as CATEGORIES } from './categoris/icons';
+export { default as SELLERS } from './sellers';
