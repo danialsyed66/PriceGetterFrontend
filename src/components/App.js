@@ -46,7 +46,7 @@ const App = () => {
     // if (forgotPasswordError) fire(forgotPasswordError);
     // if (cartError) fire(cartError);
 
-    dispatch(clearErrors);
+    dispatch(clearErrors());
   }, [
     dispatch,
     productsError,
