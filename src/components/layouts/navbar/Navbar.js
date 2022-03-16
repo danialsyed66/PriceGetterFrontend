@@ -86,7 +86,7 @@ const Navbar = () => {
             className="rounded-circle"
           />
         </figure>
-        <span>{user.name}</span>
+        <span style={{ color: 'black' }}>{user.name}</span>
       </Link>
 
       <div
