@@ -124,7 +124,7 @@ const Navbar = () => {
       <div className="gpt3__navbar-links">
         <div className="gpt3__navbar-links_logo">
           <Link to={'/'}>
-            <img src={priceGetter} alt="logo" />
+            <img src={priceGetter} style={{ width: '100px' }} alt="logo" />
           </Link>
         </div>
         <div className="gpt3__navbar-links_container">

@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
 
-  padding: 0.5rem 4rem 0rem 2rem;
+  padding: 0rem 4rem 0rem 2rem;
 }
 
 .gpt3__navbar-links {
@@ -14,6 +14,12 @@
 }
 .gpt3__navbar-links_logo {
   margin-right: 2rem;
+}
+.css-1ozpllr {
+  background-color: #fff;
+}
+.css-5poeop {
+  background-color: #fff;
 }
 
 .gpt3__navbar-links_container {
