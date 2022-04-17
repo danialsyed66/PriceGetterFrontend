@@ -1,17 +1,17 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
-import PropTypes from 'prop-types';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-import './Home.css';
-import Product from './Product';
-import { Category, Footer, Navbar, Header, Loader } from '../layouts';
-import Zoom from '@mui/material/Zoom';
-import { AppBar } from '@mui/material';
-import Fab from '@mui/material/Fab';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Box from '@mui/material/Box';
+import React from "react";
+import { useSelector } from "react-redux";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import PropTypes from "prop-types";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+import "./Home.css";
+import Product from "./Product";
+import { Category, Footer, Navbar, Header, Loader } from "../layouts";
+import Zoom from "@mui/material/Zoom";
+import { AppBar } from "@mui/material";
+import Fab from "@mui/material/Fab";
+import Box from "@mui/material/Box";
+import uparrow from "../../assets/arrow-up-short.svg";
 function ScrollTop(props) {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -23,15 +23,15 @@ function ScrollTop(props) {
     threshold: 100,
   });
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     const anchor = (event.target.ownerDocument || document).querySelector(
-      '#back-to-top-anchor'
+      "#back-to-top-anchor"
     );
 
     if (anchor) {
       anchor.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
+        behavior: "smooth",
+        block: "center",
       });
     }
   };
@@ -41,7 +41,7 @@ function ScrollTop(props) {
       <Box
         onClick={handleClick}
         role="presentation"
-        sx={{ position: 'fixed', bottom: 16, right: 16 }}
+        sx={{ position: "fixed", bottom: 16, right: 16 }}
       >
         {children}
       </Box>
@@ -83,7 +83,7 @@ ElevationScroll.propTypes = {
   window: PropTypes.func,
 };
 
-const Home = props => {
+const Home = (props) => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -101,7 +101,7 @@ const Home = props => {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
-  const { home, loading } = useSelector(state => state.home);
+  const { home, loading } = useSelector((state) => state.home);
 
   return (
     <div>
@@ -125,7 +125,7 @@ const Home = props => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.books.map(prod => (
+                  {home?.categories?.books.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -135,7 +135,7 @@ const Home = props => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.food.map(prod => (
+                  {home?.categories?.food.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -145,7 +145,7 @@ const Home = props => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.clothes.map(prod => (
+                  {home?.categories?.clothes.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -155,7 +155,7 @@ const Home = props => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.cameras.map(prod => (
+                  {home?.categories?.cameras.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -165,7 +165,7 @@ const Home = props => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.laptops.map(prod => (
+                  {home?.categories?.laptops.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -175,7 +175,7 @@ const Home = props => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.smartPhones.map(prod => (
+                  {home?.categories?.smartPhones.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -185,7 +185,7 @@ const Home = props => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {home?.categories?.sports.map(prod => (
+                  {home?.categories?.sports.map((prod) => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
@@ -198,9 +198,9 @@ const Home = props => {
             color="secondary"
             size="small"
             aria-label="scroll back to top"
-            style={{ backgroundColor: 'green' }}
+            style={{ backgroundColor: "green" }}
           >
-            <KeyboardArrowUpIcon color="green" />
+            <img src={uparrow} alt="" />
           </Fab>
         </ScrollTop>
       </section>

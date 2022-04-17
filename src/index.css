@@ -13,3 +13,6 @@
   --color-text: #fffff8;
   --color-subtext: #ff8a71;
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

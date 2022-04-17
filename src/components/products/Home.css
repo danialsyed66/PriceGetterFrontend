@@ -69,7 +69,7 @@ nav {
   font-weight: bold;
   font-size: 28px;
   line-height: 32px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked {
   color: red !important;
@@ -150,7 +150,7 @@ footer {
 }
 
 .rating-outer::before {
-  content: '\f006 ';
+  content: "\f006 ";
 }
 
 .rating-inner {
@@ -163,7 +163,7 @@ footer {
 }
 
 .rating-inner::before {
-  content: '\f005 \f005 \f005 \f005 \f005';
+  content: "\f005 \f005 \f005 \f005 \f005";
   color: green;
 }
 
@@ -220,7 +220,7 @@ footer {
   padding-left: 0;
 }
 .loader:after {
-  content: ' ';
+  content: " ";
   display: block;
   width: 64px;
   height: 64px;
@@ -551,11 +551,11 @@ footer {
 }
 
 #sidebar ul li.active > a,
-a[aria-expanded='true'] {
+a[aria-expanded="true"] {
   color: #fff;
   background: #232f3e;
 }
-a[data-toggle='collapse'] {
+a[data-toggle="collapse"] {
   position: relative;
 }
 .dropdown-toggle::after {
@@ -697,4 +697,9 @@ ul.CTAs a {
 }
 .css-11b3ww9-MuiPaper-root-MuiAppBar-root {
   background-color: white !important;
+}
+@media screen and (max-width: 786px) {
+  .box_pad {
+    padding: 1rem 3rem 1rem 3rem;
+  }
 }

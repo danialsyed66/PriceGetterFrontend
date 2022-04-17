@@ -1,37 +1,44 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import React, { lazy, Suspense, useEffect } from "react";
 
-import './App.css';
-import { Home, Filter } from './products';
-import { Login, Signup, SELLER } from './users';
-import { getHome } from '../redux/actions/homeActions';
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Swal from "sweetalert2";
+
+import "./App.css";
+
+import { getHome } from "../redux/actions/homeActions";
 import {
   loadUser,
   clearErrors,
   socialLogin,
-} from '../redux/actions/authActions';
+} from "../redux/actions/authActions";
+import { Loader } from "./layouts";
+const Filter = lazy(() => import("./products/Filter"));
+const Home = lazy(() => import("./products/Home"));
+const SELLER = lazy(() => import("./users/login-signup/SELLER"));
+const Signup = lazy(() => import("./users/login-signup/Signup"));
+const Login = lazy(() => import("./users/login-signup/Login"));
 
+const DetailPage = lazy(() => import("./products/DetailPage/DetailPage"));
 const App = () => {
   const dispatch = useDispatch();
 
-  const { error: productsError } = useSelector(state => state.products);
+  const { error: productsError } = useSelector((state) => state.products);
   const { error: productDetailsError } = useSelector(
-    state => state.productDetails
+    (state) => state.productDetails
   );
-  const { error: authError } = useSelector(state => state.auth);
-  const { error: userError } = useSelector(state => state.user);
-  const { error: homeError } = useSelector(state => state.home);
+  const { error: authError } = useSelector((state) => state.auth);
+  const { error: userError } = useSelector((state) => state.user);
+  const { error: homeError } = useSelector((state) => state.home);
   // const { error: forgotPasswordError } = useSelector(
   //   state => state.forgotPassword
   // );
   // const { error: cartError } = useSelector(state => state.cart);
 
-  const fire = error =>
+  const fire = (error) =>
     Swal.fire({
-      position: 'top-end',
-      icon: 'error',
+      position: "top-end",
+      icon: "error",
       title: error,
       showConfirmButton: true,
       timer: 2000,
@@ -67,15 +74,18 @@ const App = () => {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Signup />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/filter" element={<Filter />} />
-          <Route path="/seller/add" element={<SELLER />} />
-        </Routes>
-      </BrowserRouter>
+      <Suspense fallback={<Loader />}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/detailProduct" element={<DetailPage />} />
+            <Route path="/register" element={<Signup />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/filter" element={<Filter />} />
+            <Route path="/seller/add" element={<SELLER />} />
+          </Routes>
+        </BrowserRouter>
+      </Suspense>
     </div>
   );
 };

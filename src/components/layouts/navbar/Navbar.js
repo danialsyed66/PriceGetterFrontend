@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { BsList } from 'react-icons/bs';
-import { ImCross } from 'react-icons/all';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useRef, useState } from "react";
+import { BsList } from "react-icons/bs";
+import { ImCross } from "react-icons/all";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-import './Navbar.css';
-import priceGetter from '../../../assets/headericon.svg';
-import { logout } from '../../../redux/actions/authActions';
-import { setFilters } from '../../../redux/actions/filterActions';
+import "./Navbar.css";
+import priceGetter from "../../../assets/headericon.svg";
+import { logout } from "../../../redux/actions/authActions";
+import { setFilters } from "../../../redux/actions/filterActions";
 
 const Menu = () => (
   <>
@@ -42,13 +42,13 @@ const Menu = () => (
 const Navbar = () => {
   const path = useLocation().pathname;
 
-  const { isAuth, loading, user } = useSelector(state => state.auth);
+  const { isAuth, loading, user } = useSelector((state) => state.auth);
   const [Toggle, setToggle] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const dropDownMenu = useRef(null);
-  const [search, setSearch] = useState('');
-  const [query, setQuery] = useState('');
+  const [search, setSearch] = useState("");
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => setQuery(search), 1000);
@@ -62,7 +62,7 @@ const Navbar = () => {
     if (!query.length) return;
 
     dispatch(setFilters({ query }));
-    navigate('/filter');
+    navigate("/filter");
   }, [dispatch, navigate, query]);
 
   const renderProfileDropDown = () => (
@@ -76,7 +76,7 @@ const Navbar = () => {
         aria-haspopup="true"
         aria-expanded="false"
         onClick={() => {
-          dropDownMenu.current.classList.toggle('show');
+          dropDownMenu.current.classList.toggle("show");
         }}
       >
         <figure className="avatar avatar-nav">
@@ -86,7 +86,7 @@ const Navbar = () => {
             className="rounded-circle"
           />
         </figure>
-        <span style={{ color: 'black' }}>{user.name}</span>
+        <span style={{ color: "black" }}>{user.name}</span>
       </Link>
 
       <div
@@ -97,7 +97,7 @@ const Navbar = () => {
         <Link to="/profile" className="dropdown-item">
           Profile
         </Link>
-        {user.role === 'admin' ? (
+        {user.role === "admin" ? (
           <Link to="/dashboard" className="dropdown-item">
             Dashboard
           </Link>
@@ -123,22 +123,22 @@ const Navbar = () => {
     <div className="gpt3__navbar">
       <div className="gpt3__navbar-links">
         <div className="gpt3__navbar-links_logo">
-          <Link to={'/'}>
-            <img src={priceGetter} style={{ width: '100px' }} alt="logo" />
+          <Link to={"/"}>
+            <img src={priceGetter} style={{ width: "100px" }} alt="logo" />
           </Link>
         </div>
         <div className="gpt3__navbar-links_container">
           <div className="d-flex justify-content-between align-items-center">
             <Menu />
-            {path === '/' ? (
+            {path === "/" ? (
               <div />
             ) : (
               <input
-                style={{ width: '300px', marginLeft: '10px' }}
+                style={{ width: "300px", marginLeft: "10px" }}
                 type="text"
                 placeholder="What are u looking for today?"
                 className="form-control"
-                onChange={e => setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
               />
             )}
           </div>
@@ -152,10 +152,10 @@ const Navbar = () => {
               <button
                 type="button"
                 onClick={() => {
-                  navigate('/login');
+                  navigate("/login");
                 }}
               >
-                Sign in{' '}
+                Sign in{" "}
               </button>
             )}
           </div>
@@ -164,7 +164,7 @@ const Navbar = () => {
               <button
                 type="button"
                 onClick={() => {
-                  navigate('/register');
+                  navigate("/register");
                 }}
               >
                 Register now
@@ -189,31 +189,33 @@ const Navbar = () => {
                 <div className="gpt3__navbar-menu_container-links">
                   <Menu />
                 </div>
-                <div className="gpt3__navbar-sign-menu">
-                  {isAuth ? (
-                    renderProfileDropDown()
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        navigate('/login');
-                      }}
-                    >
-                      Sign in
-                    </button>
-                  )}
-                </div>
-                <div className="mx-1 gpt3__navbar-sign-menu">
-                  {isAuth ? null : (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        navigate('/signin');
-                      }}
-                    >
-                      Register now
-                    </button>
-                  )}
+                <div className="d-flex  justify-content-end align-items-end">
+                  <div className="gpt3__navbar-sign-menu">
+                    {isAuth ? (
+                      renderProfileDropDown()
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigate("/login");
+                        }}
+                      >
+                        Sign in
+                      </button>
+                    )}
+                  </div>
+                  <div className="mx-1 gpt3__navbar-sign-menu">
+                    {isAuth ? null : (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigate("/signin");
+                        }}
+                      >
+                        Register now
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             )}
