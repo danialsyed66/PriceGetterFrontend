@@ -1,15 +1,13 @@
 import React, { memo, useEffect, useRef, useState } from "react";
-
 import { Checkbox } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import "./Home.css";
 import { handleFavourite as handleFavouriteAction } from "../../redux/actions/userActions";
 import { loadUser } from "../../redux/actions/authActions";
 import { HANDLE_FAVOURITE_RESET } from "../../redux/consts";
 import PriceGetter from "../../assets/PriceGetter.png";
 import Heart from "../../assets/Heart";
+import "./Home.css";
 
 const Product = ({ product, col, callbackRef }) => {
   const dispatch = useDispatch();

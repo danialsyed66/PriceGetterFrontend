@@ -38,8 +38,26 @@ p {
   justify-content: center;
   align-items: center;
 }
+.p_detail {
+  color: #5b6370;
+  width: 75%;
+  text-align: justify;
+}
+.heading_detail {
+  justify-content: start;
+  align-items: center;
+}
 @media only screen and (max-width: 790px) {
   .boxs-img {
     flex-direction: row;
+  }
+  .p_detail {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 990px) {
+  .heading_detail {
+    justify-content: center;
+    align-items: center;
   }
 }
