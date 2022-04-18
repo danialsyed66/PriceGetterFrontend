@@ -1,13 +1,20 @@
 ::-webkit-scrollbar-track {
   background-color: #f5f5f5;
 }
-
+.filter_box {
+  padding: "7rem";
+}
+@media screen and(max-width:"990") {
+  .filter_box {
+    padding: "0rem";
+  }
+}
 ::-webkit-scrollbar {
   width: 8px;
   background-color: #f5f5f5;
 }
 .product_box {
-  width: 100%;
+  width: 300px;
   height: 385px;
   background: #fefefe;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
