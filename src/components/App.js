@@ -18,6 +18,11 @@ const Home = lazy(() => import("./products/Home"));
 const SELLER = lazy(() => import("./users/login-signup/SELLER"));
 const Signup = lazy(() => import("./users/login-signup/Signup"));
 const Login = lazy(() => import("./users/login-signup/Login"));
+const ForgetPassword = lazy(() =>
+  import("./users/login-signup/ForgotPassword")
+);
+const SetPassword = lazy(() => import("./users/login-signup/SetPassword"));
+const VerifyOpt = lazy(() => import("./users/login-signup/OptVerify"));
 
 const DetailPage = lazy(() => import("./products/DetailPage/DetailPage"));
 const App = () => {
@@ -78,6 +83,9 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/setpassword" element={<SetPassword />} />
+            <Route path="/optverify" element={<VerifyOpt />} />
+            <Route path="/forgetpassword" element={<ForgetPassword />} />
             <Route path="/detailProduct" element={<DetailPage />} />
             <Route path="/register" element={<Signup />} />
             <Route path="/" element={<Home />} />

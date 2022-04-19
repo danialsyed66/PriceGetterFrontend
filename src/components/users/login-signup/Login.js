@@ -10,14 +10,12 @@ import Twitter from "../../../assets/Twitter.js";
 import Google from "../../../assets/Google.js";
 import Done from "../../../assets/Done.js";
 import { Field, Form, Formik } from "formik";
-import { useNavigate } from "react-router-dom";
-
 import "./Login.css";
 import priceGetter from "../../../assets/PriceGetter.svg";
-import vector from "../../../assets/Vectors.svg";
 import { InputText } from "./InputText";
 import { login } from "../../../redux/actions/authActions";
 import { SERVER_URI } from "../../../redux/consts";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const SignupSchema = Yup.object().shape({
@@ -61,16 +59,23 @@ const LoginPage = () => {
 
   return (
     <div
-      className="main_div"
+      className="main_div background "
       style={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
       }}
     >
       <div style={{ textAlign: "center" }} className="mb-4">
-        <img src={priceGetter} alt="logo" />
+        <img
+          src={priceGetter}
+          style={{ width: "220px", cursor: "pointer" }}
+          alt="logo"
+          onClick={() => {
+            navigate("/");
+          }}
+        />
+
         <h2 className="LOGIN_PAGE_TEXT">Login In</h2>
       </div>
 
@@ -204,8 +209,7 @@ const LoginPage = () => {
               >
                 <Button
                   style={{
-                    zIndex: "100",
-                    margin: "2rem auto auto auto ",
+                    margin: "2rem auto 1rem auto ",
                     background: " #3EE18F",
                     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.3)",
                     borderRadius: "10px",
@@ -217,12 +221,18 @@ const LoginPage = () => {
                   Login
                 </Button>
               </div>
+              <p
+                className="login_p"
+                onClick={() => {
+                  navigate("/forgetpassword");
+                }}
+              >
+                ForgetPassword
+              </p>
             </Form>
           )}
         </Formik>
       </div>
-
-      <img className="LOGIN_PAGE_IMG" src={vector} alt="LOGIN_PAGE_IMG" />
     </div>
   );
 };

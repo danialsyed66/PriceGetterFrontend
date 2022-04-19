@@ -705,8 +705,13 @@ ul.CTAs a {
 .css-11b3ww9-MuiPaper-root-MuiAppBar-root {
   background-color: white !important;
 }
+.react-multi-carousel-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @media screen and (max-width: 786px) {
   .box_pad {
-    padding: 1rem 3rem 1rem 3rem;
+    padding: 1rem;
   }
 }

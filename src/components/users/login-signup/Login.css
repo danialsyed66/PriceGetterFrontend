@@ -13,7 +13,7 @@
   color: red;
 }
 .main_div {
-  max-height: 100vh;
+  min-height: 100vh;
 }
 .LOGIN_PAGE_IMG {
   position: absolute;
@@ -97,4 +97,57 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.background {
+  background-image: url(../../../assets/Vectors.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
+}
+.login_p {
+  color: #808080;
+}
+.login_p:hover {
+  color: green;
+  cursor: pointer;
+}
+
+.center-line {
+  border: 0.5px solid #ababab;
+  transform: rotate(90deg);
+}
+.logo-login {
+  width: "175px";
+  height: "167.31px";
+}
+.line-login {
+  border-left: "1px solid black";
+  height: "60%";
+}
+.div1-login {
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
+  height: "100%";
+}
+.otp-field {
+  width: 38px;
+  margin-right: 10px;
+  padding-left: 12px;
+  height: 40px;
+}
+
+.margin {
+  padding-left: 0;
+}
+.seperate {
+  width: 100%;
+}
+
+@media screen and (min-width: 750px) {
+  .margin {
+    padding-left: 1rem;
+  }
+  .seperate {
+    width: 50%;
+  }
 }

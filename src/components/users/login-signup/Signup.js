@@ -6,14 +6,12 @@ import { Field, Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import eye from "../../../assets/eye.svg";
 import eyeslash from "../../../assets/eye-slash.svg";
-import { useNavigate } from "react-router-dom";
-
 import "./Login.css";
 import priceGetter from "../../../assets/PriceGetter.svg";
-import vector from "../../../assets/Vectors.svg";
 import { InputText } from "./InputText";
 import { Checkboxmui } from "./Checkboxmui";
 import { register } from "../../../redux/actions/authActions";
+import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
   const [avatar, setAvatar] = useState("");
@@ -85,7 +83,7 @@ const SignupPage = () => {
 
   return (
     <div
-      className="main_div"
+      className="main_div background"
       style={{
         display: "flex",
         flexDirection: "column",
@@ -94,11 +92,19 @@ const SignupPage = () => {
       }}
     >
       <div style={{ textAlign: "center" }}>
-        <img src={priceGetter} alt="logo" />
+        <img
+          src={priceGetter}
+          style={{ width: "220px", cursor: "pointer" }}
+          alt="logo"
+          onClick={() => {
+            navigate("/");
+          }}
+        />
+
         <h2 className="LOGIN_PAGE_TEXT">SignUp</h2>
       </div>
 
-      <div>
+      <div className="p-3">
         <Formik
           initialValues={{
             name: "",
@@ -164,11 +170,9 @@ const SignupPage = () => {
                 </FormControl>
                 <IconButton
                   style={{
-                    margin: "0 0 0 0",
-                    padding: "0",
-                    position: "relative",
-                    right: "-130px",
-                    bottom: "30px",
+                    marginTop: "-35px",
+                    marginLeft: "300px",
+                    width: "5px",
                   }}
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
@@ -180,11 +184,11 @@ const SignupPage = () => {
                     <img alt="" src={eyeslash} />
                   )}
                 </IconButton>
-                <div style={{ height: "15px", paddingTop: "10px" }}>
+                <div style={{ height: "25px" }}>
                   {errors.password && touched.password ? (
                     <div
+                      style={{ width: "100%", textAlign: "center" }}
                       className="errorText"
-                      style={{ position: "relative", bottom: "25px" }}
                     >
                       {errors.password}
                     </div>
@@ -202,11 +206,9 @@ const SignupPage = () => {
                 </FormControl>
                 <IconButton
                   style={{
-                    margin: "0 0 0 0",
-                    padding: "0",
-                    position: "relative",
-                    right: "-130px",
-                    bottom: "30px",
+                    width: "5px",
+                    marginTop: "-35px",
+                    marginLeft: "300px",
                   }}
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
@@ -221,8 +223,8 @@ const SignupPage = () => {
                 <div style={{ height: "15px" }}>
                   {errors.confirmpassword && touched.confirmpassword ? (
                     <div
+                      style={{ width: "100%", textAlign: "center" }}
                       className="errorText"
-                      style={{ position: "relative", bottom: "25px" }}
                     >
                       {errors.confirmpassword}
                     </div>
@@ -269,8 +271,8 @@ const SignupPage = () => {
                 }}
               >
                 <Button
+                  className="mb-2"
                   style={{
-                    zIndex: "100",
                     margin: "auto",
                     background: " #3EE18F",
                     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.3)",
@@ -283,12 +285,28 @@ const SignupPage = () => {
                   Signup
                 </Button>
               </div>
+              <div className="d-flex justify-content-between align-align-items-center">
+                <p
+                  className="login_p"
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  Already have account?
+                </p>
+                <p
+                  className="login_p"
+                  onClick={() => {
+                    navigate("/forgetpassword");
+                  }}
+                >
+                  ForgetPassword
+                </p>
+              </div>
             </Form>
           )}
         </Formik>
       </div>
-
-      <img className="LOGIN_PAGE_IMG" src={vector} alt="LOGIN_PAGE_IMG" />
     </div>
   );
 };
