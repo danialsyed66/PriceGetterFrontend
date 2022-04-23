@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import "./Login.css";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
 import priceGetter from "../../../assets/PriceGetter.svg";
 
 function OptVerify({ history }) {
@@ -23,11 +23,11 @@ function OptVerify({ history }) {
       element.nextSibling.focus();
     }
   };
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const verifyy = (e) => {
     setOtp([...otp.map((v) => "")]);
-    const newopt = otp.join("");
+    // const newopt = otp.join("");
   };
 
   return (

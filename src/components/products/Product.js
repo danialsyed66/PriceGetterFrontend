@@ -3,8 +3,6 @@ import { Checkbox } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { handleFavourite as handleFavouriteAction } from "../../redux/actions/userActions";
-import { loadUser } from "../../redux/actions/authActions";
-import { HANDLE_FAVOURITE_RESET } from "../../redux/consts";
 import PriceGetter from "../../assets/PriceGetter.png";
 import Heart from "../../assets/Heart";
 import "./Home.css";
@@ -14,16 +12,8 @@ const Product = ({ product, col, callbackRef }) => {
   const navigate = useNavigate();
   const imgRef = useRef(null);
 
-  const { isUpdated } = useSelector((state) => state.user);
   const { user } = useSelector((state) => state.auth);
   const [isFavourite, setIsFavourite] = useState(false);
-
-  useEffect(() => {
-    if (!isUpdated) return;
-    dispatch(loadUser());
-
-    dispatch({ type: HANDLE_FAVOURITE_RESET });
-  }, [dispatch, isUpdated]);
 
   useEffect(() => {
     // if (!user || !product) return;
@@ -33,7 +23,7 @@ const Product = ({ product, col, callbackRef }) => {
   }, [user, product]);
 
   const handleFavourite = (e, id) => {
-    if (!user) navigate("/login");
+    if (!user) navigate()("/login");
 
     dispatch(handleFavouriteAction(id));
   };
@@ -104,22 +94,25 @@ const Product = ({ product, col, callbackRef }) => {
                   </p>
                 </div>
               )}
-              {product?.seller?.logo?.url && (
-                <img
-                  style={{ width: "60px" }}
-                  alt="seller pic"
-                  src={product?.seller?.logo?.url}
-                />
-              )}
+              <img
+                style={{ width: "60px", cursor: "pointer" }}
+                alt="seller pic"
+                src={product?.seller?.logo?.url}
+                onClick={() => {
+                  const newWindow = window.open(product.url, "_blank");
+                  if (newWindow) newWindow.opener = null;
+                }}
+              />
             </div>
 
             <img
-              style={{ borderRadius: "20px" }}
+              style={{ borderRadius: "20px", cursor: "pointer" }}
               className="m-auto card-img-top lazy-img zoom-box"
               alt="product pic"
               src={PriceGetter}
               data-src={product.images[0]?.url}
               ref={imgRef}
+              onClick={() => navigate(`/product/${product._id}`)}
             />
           </div>
           <div
@@ -130,7 +123,11 @@ const Product = ({ product, col, callbackRef }) => {
               borderRadius: "20px ",
             }}
           >
-            <h5 className="card-title">
+            <h5
+              className="card-title"
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate(`/${product._id}`)}
+            >
               {product.name.replace(/^(.{15}[^\s]*).*/, "$1")}{" "}
             </h5>
 

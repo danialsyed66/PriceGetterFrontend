@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import priceGetter from "../../../assets/PriceGetter.svg";
 
-import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
-
 function ForgotPassword({ history }) {
-  const [email, setEmail] = useState("");
-  const dispatch = useDispatch();
+  const [setEmail] = useState("");
   const loading = false;
   const navigate = useNavigate();
 

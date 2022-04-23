@@ -12,6 +12,7 @@ import {
   clearErrors,
   socialLogin,
 } from "../redux/actions/authActions";
+import { HANDLE_FAVOURITE_RESET } from "../redux/consts";
 import { Loader } from "./layouts";
 const Filter = lazy(() => import("./products/Filter"));
 const Home = lazy(() => import("./products/Home"));
@@ -25,6 +26,7 @@ const SetPassword = lazy(() => import("./users/login-signup/SetPassword"));
 const VerifyOpt = lazy(() => import("./users/login-signup/OptVerify"));
 
 const DetailPage = lazy(() => import("./products/DetailPage/DetailPage"));
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -39,6 +41,8 @@ const App = () => {
   //   state => state.forgotPassword
   // );
   // const { error: cartError } = useSelector(state => state.cart);
+
+  const { isUpdated } = useSelector((state) => state.user);
 
   const fire = (error) =>
     Swal.fire({
@@ -77,6 +81,14 @@ const App = () => {
     func();
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log(isUpdated);
+    if (!isUpdated) return;
+    dispatch(loadUser());
+
+    dispatch({ type: HANDLE_FAVOURITE_RESET });
+  }, [dispatch, isUpdated]);
+
   return (
     <div className="App">
       <Suspense fallback={<Loader />}>
@@ -86,7 +98,7 @@ const App = () => {
             <Route path="/setpassword" element={<SetPassword />} />
             <Route path="/optverify" element={<VerifyOpt />} />
             <Route path="/forgetpassword" element={<ForgetPassword />} />
-            <Route path="/detailProduct" element={<DetailPage />} />
+            <Route path="/product/:id" element={<DetailPage />} />
             <Route path="/register" element={<Signup />} />
             <Route path="/" element={<Home />} />
             <Route path="/filter" element={<Filter />} />

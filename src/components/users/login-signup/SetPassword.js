@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
+import React, { useState } from "react";
 import priceGetter from "../../../assets/PriceGetter.svg";
 import { useNavigate } from "react-router-dom";
 
 const SetPassword = ({ history }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
   const handleSubmit = async (e) => {
     e.preventDefault();
   };
-  const [errorMessage, setErrorMessage] = useState("");
 
   return (
     <div>

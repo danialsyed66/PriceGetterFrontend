@@ -10,8 +10,8 @@ import accessories from "../../../assets/accessories.png";
 import camera from "../../../assets/camera.png";
 import electronics from "../../../assets/electronics.png";
 import headphones from "../../../assets/headphones.png";
-import health from "../../../assets/health.png";
-import shoes from "../../../assets/shoes.png";
+// import health from "../../../assets/health.png";
+// import shoes from "../../../assets/shoes.png";
 
 const icons = [
   {
