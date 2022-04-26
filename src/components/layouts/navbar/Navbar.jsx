@@ -42,13 +42,15 @@ const Menu = () => (
 const Navbar = () => {
   const path = useLocation().pathname;
 
-  const { isAuth, loading, user } = useSelector((state) => state.auth);
   const [Toggle, setToggle] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const dropDownMenu = useRef(null);
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
+
+  const { isAuth, loading, user } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector((state) => state.cart);
 
   useEffect(() => {
     const timer = setTimeout(() => setQuery(search), 1000);
@@ -64,6 +66,17 @@ const Navbar = () => {
     dispatch(setFilters({ query }));
     navigate("/filter");
   }, [dispatch, navigate, query]);
+
+  const renderCartIcon = () => (
+    <Link to="/cart" style={{ textDecoration: "none" }}>
+      <span id="cart" className="ml-3">
+        Cart
+      </span>
+      <span className="ml-1" id="cart_count">
+        {cartItems?.length}
+      </span>
+    </Link>
+  );
 
   const renderProfileDropDown = () => (
     <div className="ml-4 dropdown d-inline">
@@ -174,6 +187,7 @@ const Navbar = () => {
           <div className=" mx-1 gpt3__navbar-sign">
             {isAuth && renderProfileDropDown()}
           </div>
+          {renderCartIcon()}
           <div className="gpt__navbar-menu">
             {Toggle ? (
               <ImCross
@@ -204,6 +218,7 @@ const Navbar = () => {
                       </button>
                     )}
                   </div>
+                  {renderCartIcon()}
                   <div className="mx-1 gpt3__navbar-sign-menu">
                     {isAuth ? null : (
                       <button

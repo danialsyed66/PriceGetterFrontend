@@ -1,4 +1,4 @@
-import axios from './axios';
+import axios from "./axios";
 
 import {
   ALL_PRODUCTS_REQUEST,
@@ -7,10 +7,16 @@ import {
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
+  NEW_REVIEW_REQUEST,
+  NEW_REVIEW_SUCCESS,
+  NEW_REVIEW_FAIL,
+  DELETE_REVIEW_REQUEST,
+  DELETE_REVIEW_SUCCESS,
+  DELETE_REVIEW_FAIL,
   CLEAR_ERRORS,
-} from '../consts';
+} from "../consts";
 
-export const getProducts = filters => async (dispatch, getState) => {
+export const getProducts = (filters) => async (dispatch, getState) => {
   try {
     dispatch({
       type: ALL_PRODUCTS_REQUEST,
@@ -26,16 +32,16 @@ export const getProducts = filters => async (dispatch, getState) => {
       sort,
     } = filters;
 
-    const seller = sellers.join(',');
-    const category = categories.join(',');
+    const seller = sellers.join(",");
+    const category = categories.join(",");
 
     const link = `/api/v1/products?page=${currentPage}
       &price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}
       &rating[gte]=${rating}
-      ${keyword ? `&keyword=${keyword}` : ''}
-      ${category.length ? `&category=${category}` : ''}
-      ${sort ? `&sort=${sort}` : ''}
-      ${seller.length ? `&seller=${seller}` : ''}`;
+      ${keyword ? `&keyword=${keyword}` : ""}
+      ${category.length ? `&category=${category}` : ""}
+      ${sort ? `&sort=${sort}` : ""}
+      ${seller.length ? `&seller=${seller}` : ""}`;
 
     const {
       data: { data },
@@ -62,7 +68,7 @@ export const getProducts = filters => async (dispatch, getState) => {
       return dispatch({
         type: ALL_PRODUCTS_FAIL,
         payload: {
-          error: 'There are no products by this name',
+          error: "There are no products by this name",
         },
       });
 
@@ -86,13 +92,13 @@ export const getProducts = filters => async (dispatch, getState) => {
     dispatch({
       type: ALL_PRODUCTS_FAIL,
       payload: {
-        error: err?.response?.data?.message || 'Could not get all products',
+        error: err?.response?.data?.message || "Could not get all products",
       },
     });
   }
 };
 
-export const getProductDetails = id => async dispatch => {
+export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({
       type: PRODUCT_DETAILS_REQUEST,
@@ -112,7 +118,63 @@ export const getProductDetails = id => async dispatch => {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
       payload: {
-        error: err?.response?.data?.message || 'Could not get the product',
+        error: err?.response?.data?.message || "Could not get the product",
+      },
+    });
+  }
+};
+
+export const newReview = (productId, review) => async (dispatch) => {
+  try {
+    dispatch({
+      type: NEW_REVIEW_REQUEST,
+    });
+
+    const { data } = await axios.patch(`/api/v1/products/review`, {
+      productId,
+      review,
+    });
+
+    dispatch({
+      type: NEW_REVIEW_SUCCESS,
+      payload: {
+        success: data.status === "success" ? true : false,
+        message: data.message,
+      },
+    });
+  } catch (err) {
+    dispatch({
+      type: NEW_REVIEW_FAIL,
+      payload: {
+        error: err?.response?.data?.message || "Could not get the product",
+      },
+    });
+  }
+};
+
+export const deleteReview = (productId, reviewId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: DELETE_REVIEW_REQUEST,
+    });
+
+    const { data } = await axios.patch(`/api/v1/products/review/delete`, {
+      productId,
+      reviewId,
+    });
+
+    dispatch({
+      type: DELETE_REVIEW_SUCCESS,
+      payload: {
+        success: data.status === "success" ? true : false,
+        message: data.message,
+      },
+    });
+  } catch (err) {
+    dispatch({
+      type: DELETE_REVIEW_FAIL,
+      payload: {
+        error: err?.response?.data?.message || "Could not get the product",
       },
     });
   }
