@@ -8,18 +8,18 @@ import { useDispatch, useSelector } from "react-redux";
 
 const DetailPage = () => {
   const {
-    _id,
+    // _id,
     name,
-    price,
+    // price,
     description,
-    rating,
+    // rating,
     images,
-    seller,
-    stock,
-    numOfReviews,
-    category,
-    reviews,
-    createdAt,
+    // seller,
+    // stock,
+    // numOfReviews,
+    // category,
+    // reviews,
+    // createdAt,
     discount,
   } = useSelector((state) => state.productDetails?.product);
   const { id } = useParams();

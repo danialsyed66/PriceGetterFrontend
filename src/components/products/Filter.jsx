@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import "./Home.css";
-import { Product } from "../products";
+import { Product } from ".";
 import { Footer, Navbar, Loader, CATEGORIES, SELLERS } from "../layouts";
 import { getProducts } from "../../redux/actions/productActions";
 import { updateFilters } from "../../redux/actions/filterActions";
