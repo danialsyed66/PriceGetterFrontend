@@ -74,7 +74,7 @@ const ConfirmOrder = () => {
 
                   <div className="col-4 col-lg-4 mt-4 mt-lg-0">
                     <p>
-                      {quantity} x $ {price} = <b>$ {quantity * price}</b>
+                      {quantity} x Rs. {price} = <b>Rs. {quantity * price}</b>
                     </p>
                   </div>
                 </div>
@@ -90,20 +90,20 @@ const ConfirmOrder = () => {
             <hr />
             <p>
               Subtotal:{' '}
-              <span className="order-summary-values">$ {subTotal}</span>
+              <span className="order-summary-values">Rs. {subTotal}</span>
             </p>
             <p>
               Shipping:{' '}
-              <span className="order-summary-values">$ {shipping}</span>
+              <span className="order-summary-values">Rs. {shipping}</span>
             </p>
             <p>
-              Tax: <span className="order-summary-values">$ {tax}</span>
+              Tax: <span className="order-summary-values">Rs. {tax}</span>
             </p>
 
             <hr />
 
             <p>
-              Total: <span className="order-summary-values">$ {total}</span>
+              Total: <span className="order-summary-values">Rs. {total}</span>
             </p>
 
             <hr />

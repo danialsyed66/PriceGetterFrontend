@@ -53,15 +53,15 @@ const DetailPage = () => {
   };
 
   const increaseQuantity = () => {
-    if (quantity >= +stock) return;
+    if (quantity >= stock) return;
 
     setQuantity(quantity + 1);
   };
 
   const handleAddCart = () => {
-    if (+stock < 1) return;
+    if (stock < 1) return;
 
-    dispatch(addToCart(product));
+    dispatch(addToCart({ ...product, quantity }));
 
     Swal.fire({
       position: 'top-end',
@@ -185,7 +185,7 @@ const DetailPage = () => {
               <button
                 className="btn btn-primary plus"
                 onClick={increaseQuantity}
-                disabled={quantity >= +stock}
+                disabled={quantity >= stock}
               >
                 +
               </button>
@@ -195,7 +195,7 @@ const DetailPage = () => {
               id="cart_btn"
               className="btn btn-primary d-inline ml-4"
               onClick={handleAddCart}
-              disabled={+stock < 1}
+              disabled={stock < 1}
             >
               Add to Cart
             </button>
@@ -203,7 +203,7 @@ const DetailPage = () => {
             <p>
               Status:{' '}
               <span id="stock_status">
-                {+stock > 0 ? 'In Stock' : 'Out of Stock'}
+                {stock > 0 ? 'In Stock' : 'Out of Stock'}
               </span>
             </p>
             <hr />

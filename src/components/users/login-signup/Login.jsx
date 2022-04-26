@@ -15,7 +15,7 @@ import priceGetter from '../../../assets/PriceGetter.svg';
 import { InputText } from './InputText';
 import { login } from '../../../redux/actions/authActions';
 import { SERVER_URI } from '../../../redux/consts';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const SignupSchema = Yup.object().shape({
@@ -40,12 +40,22 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+
+  const redirect = useQuery().get('redirect');
+
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
   const { isAuth } = useSelector((state) => state.auth);
+
   useEffect(() => {
     if (isAuth) {
+      if (redirect) return navigate(`/${redirect}`);
+
       Swal.fire({
         position: 'top-end',
         icon: 'success',
@@ -53,9 +63,10 @@ const LoginPage = () => {
         showConfirmButton: true,
         timer: 2000,
       });
+
       navigate('/');
     }
-  }, [navigate, isAuth]);
+  }, [isAuth, navigate, redirect]);
 
   return (
     <div

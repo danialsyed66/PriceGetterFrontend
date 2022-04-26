@@ -73,7 +73,7 @@ const Cart = () => {
                     <hr />
                     <div className="cart-item">
                       <div className="row">
-                        <div className="col-4 col-lg-3">
+                        <div className="col-4 col-lg-2">
                           <img
                             src={images[0]?.url}
                             alt={'Laptop'}
@@ -82,12 +82,12 @@ const Cart = () => {
                           />
                         </div>
 
-                        <div className="col-5 col-lg-3">
+                        <div className="col-5 col-lg-4">
                           <Link to={`/product/${_id}`}>{name}</Link>
                         </div>
 
                         <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                          <p id="card_item_price">$ {price}</p>
+                          <p id="card_item_price">Rs. {price}</p>
                         </div>
 
                         <div className="col-4 col-lg-3 mt-4 mt-lg-0">
@@ -124,7 +124,9 @@ const Cart = () => {
                             id="delete_cart_item"
                             className="fa fa-trash btn btn-danger"
                             onClick={() => dispatch(removeFromCart(_id))}
-                          ></i>
+                          >
+                            X
+                          </i>
                         </div>
                       </div>
                     </div>
@@ -147,7 +149,7 @@ const Cart = () => {
                 <p>
                   Est. total:{' '}
                   <span className="order-summary-values">
-                    $ {totalPrice.toFixed(2)}
+                    Rs. {totalPrice.toFixed(2)}
                   </span>
                 </p>
 
