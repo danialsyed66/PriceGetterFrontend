@@ -7,14 +7,14 @@ import reducers from './reducers';
 const middlewares = [thunk];
 
 const initialState = {
-  // cart: {
-  //   cartItems: localStorage.getItem('cartItems')
-  //     ? JSON.parse(localStorage.getItem('cartItems'))
-  //     : [],
-  //   shippingInfo: localStorage.getItem('shippingInfo')
-  //     ? JSON.parse(localStorage.getItem('shippingInfo'))
-  //     : {},
-  // },
+  cart: {
+    cartItems: localStorage.getItem('cartItems')
+      ? JSON.parse(localStorage.getItem('cartItems'))
+      : [],
+    shippingInfo: localStorage.getItem('shippingInfo')
+      ? JSON.parse(localStorage.getItem('shippingInfo'))
+      : {},
+  },
 };
 
 export default createStore(

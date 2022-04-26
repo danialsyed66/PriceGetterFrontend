@@ -13,7 +13,7 @@ import {
   CLEAR_ERRORS,
 } from '../consts';
 
-export const createOrder = order => async dispatch => {
+export const createOrder = (order) => async (dispatch) => {
   try {
     dispatch({
       type: CREATE_ORDER_REQUEST,
@@ -33,7 +33,7 @@ export const createOrder = order => async dispatch => {
   }
 };
 
-export const getMyOrders = () => async dispatch => {
+export const getMyOrders = () => async (dispatch) => {
   try {
     dispatch({
       type: MY_ORDERS_REQUEST,
@@ -53,7 +53,7 @@ export const getMyOrders = () => async dispatch => {
   }
 };
 
-export const getOrderDetails = id => async dispatch => {
+export const getOrderDetails = (id) => async (dispatch) => {
   try {
     dispatch({
       type: ORDER_DETAILS_REQUEST,

@@ -1,11 +1,11 @@
-import React, { memo, useEffect, useRef, useState } from "react";
-import { Checkbox } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { handleFavourite as handleFavouriteAction } from "../../redux/actions/userActions";
-import PriceGetter from "../../assets/PriceGetter.png";
-import Heart from "../../assets/Heart";
-import "./Home.css";
+import React, { memo, useEffect, useRef, useState } from 'react';
+import { Checkbox } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { handleFavourite as handleFavouriteAction } from '../../redux/actions/userActions';
+import PriceGetter from '../../assets/PriceGetter.png';
+import Heart from '../../assets/Heart';
+import './Home.css';
 
 const Product = ({ product, col, callbackRef }) => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Product = ({ product, col, callbackRef }) => {
   }, [user, product]);
 
   const handleFavourite = (e, id) => {
-    if (!user) navigate()("/login");
+    if (!user) navigate()('/login');
 
     dispatch(handleFavouriteAction(id));
   };
@@ -33,12 +33,12 @@ const Product = ({ product, col, callbackRef }) => {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         if (isImage(entry.target.dataset.src)) {
-          entry.target.setAttribute("src", entry.target.dataset.src);
+          entry.target.setAttribute('src', entry.target.dataset.src);
         } else {
-          entry.target.classList.remove("lazy-img");
+          entry.target.classList.remove('lazy-img');
         }
-        entry.target.addEventListener("load", function () {
-          entry.target.classList.remove("lazy-img");
+        entry.target.addEventListener('load', function () {
+          entry.target.classList.remove('lazy-img');
         });
       }
     });
@@ -53,7 +53,7 @@ const Product = ({ product, col, callbackRef }) => {
   return (
     <div
       className={`col-sm-10 col-md-6 col-lg-${col} box_pad`}
-      style={{ borderRadius: "20px" }}
+      style={{ borderRadius: '20px' }}
       ref={callbackRef}
       key={product._id}
       data-id={product._id}
@@ -73,21 +73,21 @@ const Product = ({ product, col, callbackRef }) => {
                 <div
                   className="d-flex justify-content-center align-items-center"
                   style={{
-                    background: "#FFE6E6",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                    borderRadius: "4px",
-                    height: "20px",
-                    width: "40px",
+                    background: '#FFE6E6',
+                    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+                    borderRadius: '4px',
+                    height: '20px',
+                    width: '40px',
                   }}
                 >
                   <p
                     style={{
-                      fontSize: "12px",
-                      lineHeight: "12px",
-                      verticalAlign: "center",
-                      textAlign: "center",
-                      marginBottom: "0",
-                      color: "#E61919",
+                      fontSize: '12px',
+                      lineHeight: '12px',
+                      verticalAlign: 'center',
+                      textAlign: 'center',
+                      marginBottom: '0',
+                      color: '#E61919',
                     }}
                   >
                     {product.discount}
@@ -95,18 +95,18 @@ const Product = ({ product, col, callbackRef }) => {
                 </div>
               )}
               <img
-                style={{ width: "60px", cursor: "pointer" }}
+                style={{ width: '60px', cursor: 'pointer' }}
                 alt="seller pic"
                 src={product?.seller?.logo?.url}
                 onClick={() => {
-                  const newWindow = window.open(product.url, "_blank");
+                  const newWindow = window.open(product.url, '_blank');
                   if (newWindow) newWindow.opener = null;
                 }}
               />
             </div>
 
             <img
-              style={{ borderRadius: "20px", cursor: "pointer" }}
+              style={{ borderRadius: '20px', cursor: 'pointer' }}
               className="m-auto card-img-top lazy-img zoom-box"
               alt="product pic"
               src={PriceGetter}
@@ -118,17 +118,17 @@ const Product = ({ product, col, callbackRef }) => {
           <div
             className="card-body d-flex flex-column pl-3"
             style={{
-              padding: "auto",
-              marginTop: "20px",
-              borderRadius: "20px ",
+              padding: 'auto',
+              marginTop: '20px',
+              borderRadius: '20px ',
             }}
           >
             <h5
               className="card-title"
-              style={{ cursor: "pointer" }}
-              onClick={() => navigate(`/${product._id}`)}
+              style={{ cursor: 'pointer' }}
+              onClick={() => navigate(`/product/${product._id}`)}
             >
-              {product.name.replace(/^(.{15}[^\s]*).*/, "$1")}{" "}
+              {product.name.replace(/^(.{15}[^\s]*).*/, '$1')}{' '}
             </h5>
 
             <div className="ratings mt-auto">
@@ -145,48 +145,48 @@ const Product = ({ product, col, callbackRef }) => {
                 <p
                   className="card-text"
                   style={{
-                    fontSize: "12px",
-                    color: "#5B6370",
-                    margin: "0",
+                    fontSize: '12px',
+                    color: '#5B6370',
+                    margin: '0',
                   }}
                 >
                   {product.oldPrice && <del>Rs. {product.oldPrice}</del>}
                 </p>
                 <p
                   className="card-text"
-                  style={{ fontSize: "16px", color: "#282B30" }}
+                  style={{ fontSize: '16px', color: '#282B30' }}
                 >
                   Rs. {product.price}
                 </p>
               </div>
 
-              {product.stock === "In Stock" || product.stock > 0 ? (
+              {product.stock === 'In Stock' || product.stock > 0 ? (
                 <div
                   className="d-flex justify-content-center align-items-center"
                   style={{
-                    background: "#9aeb91  ",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                    borderRadius: "4px",
+                    background: '#9aeb91  ',
+                    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+                    borderRadius: '4px',
 
-                    height: "20px",
-                    width: "50px",
+                    height: '20px',
+                    width: '50px',
                   }}
                 >
                   <p
                     style={{
-                      fontSize: "12px",
-                      lineHeight: "12px",
-                      verticalAlign: "center",
-                      textAlign: "center",
-                      marginBottom: "0",
-                      color: "black",
+                      fontSize: '12px',
+                      lineHeight: '12px',
+                      verticalAlign: 'center',
+                      textAlign: 'center',
+                      marginBottom: '0',
+                      color: 'black',
                     }}
                   >
                     In stock
                   </p>
                 </div>
               ) : (
-                ""
+                ''
               )}
             </div>
           </div>

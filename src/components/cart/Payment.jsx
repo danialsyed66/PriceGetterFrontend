@@ -1,19 +1,19 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import {
   useStripe,
   useElements,
   CardNumberElement,
   CardExpiryElement,
   CardCvcElement,
-} from "@stripe/react-stripe-js";
-import Swal from "sweetalert2";
+} from '@stripe/react-stripe-js';
+import Swal from 'sweetalert2';
 
-import MetaData from "../layouts/MetaData";
-import CheckoutSteps from "../layouts/CheckoutSteps";
-import { createOrder } from "../../redux/actions/orderActions";
+import MetaData from '../layouts/MetaData';
+import CheckoutSteps from '../layouts/CheckoutSteps';
+import { createOrder } from '../../redux/actions/orderActions';
 
 const Payment = () => {
   const dispatch = useDispatch();
@@ -26,22 +26,22 @@ const Payment = () => {
 
   const options = {
     style: {
-      base: { fontSize: "16px", backgroundColor: "white" },
-      invalid: { color: "red" },
+      base: { fontSize: '16px', backgroundColor: 'white' },
+      invalid: { color: 'red' },
     },
   };
 
-  const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
+  const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'));
   const paymentData = { amount: Math.round(orderInfo.total * 100) };
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
 
-      if (document.getElementById("pay_btn"))
-        document.getElementById("pay_btn").disabled = true;
+      if (document.getElementById('pay_btn'))
+        document.getElementById('pay_btn').disabled = true;
 
-      const { data } = await axios.post("/api/v1/payment/process", paymentData);
+      const { data } = await axios.post('/api/v1/payment/process', paymentData);
 
       const { clientSecret } = data.data;
 
@@ -59,21 +59,21 @@ const Payment = () => {
 
       if (result.error) {
         Swal.fire({
-          position: "top-end",
-          icon: "error",
+          position: 'top-end',
+          icon: 'error',
           title: result.error.message,
           showConfirmButton: true,
           timer: 2000,
         });
 
-        if (document.getElementById("pay_btn"))
-          document.getElementById("pay_btn").disabled = false;
+        if (document.getElementById('pay_btn'))
+          document.getElementById('pay_btn').disabled = false;
 
         return;
       }
 
-      if (result.paymentIntent.status === "succeeded") {
-        const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
+      if (result.paymentIntent.status === 'succeeded') {
+        const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'));
 
         const order = {
           orderItems: cartItems,
@@ -89,21 +89,21 @@ const Payment = () => {
         };
 
         dispatch(createOrder(order));
-        navigate("/success");
+        navigate('/success');
 
         return;
       }
 
       Swal.fire({
-        position: "top-end",
-        icon: "error",
-        title: "There is some error while payment processing",
+        position: 'top-end',
+        icon: 'error',
+        title: 'There is some error while payment processing',
         showConfirmButton: true,
         timer: 2000,
       });
     } catch (err) {
-      if (document.getElementById("pay_btn"))
-        document.getElementById("pay_btn").disabled = false;
+      if (document.getElementById('pay_btn'))
+        document.getElementById('pay_btn').disabled = false;
       console.log(err);
       console.log(err?.response?.data?.message);
     }
@@ -111,7 +111,7 @@ const Payment = () => {
 
   return (
     <>
-      <MetaData title={"Payment Page"} />
+      <MetaData title={'Payment Page'} />
 
       <CheckoutSteps shipping confirmOrder payment />
 

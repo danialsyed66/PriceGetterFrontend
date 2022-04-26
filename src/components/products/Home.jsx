@@ -1,17 +1,17 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import PropTypes from "prop-types";
-import useScrollTrigger from "@mui/material/useScrollTrigger";
-import "./Home.css";
-import Product from "./Product";
-import { Category, Footer, Navbar, Header, Loader } from "../layouts";
-import Zoom from "@mui/material/Zoom";
-import { AppBar } from "@mui/material";
-import Fab from "@mui/material/Fab";
-import Box from "@mui/material/Box";
-import uparrow from "../../assets/arrow-up-short.svg";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import PropTypes from 'prop-types';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+import './Home.css';
+import Product from './Product';
+import { Category, Footer, Navbar, Header, Loader } from '../layouts';
+import Zoom from '@mui/material/Zoom';
+import { AppBar } from '@mui/material';
+import Fab from '@mui/material/Fab';
+import Box from '@mui/material/Box';
+import uparrow from '../../assets/arrow-up-short.svg';
 function ScrollTop(props) {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -25,13 +25,13 @@ function ScrollTop(props) {
 
   const handleClick = (event) => {
     const anchor = (event.target.ownerDocument || document).querySelector(
-      "#back-to-top-anchor"
+      '#back-to-top-anchor'
     );
 
     if (anchor) {
       anchor.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
+        behavior: 'smooth',
+        block: 'center',
       });
     }
   };
@@ -41,7 +41,7 @@ function ScrollTop(props) {
       <Box
         onClick={handleClick}
         role="presentation"
-        sx={{ position: "fixed", bottom: 16, right: 16 }}
+        sx={{ position: 'fixed', bottom: 16, right: 16 }}
       >
         {children}
       </Box>
@@ -198,7 +198,7 @@ const Home = (props) => {
             color="secondary"
             size="small"
             aria-label="scroll back to top"
-            style={{ backgroundColor: "green" }}
+            style={{ backgroundColor: 'green' }}
           >
             <img src={uparrow} alt="" />
           </Fab>

@@ -10,7 +10,7 @@ import { saveShippingInfo } from '../../redux/actions/cartActions';
 const Shipping = () => {
   const countryList = Object.values(countries);
 
-  const { shippingInfo } = useSelector(state => state.cart);
+  const { shippingInfo } = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Shipping = () => {
   const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
   const [country, setCountry] = useState(shippingInfo.country);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     dispatch(
@@ -54,7 +54,7 @@ const Shipping = () => {
                 id="address_field"
                 className="form-control"
                 value={address}
-                onChange={e => setAddress(e.target.value)}
+                onChange={(e) => setAddress(e.target.value)}
                 required
               />
             </div>
@@ -66,7 +66,7 @@ const Shipping = () => {
                 id="city_field"
                 className="form-control"
                 value={city}
-                onChange={e => setCity(e.target.value)}
+                onChange={(e) => setCity(e.target.value)}
                 required
               />
             </div>
@@ -78,7 +78,7 @@ const Shipping = () => {
                 id="phone_field"
                 className="form-control"
                 value={phoneNo}
-                onChange={e => setPhoneNo(e.target.value)}
+                onChange={(e) => setPhoneNo(e.target.value)}
                 required
               />
             </div>
@@ -90,7 +90,7 @@ const Shipping = () => {
                 id="postal_code_field"
                 className="form-control"
                 value={postalCode}
-                onChange={e => setPostalCode(e.target.value)}
+                onChange={(e) => setPostalCode(e.target.value)}
                 required
               />
             </div>
@@ -101,7 +101,7 @@ const Shipping = () => {
                 id="country_field"
                 className="form-control"
                 value={country}
-                onChange={e => setCountry(e.target.value)}
+                onChange={(e) => setCountry(e.target.value)}
                 required
               >
                 {countryList.map(({ name }) => (

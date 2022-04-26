@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Checkbox,
   FormControl,
@@ -7,13 +7,13 @@ import {
   Radio,
   RadioGroup,
   Slider,
-} from "@mui/material";
+} from '@mui/material';
 
-import "./Home.css";
-import { Product } from ".";
-import { Footer, Navbar, Loader, CATEGORIES, SELLERS } from "../layouts";
-import { getProducts } from "../../redux/actions/productActions";
-import { updateFilters } from "../../redux/actions/filterActions";
+import './Home.css';
+import { Product } from '.';
+import { Footer, Navbar, Loader, CATEGORIES, SELLERS } from '../layouts';
+import { getProducts } from '../../redux/actions/productActions';
+import { updateFilters } from '../../redux/actions/filterActions';
 
 const Filter = () => {
   const handleChange = (event, newValue) => {
@@ -143,12 +143,12 @@ const Filter = () => {
       <section id="products" className="container-fluid mt-5">
         <div className="row mt-4">
           <div className="col-md-2">
-            <h4 style={{ fontWeight: "bold" }}>Filters</h4>
+            <h4 style={{ fontWeight: 'bold' }}>Filters</h4>
             <div className="mb-3 pl-3">
-              <p style={{ margin: "0", fontWeight: "bold" }}>Price</p>
+              <p style={{ margin: '0', fontWeight: 'bold' }}>Price</p>
               <Slider
                 color="secondary"
-                sx={{ width: "200px" }}
+                sx={{ width: '200px' }}
                 value={priceRange}
                 onChange={handleChange}
                 valueLabelDisplay="auto"
@@ -189,7 +189,7 @@ const Filter = () => {
               </RadioGroup>
             </FormControl>
             <div className="d-flex mb-2">
-              <p style={{ margin: "0", fontWeight: "bold" }}>Categorys</p>
+              <p style={{ margin: '0', fontWeight: 'bold' }}>Categorys</p>
             </div>
 
             {CATEGORIES.map(({ val }, i) => (
@@ -203,12 +203,12 @@ const Filter = () => {
                   checked={categoriesCheckBox[i]}
                   onChange={() => categoriesCheckBoxHandler(i)}
                 />
-                <p style={{ margin: "0" }}>{val}</p>
+                <p style={{ margin: '0' }}>{val}</p>
               </div>
             ))}
 
             <div className="d-flex mb-2">
-              <p style={{ margin: "0", fontWeight: "bold" }}>From Sites</p>
+              <p style={{ margin: '0', fontWeight: 'bold' }}>From Sites</p>
             </div>
             {SELLERS.map(({ val, text }, i) => (
               <div className="d-flex mb-2" key={val}>
@@ -221,7 +221,7 @@ const Filter = () => {
                   checked={sellerCheckBox[i]}
                   onChange={() => sellerCheckBoxHandler(i)}
                 />
-                <p style={{ margin: "0" }}>{text}</p>
+                <p style={{ margin: '0' }}>{text}</p>
               </div>
             ))}
           </div>

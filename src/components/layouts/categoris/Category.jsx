@@ -1,5 +1,5 @@
-import React from "react";
-import icons from "./icons";
+import React from 'react';
+import icons from './icons';
 
 const Category = () => {
   return (
@@ -7,8 +7,11 @@ const Category = () => {
       <div className="row">
         {icons.map(({ src, text, val }) => {
           return (
-            <div className="col-md-2 col-6 d-flex flex-column justify-content-center align-items-center py-2">
-              <img className="w- w-25" src={src} alt="" />
+            <div
+              className="col-md-2 col-6 d-flex flex-column justify-content-center align-items-center py-2"
+              key={text}
+            >
+              <img className="w- w-25" src={src} alt={text} />
               <h4>{text}</h4>
             </div>
           );

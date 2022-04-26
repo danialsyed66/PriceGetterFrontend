@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { MetaData, Loader } from "../layouts";
-import { getOrderDetails } from "../../redux/actions/orderActions";
+import { MetaData, Loader } from '../layouts';
+import { getOrderDetails } from '../../redux/actions/orderActions';
 
 const MyOrders = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const MyOrders = () => {
   } = order;
   const { id } = useParams();
 
-  const isPaid = paymentInfo?.status === "succeeded";
+  const isPaid = paymentInfo?.status === 'succeeded';
 
   useEffect(() => {
     dispatch(getOrderDetails(id));
@@ -46,7 +46,7 @@ const MyOrders = () => {
               <b>Phone:</b> {shippingInfo?.phoneNo}
             </p>
             <p className="mb-4">
-              <b>Address:</b> {shippingInfo?.address}, {shippingInfo?.city},{" "}
+              <b>Address:</b> {shippingInfo?.address}, {shippingInfo?.city},{' '}
               {shippingInfo?.postalCode}, {shippingInfo?.country}
             </p>
             <p>
@@ -56,16 +56,16 @@ const MyOrders = () => {
             <hr />
 
             <h4 className="my-4">Payment</h4>
-            <p className={isPaid ? "greenColor" : "redColor"}>
-              <b>{isPaid ? "PAID" : "NOT PAID"}</b>
+            <p className={isPaid ? 'greenColor' : 'redColor'}>
+              <b>{isPaid ? 'PAID' : 'NOT PAID'}</b>
             </p>
 
             <h4 className="my-4">Order Status:</h4>
             <p
               className={
-                orderStatus && String(orderStatus).includes("Delivered")
-                  ? "greenColor"
-                  : "redColor"
+                orderStatus && String(orderStatus).includes('Delivered')
+                  ? 'greenColor'
+                  : 'redColor'
               }
             >
               <b>{orderStatus}</b>
@@ -80,7 +80,7 @@ const MyOrders = () => {
                   <div className="col-4 col-lg-2">
                     <img
                       src={item.image}
-                      alt={item.name.split(" ").splice(0, 2).join(" ")}
+                      alt={item.name.split(' ').splice(0, 2).join(' ')}
                       height="45"
                       width="65"
                     />
@@ -96,7 +96,7 @@ const MyOrders = () => {
 
                   <div className="col-4 col-lg-3 mt-4 mt-lg-0">
                     <p>
-                      {item.quantity} Piece{item.quantity > 1 && "s"}
+                      {item.quantity} Piece{item.quantity > 1 && 's'}
                     </p>
                   </div>
                 </div>

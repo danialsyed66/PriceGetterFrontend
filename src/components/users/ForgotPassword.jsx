@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
-import { MetaData, Loader } from "../layouts";
-import { forgotPassword } from "../../redux/actions/forgotPasswordActions";
-import { FORGOT_PASSWORD_RESET } from "../../redux/consts";
+import { MetaData, Loader } from '../layouts';
+import { forgotPassword } from '../../redux/actions/forgotPasswordActions';
+import { FORGOT_PASSWORD_RESET } from '../../redux/consts';
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   const { loading, mailSent, message, error } = useSelector(
     (state) => state.forgotPassword
@@ -19,18 +19,18 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuth) return navigate("/");
+    if (isAuth) return navigate('/');
 
     if (mailSent) {
       Swal.fire({
-        position: "top-end",
-        icon: "success",
+        position: 'top-end',
+        icon: 'success',
         title: message,
         showConfirmButton: true,
         timer: 2000,
       });
 
-      navigate("/");
+      navigate('/');
 
       dispatch({ type: FORGOT_PASSWORD_RESET });
     }

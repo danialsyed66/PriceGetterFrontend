@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 
-import "./Detailpage.css";
+import './Detailpage.css';
 
-import ListReviews from "./ListReviews.jsx";
+import ListReviews from './ListReviews';
 import {
   getProductDetails,
   newReview,
-} from "../../../redux/actions/productActions";
-import { addToCart } from "./../../../redux/actions/cartActions";
-import { NEW_REVIEW_RESET } from "./../../../redux/consts";
+} from '../../../redux/actions/productActions';
+import { addToCart } from './../../../redux/actions/cartActions';
+import { NEW_REVIEW_RESET } from './../../../redux/consts';
 
 const DetailPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const [sellectedImage, setSellectedImage] = useState("");
+  const [sellectedImage, setSellectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [userRating, setUserRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
 
   const { /* loading, */ product } = useSelector(
     (state) => state.productDetails
@@ -53,43 +53,49 @@ const DetailPage = () => {
   };
 
   const increaseQuantity = () => {
-    if (quantity >= stock) return;
+    if (quantity >= +stock) return;
 
     setQuantity(quantity + 1);
   };
 
   const handleAddCart = () => {
-    if (stock < 1) return;
+    if (+stock < 1) return;
 
-    addToCart(product);
+    dispatch(addToCart(product));
 
-    alert.success("Product added to cart");
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Product added to cart',
+      showConfirmButton: true,
+      timer: 2000,
+    });
   };
 
   const setUserReview = () => {
-    const stars = document.querySelectorAll(".star");
+    const stars = document.querySelectorAll('.star');
 
     stars?.forEach((star, index) => {
       star.starValue = index + 1;
 
-      ["click", "mouseover", "mouseout"].forEach((event) => {
+      ['click', 'mouseover', 'mouseout'].forEach((event) => {
         star.addEventListener(event, showRatings);
       });
     });
 
     function showRatings(e) {
       stars?.forEach((star, index) => {
-        if (e.type === "click")
+        if (e.type === 'click')
           if (index < this.starValue) {
-            star.classList.add("orange");
+            star.classList.add('orange');
             setUserRating(this.starValue);
-          } else star.classList.remove("orange");
+          } else star.classList.remove('orange');
 
-        if (e.type === "mouseover")
-          if (index < this.starValue) star.classList.add("yellow");
-          else star.classList.remove("yellow");
+        if (e.type === 'mouseover')
+          if (index < this.starValue) star.classList.add('yellow');
+          else star.classList.remove('yellow');
 
-        if (e.type === "mouseout") star.classList.remove("yellow");
+        if (e.type === 'mouseout') star.classList.remove('yellow');
       });
     }
   };
@@ -111,12 +117,13 @@ const DetailPage = () => {
     if (!reviewSuccess) return;
 
     Swal.fire({
-      position: "top-end",
-      icon: "success",
+      position: 'top-end',
+      icon: 'success',
       title: reviewMessage,
       showConfirmButton: true,
       timer: 2000,
     });
+
     dispatch({ type: NEW_REVIEW_RESET });
   }, [dispatch, id, reviewSuccess, reviewMessage]);
 
@@ -130,6 +137,7 @@ const DetailPage = () => {
                 <div
                   className="small_pic p-2 my-2"
                   onClick={() => setSellectedImage(image?.url)}
+                  key={image?.url}
                 >
                   <img src={image?.url} alt="" />
                 </div>
@@ -154,7 +162,7 @@ const DetailPage = () => {
               ></div>
             </div>
             <span id="no_of_reviews">
-              ({noOfReviews} {noOfReviews === 1 ? "Review" : "Reviews"})
+              ({noOfReviews} {noOfReviews === 1 ? 'Review' : 'Reviews'})
             </span>
             <hr />
             <p id="product_price">{`$${price}`}</p>
@@ -177,7 +185,7 @@ const DetailPage = () => {
               <button
                 className="btn btn-primary plus"
                 onClick={increaseQuantity}
-                disabled={quantity >= stock}
+                disabled={quantity >= +stock}
               >
                 +
               </button>
@@ -187,15 +195,15 @@ const DetailPage = () => {
               id="cart_btn"
               className="btn btn-primary d-inline ml-4"
               onClick={handleAddCart}
-              disabled={stock < 1}
+              disabled={+stock < 1}
             >
               Add to Cart
             </button>
             <hr />
             <p>
-              Status:{" "}
+              Status:{' '}
               <span id="stock_status">
-                {stock > 0 ? "In Stock" : "Out of Stock"}
+                {+stock > 0 ? 'In Stock' : 'Out of Stock'}
               </span>
             </p>
             <hr />
@@ -246,8 +254,8 @@ const DetailPage = () => {
                     <div className="modal-body">
                       <ul className="stars">
                         <li className="star">
-                          {" "}
-                          <i className="fa fa-star"></i>{" "}
+                          {' '}
+                          <i className="fa fa-star"></i>{' '}
                         </li>
                         <li className="star">
                           <i className="fa fa-star"></i>

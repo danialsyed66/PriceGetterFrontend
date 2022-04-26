@@ -13,7 +13,7 @@ import {
   CLEAR_ERRORS,
 } from '../consts';
 
-export const updateProfile = userData => async dispatch => {
+export const updateProfile = (userData) => async (dispatch) => {
   try {
     dispatch({
       type: UPDATE_PROFILE_REQUEST,
@@ -35,7 +35,7 @@ export const updateProfile = userData => async dispatch => {
   }
 };
 
-export const changePassword = userData => async dispatch => {
+export const changePassword = (userData) => async (dispatch) => {
   try {
     dispatch({
       type: CHANGE_PASSWORD_REQUEST,
@@ -55,7 +55,7 @@ export const changePassword = userData => async dispatch => {
   }
 };
 
-export const handleFavourite = productId => async dispatch => {
+export const handleFavourite = (productId) => async (dispatch) => {
   try {
     dispatch({
       type: HANDLE_FAVOURITE_REQUEST,

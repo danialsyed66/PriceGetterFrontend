@@ -1,16 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import MetaData from '../layouts/MetaData';
+import MetaData from "../layouts/MetaData";
 
 const Success = () => {
   return (
     <>
       <MetaData title="Order Success" />
 
-      <div class="col-6 mt-5 text-center">
+      <div className="col-6 mt-5 text-center">
         <img
-          class="my-5 img-fluid d-block mx-auto"
+          className="my-5 img-fluid d-block mx-auto"
           src="https://freepngimg.com/thumb/success/6-2-success-png-image.png"
           alt="Order Success"
           width="200"

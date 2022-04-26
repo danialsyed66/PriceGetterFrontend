@@ -10,7 +10,7 @@ import {
   CLEAR_ERRORS,
 } from '../consts';
 
-export const forgotPassword = email => async dispatch => {
+export const forgotPassword = (email) => async (dispatch) => {
   try {
     dispatch({
       type: FORGOT_PASSWORD_REQUEST,
@@ -30,7 +30,7 @@ export const forgotPassword = email => async dispatch => {
   }
 };
 
-export const resetPassword = (token, userData) => async dispatch => {
+export const resetPassword = (token, userData) => async (dispatch) => {
   try {
     dispatch({
       type: RESET_PASSWORD_REQUEST,

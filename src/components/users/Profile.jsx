@@ -1,8 +1,8 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { MetaData, Loader } from "../layouts";
+import { MetaData, Loader } from '../layouts';
 
 const Profile = ({ user, loading }) => {
   return (
@@ -42,7 +42,7 @@ const Profile = ({ user, loading }) => {
               <h4>Joined On</h4>
               <p>{String(user.createdAt).substring(0, 10)}</p>
 
-              {user.role !== "admin" && (
+              {user.role !== 'admin' && (
                 <Link to="/orders" className="btn btn-danger btn-block mt-5">
                   My Orders
                 </Link>

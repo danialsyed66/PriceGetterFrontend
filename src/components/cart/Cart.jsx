@@ -6,7 +6,7 @@ import MetaData from '../layouts/MetaData';
 import { removeFromCart, updateCart } from '../../redux/actions/cartActions';
 
 const Cart = () => {
-  const { cartItems } = useSelector(state => state.cart);
+  const { cartItems } = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

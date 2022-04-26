@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 // import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 // import { MDBDataTable } from "mdbreact";
 
-import { MetaData, Loader } from "../layouts";
-import { getMyOrders } from "../../redux/actions/orderActions";
+import { MetaData, Loader } from '../layouts';
+import { getMyOrders } from '../../redux/actions/orderActions';
 
 const MyOrders = () => {
   const dispatch = useDispatch();

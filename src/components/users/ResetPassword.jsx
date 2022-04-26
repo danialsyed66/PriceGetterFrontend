@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import Swal from "sweetalert2";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
-import { MetaData, Loader } from "../layouts";
-import { resetPassword } from "../../redux/actions/forgotPasswordActions";
-import { RESET_PASSWORD_RESET } from "../../redux/consts";
+import { MetaData, Loader } from '../layouts';
+import { resetPassword } from '../../redux/actions/forgotPasswordActions';
+import { RESET_PASSWORD_RESET } from '../../redux/consts';
 
 const ResetPassword = () => {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const { loading, isReset, error } = useSelector(
     (state) => state.forgotPassword
@@ -21,18 +21,18 @@ const ResetPassword = () => {
   const { token } = useParams();
 
   useEffect(() => {
-    if (isAuth) return navigate("/");
+    if (isAuth) return navigate('/');
 
     if (isReset) {
       Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Password reset successfully. Plaeale Login.",
+        position: 'top-end',
+        icon: 'success',
+        title: 'Password reset successfully. Plaeale Login.',
         showConfirmButton: true,
         timer: 2000,
       });
 
-      navigate("/login");
+      navigate('/login');
 
       dispatch({ type: RESET_PASSWORD_RESET });
     }

@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
-import { MetaData, Loader } from "../layouts";
-import { changePassword } from "../../redux/actions/userActions";
-import { loadUser } from "../../redux/actions/authActions";
-import { CHANGE_PASSWORD_RESET } from "../../redux/consts";
+import { MetaData, Loader } from '../layouts';
+import { changePassword } from '../../redux/actions/userActions';
+import { loadUser } from '../../redux/actions/authActions';
+import { CHANGE_PASSWORD_RESET } from '../../redux/consts';
 
 const ChangePassword = () => {
-  const [oldPassword, setOldPassword] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,16 +21,16 @@ const ChangePassword = () => {
   useEffect(() => {
     if (isUpdated) {
       Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Password changed successfully",
+        position: 'top-end',
+        icon: 'success',
+        title: 'Password changed successfully',
         showConfirmButton: true,
         timer: 2000,
       });
 
       dispatch(loadUser());
 
-      navigate("/");
+      navigate('/');
 
       dispatch({ type: CHANGE_PASSWORD_RESET });
     }

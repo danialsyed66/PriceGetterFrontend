@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
-import { MetaData, Loader } from "../layouts";
-import { updateProfile } from "../../redux/actions/userActions";
-import { loadUser } from "../../redux/actions/authActions";
-import { UPDATE_PROFILE_RESET } from "../../redux/consts";
+import { MetaData, Loader } from '../layouts';
+import { updateProfile } from '../../redux/actions/userActions';
+import { loadUser } from '../../redux/actions/authActions';
+import { UPDATE_PROFILE_RESET } from '../../redux/consts';
 
 const UpdateProfile = () => {
   const navigate = useNavigate();
@@ -17,16 +17,16 @@ const UpdateProfile = () => {
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState('');
   const [avatarPreview, setAvatarPreview] = useState(
-    user.avatar ? user.avatar.url : "/images/default_avatar.jpg"
+    user.avatar ? user.avatar.url : '/images/default_avatar.jpg'
   );
 
   useEffect(() => {
     if (error)
       return Swal.fire({
-        position: "top-end",
-        icon: "error",
+        position: 'top-end',
+        icon: 'error',
         title: error,
         showConfirmButton: true,
         timer: 2000,
@@ -34,15 +34,15 @@ const UpdateProfile = () => {
 
     if (isUpdated) {
       Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "User updated successfully",
+        position: 'top-end',
+        icon: 'success',
+        title: 'User updated successfully',
         showConfirmButton: true,
         timer: 2000,
       });
       dispatch(loadUser());
 
-      navigate("/profile");
+      navigate('/profile');
 
       dispatch({
         type: UPDATE_PROFILE_RESET,
@@ -68,9 +68,9 @@ const UpdateProfile = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.set("name", name);
-    formData.set("email", email);
-    if (avatar) formData.set("avatar", avatar);
+    formData.set('name', name);
+    formData.set('email', email);
+    if (avatar) formData.set('avatar', avatar);
 
     dispatch(updateProfile(formData));
   };
