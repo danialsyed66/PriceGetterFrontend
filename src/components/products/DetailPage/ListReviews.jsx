@@ -5,6 +5,7 @@ import { deleteReview } from "../../../redux/actions/productActions";
 
 const ListReviews = ({ reviews, productId }) => {
   const dispatch = useDispatch();
+  console.log(reviews);
 
   const { isAuth, user } = useSelector((state) => state.auth);
 
@@ -13,7 +14,7 @@ const ListReviews = ({ reviews, productId }) => {
   };
 
   return (
-    <div className="reviews w-75">
+    <div className="reviews m-auto w-75">
       <h3>Other's Reviews:</h3>
       <hr />
       {reviews?.map((review) => (
@@ -24,9 +25,7 @@ const ListReviews = ({ reviews, productId }) => {
               style={{ width: `${(review.rating / 5) * 100}%` }}
             ></div>
           </div>
-          <p className="review_user">by {review.userName}</p>
           <p className="review_comment">{review.review}</p>
-
           {isAuth && user._id === review.user && (
             <button
               type="button"

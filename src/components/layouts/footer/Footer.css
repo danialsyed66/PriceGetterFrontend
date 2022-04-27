@@ -1,0 +1,16 @@
+.background_color {
+  background-color: #90ee90;
+  height: 300px;
+  margin-top: 40px;
+}
+.text_white {
+  color: white;
+  font-weight: bolder;
+  margin-top: 20px;
+  padding-top: 30px;
+}
+.p_white {
+  color: white;
+  font-weight: bold;
+  font-size: larger;
+}

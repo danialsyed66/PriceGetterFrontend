@@ -3,7 +3,7 @@ import {
   REMOVE_FROM_CART,
   UPDATE_CART,
   SAVE_SHIPPING_INFO,
-} from '../consts';
+} from "../consts";
 
 const reducer = (
   state = { cartItems: [], shippingInfo: {} },

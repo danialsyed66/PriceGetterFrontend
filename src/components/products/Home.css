@@ -153,11 +153,11 @@ footer {
   display: inline-block;
   position: relative;
   font-family: FontAwesome;
-  color: green;
+  color: #fdcc0d;
 }
 
 .rating-outer::before {
-  content: "\f006 ";
+  content: "\f006 \f006 \f006 \f006 \f006";
 }
 
 .rating-inner {
@@ -171,7 +171,7 @@ footer {
 
 .rating-inner::before {
   content: "\f005 \f005 \f005 \f005 \f005";
-  color: green;
+  color: #f8ce0b;
 }
 
 /* Product Details Page */
@@ -188,7 +188,7 @@ footer {
 #cart_btn,
 #review_btn {
   border-radius: 2rem;
-  background-color: #fa9c23;
+  background-color: rgba(62, 115, 17, 1);
   border: none;
   padding: 0.5rem 2rem;
 }
