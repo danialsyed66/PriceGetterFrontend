@@ -1,35 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 
-import "./Detailpage.css";
+import './Detailpage.css';
 
-import ListReviews from "./ListReviews";
+import ListReviews from './ListReviews';
 import {
   getProductDetails,
   newReview,
-} from "../../../redux/actions/productActions";
-import { addToCart } from "./../../../redux/actions/cartActions";
-import { NEW_REVIEW_RESET } from "./../../../redux/consts";
-import Navbar from "../../layouts/navbar/Navbar";
-import "../Home.css";
-import Footer from "../../layouts/footer/Footer";
+} from '../../../redux/actions/productActions';
+import { addToCart } from './../../../redux/actions/cartActions';
+import { NEW_REVIEW_RESET } from './../../../redux/consts';
+import Navbar from '../../layouts/navbar/Navbar';
+import '../Home.css';
+import Footer from '../../layouts/footer/Footer';
 const DetailPage = () => {
   const isImage = (url) =>
     /http(|s):(.*?).(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const [sellectedImage, setSellectedImage] = useState("");
+  const [sellectedImage, setSellectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const [userRating, setUserRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [userRating /* , setUserRating */] = useState(0);
+  const [comment, setComment] = useState('');
 
   const { /* loading, */ product } = useSelector(
     (state) => state.productDetails
   );
-  const { isAuth } = useSelector((state) => state.auth);
+  // const { isAuth } = useSelector((state) => state.auth);
   const { success: reviewSuccess, message: reviewMessage } = useSelector(
     (state) => state.review
   );
@@ -68,41 +68,41 @@ const DetailPage = () => {
     dispatch(addToCart({ ...product, quantity }));
 
     Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Product added to cart",
+      position: 'top-end',
+      icon: 'success',
+      title: 'Product added to cart',
       showConfirmButton: true,
       timer: 2000,
     });
   };
 
-  const setUserReview = () => {
-    const stars = document.querySelectorAll(".star");
+  // const setUserReview = () => {
+  //   const stars = document.querySelectorAll(".star");
 
-    stars?.forEach((star, index) => {
-      star.starValue = index + 1;
+  //   stars?.forEach((star, index) => {
+  //     star.starValue = index + 1;
 
-      ["click", "mouseover", "mouseout"].forEach((event) => {
-        star.addEventListener(event, showRatings);
-      });
-    });
+  //     ["click", "mouseover", "mouseout"].forEach((event) => {
+  //       star.addEventListener(event, showRatings);
+  //     });
+  //   });
 
-    function showRatings(e) {
-      stars?.forEach((star, index) => {
-        if (e.type === "click")
-          if (index < this.starValue) {
-            star.classList.add("orange");
-            setUserRating(this.starValue);
-          } else star.classList.remove("orange");
+  //   function showRatings(e) {
+  //     stars?.forEach((star, index) => {
+  //       if (e.type === "click")
+  //         if (index < this.starValue) {
+  //           star.classList.add("orange");
+  //           setUserRating(this.starValue);
+  //         } else star.classList.remove("orange");
 
-        if (e.type === "mouseover")
-          if (index < this.starValue) star.classList.add("yellow");
-          else star.classList.remove("yellow");
+  //       if (e.type === "mouseover")
+  //         if (index < this.starValue) star.classList.add("yellow");
+  //         else star.classList.remove("yellow");
 
-        if (e.type === "mouseout") star.classList.remove("yellow");
-      });
-    }
-  };
+  //       if (e.type === "mouseout") star.classList.remove("yellow");
+  //     });
+  //   }
+  // };
 
   const submitHandler = (e) => {
     newReview(_id, {
@@ -128,8 +128,8 @@ const DetailPage = () => {
     if (!reviewSuccess) return;
 
     Swal.fire({
-      position: "top-end",
-      icon: "success",
+      position: 'top-end',
+      icon: 'success',
       title: reviewMessage,
       showConfirmButton: true,
       timer: 2000,
@@ -144,7 +144,7 @@ const DetailPage = () => {
       <div className="p-2 m-5">
         <div className="row">
           <div className="col-md-1 offset-md-2">
-            <div className="boxs-img " style={{ cursor: "pointer" }}>
+            <div className="boxs-img " style={{ cursor: 'pointer' }}>
               {images?.map((image) => {
                 if (isImage(image?.url)) {
                   return (
@@ -157,20 +157,21 @@ const DetailPage = () => {
                     </div>
                   );
                 }
+                return <></>;
               })}
             </div>
           </div>
 
           <div
             className="col-md-4 d-flex justify-content-center align-items-center"
-            style={{ height: "400px" }}
+            style={{ height: '400px' }}
           >
             <div className=" d-flex flex-column justify-content-center align-items-center w-100">
               <p className="discount_bar p-1">{discount}</p>
 
               <img
                 className="w-75"
-                style={{ maxHeight: "350px" }}
+                style={{ maxHeight: '350px' }}
                 src={sellectedImage}
                 alt=""
               />
@@ -186,7 +187,7 @@ const DetailPage = () => {
               ></div>
             </div>
             <span id="no_of_reviews">
-              ({noOfReviews} {noOfReviews === 1 ? "Review" : "Reviews"})
+              ({noOfReviews} {noOfReviews === 1 ? 'Review' : 'Reviews'})
             </span>
             <hr />
             <p id="product_price">{`$${price}`}</p>
@@ -225,9 +226,9 @@ const DetailPage = () => {
             </button>
             <hr />
             <p>
-              Status:{" "}
+              Status:{' '}
               <span id="stock_status">
-                {stock > 0 ? "In Stock" : "Out of Stock"}
+                {stock > 0 ? 'In Stock' : 'Out of Stock'}
               </span>
             </p>
             <hr />
@@ -262,8 +263,8 @@ const DetailPage = () => {
                     <div className="modal-body">
                       <ul className="stars">
                         <li className="star">
-                          {" "}
-                          <i className="fa fa-star"></i>{" "}
+                          {' '}
+                          <i className="fa fa-star"></i>{' '}
                         </li>
                         <li className="star">
                           <i className="fa fa-star"></i>

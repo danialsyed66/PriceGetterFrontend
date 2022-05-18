@@ -1,11 +1,11 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import "../products/Home.css";
-import MetaData from "../layouts/MetaData";
-import { removeFromCart, updateCart } from "../../redux/actions/cartActions";
-import Navbar from "../layouts/navbar/Navbar";
-import Footer from "../layouts/footer/Footer";
+import React, { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import '../products/Home.css';
+import MetaData from '../layouts/MetaData';
+import { removeFromCart, updateCart } from '../../redux/actions/cartActions';
+import Navbar from '../layouts/navbar/Navbar';
+// import Footer from "../layouts/footer/Footer";
 
 const Cart = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -79,7 +79,7 @@ const Cart = () => {
                           <div className="col-4 col-lg-2">
                             <img
                               src={images[0]?.url}
-                              alt={"Laptop"}
+                              alt={'Laptop'}
                               height="90"
                               width="115"
                             />
@@ -142,13 +142,13 @@ const Cart = () => {
                   <h4>Order Summary</h4>
                   <hr />
                   <p>
-                    Subtotal:{" "}
+                    Subtotal:{' '}
                     <span className="order-summary-values">
                       {totalUnits} (Units)
                     </span>
                   </p>
                   <p>
-                    Est. total:{" "}
+                    Est. total:{' '}
                     <span className="order-summary-values">
                       Rs. {totalPrice.toFixed(2)}
                     </span>
@@ -158,7 +158,7 @@ const Cart = () => {
                   <button
                     id="checkout_btn"
                     className="btn btn-primary btn-block"
-                    onClick={() => navigate("/login?redirect=shipping")}
+                    onClick={() => navigate('/login?redirect=shipping')}
                   >
                     Check out
                   </button>

@@ -22,9 +22,11 @@ const DetailPage = lazy(() => import('./products/DetailPage/DetailPage'));
 const SELLER = lazy(() => import('./users/login-signup/SELLER'));
 const Login = lazy(() => import('./users/login-signup/Login'));
 const Signup = lazy(() => import('./users/login-signup/Signup'));
-// const ForgetPassword = lazy(() =>import("./users/login-signup/ForgotPassword"));
-// const SetPassword = lazy(() => import("./users/login-signup/SetPassword"));
-// const VerifyOpt = lazy(() => import("./users/login-signup/OptVerify"));
+const ForgetPassword = lazy(() =>
+  import('./users/login-signup/ForgotPassword')
+);
+const SetPassword = lazy(() => import('./users/login-signup/SetPassword'));
+const VerifyOpt = lazy(() => import('./users/login-signup/OptVerify'));
 
 const ProtectedRoute = lazy(() => import('./layouts/ProtectedRoute'));
 const Profile = lazy(() => import('./users/Profile'));
@@ -147,9 +149,9 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
             <Route path="/seller/add" element={<SELLER />} />
-            {/* <Route path="/setpassword" element={<SetPassword />} />
+            <Route path="/setpassword" element={<SetPassword />} />
             <Route path="/optverify" element={<VerifyOpt />} />
-            <Route path="/forgetpassword" element={<ForgetPassword />} /> */}
+            <Route path="/forgetpassword" element={<ForgetPassword />} />
             <Route path="/password/forgot" exact element={<ForgotPassword />} />
             <Route path="/cart" exact element={<Cart />} />
             <Route

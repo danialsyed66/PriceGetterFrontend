@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../redux/actions/axios';
 import {
   useStripe,
   useElements,
@@ -43,9 +43,15 @@ const Payment = () => {
 
       const { data } = await axios.post('/api/v1/payment/process', paymentData);
 
+      console.log(data);
+
       const { clientSecret } = data.data;
 
+      console.log(clientSecret);
+
       if (!stripe || !elements) return;
+
+      console.log(1);
 
       const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -56,6 +62,8 @@ const Payment = () => {
           },
         },
       });
+
+      console.log(result);
 
       if (result.error) {
         Swal.fire({
