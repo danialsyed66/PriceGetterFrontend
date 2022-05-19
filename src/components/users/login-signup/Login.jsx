@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
-import Swal from 'sweetalert2';
 import * as Yup from 'yup';
 import { Button, FormControl, IconButton, Stack } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { Field, Form, Formik } from 'formik';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import './Login.css';
+
 import eye from '../../../assets/eye.svg';
 import eyeslash from '../../../assets/eye-slash.svg';
-import Facebook from '../../../assets/Facebook';
-import Twitter from '../../../assets/Twitter';
-import Google from '../../../assets/Google';
-import Done from '../../../assets/Done';
-import { Field, Form, Formik } from 'formik';
-import './Login.css';
+import Facebook from '../../../utils/Facebook';
+import Twitter from '../../../utils/Twitter';
+import Google from '../../../utils/Google';
+import Done from '../../../utils/Done';
+
 import priceGetter from '../../../assets/PriceGetter.svg';
 import { InputText } from './InputText';
 import { login } from '../../../redux/actions/authActions';
 import { SERVER_URI } from '../../../redux/consts';
-import { useLocation, useNavigate } from 'react-router-dom';
+import fire from '../../../utils/swal';
 
 const LoginPage = () => {
   const SignupSchema = Yup.object().shape({
@@ -56,13 +59,7 @@ const LoginPage = () => {
     if (isAuth) {
       if (redirect) return navigate(`/${redirect}`);
 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'User Sign In Successfully!!!',
-        showConfirmButton: true,
-        timer: 2000,
-      });
+      fire('User Sign In Successfully!', 'success');
 
       navigate('/');
     }

@@ -1,4 +1,4 @@
-import axios from './axios';
+import axios from '../../utils/axios';
 
 import {
   FORGOT_PASSWORD_REQUEST,

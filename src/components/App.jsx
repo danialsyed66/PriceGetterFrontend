@@ -3,17 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import Swal from "sweetalert2";
 
 import "./App.css";
 
-import { Loader } from "./layouts";
+import { Loader, NotFound } from "./layouts";
 import {
   loadUser,
   clearErrors,
   socialLogin,
 } from "../redux/actions/authActions";
-import axios from "../redux/actions/axios";
+import axios from "../utils/axios";
+import fire from "../utils/swal";
 import { getHome } from "../redux/actions/homeActions";
 import { HANDLE_FAVOURITE_RESET } from "../redux/consts";
 const Home = lazy(() => import("./products/Home"));
@@ -41,6 +41,8 @@ const Payment = lazy(() => import("./cart/Payment"));
 const Success = lazy(() => import("./cart/Success"));
 const MyOrders = lazy(() => import("./order/MyOrders"));
 const OrderDetails = lazy(() => import("./order/OrderDetails"));
+const Forum = lazy(() => import("./forums/Forum"));
+const Wishlist = lazy(() => import("./users/Wishlist"));
 
 const App = () => {
   const [stripeKey, setStripeKey] = useState("");
@@ -63,18 +65,10 @@ const App = () => {
     (state) => state.orderDetails
   );
   const { error: reviewError } = useSelector((state) => state.review);
+  const { error: forumsError } = useSelector((state) => state.forums);
 
   const { isAuth } = useSelector((state) => state.auth);
   const { isUpdated } = useSelector((state) => state.user);
-
-  const fire = (error) =>
-    Swal.fire({
-      position: "top-end",
-      icon: "error",
-      title: error,
-      showConfirmButton: true,
-      timer: 2000,
-    });
 
   useEffect(() => {
     if (productsError) fire(productsError);
@@ -88,6 +82,7 @@ const App = () => {
     if (myOrdersError) fire(myOrdersError);
     if (orderDetailsError) fire(orderDetailsError);
     if (reviewError) fire(reviewError);
+    if (forumsError[1]) fire(forumsError[1]);
 
     dispatch(clearErrors());
   }, [
@@ -103,6 +98,7 @@ const App = () => {
     myOrdersError,
     orderDetailsError,
     reviewError,
+    forumsError,
   ]);
 
   useEffect(() => {
@@ -154,6 +150,8 @@ const App = () => {
             <Route path="/forgetpassword" element={<ForgetPassword />} />
             <Route path="/password/forgot" exact element={<ForgotPassword />} />
             <Route path="/cart" exact element={<Cart />} />
+            <Route path="/forums" exact element={<Forum />} />
+            <Route path="/wishlist" exact element={<Wishlist />} />
             <Route
               path="/password/reset/:token"
               exact
@@ -244,6 +242,7 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            <Route path="/*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </Suspense>

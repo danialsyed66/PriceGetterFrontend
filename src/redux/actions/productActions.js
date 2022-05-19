@@ -1,4 +1,4 @@
-import axios from './axios';
+import axios from '../../utils/axios';
 
 import {
   ALL_PRODUCTS_REQUEST,
@@ -88,11 +88,11 @@ export const getProducts = (filters) => async (dispatch, getState) => {
         },
       },
     });
-  } catch (err) {
+  } catch (error) {
     dispatch({
       type: ALL_PRODUCTS_FAIL,
       payload: {
-        error: err?.response?.data?.message || 'Could not get all products',
+        error: error?.response?.data?.message || 'Could not get all products',
       },
     });
   }
@@ -114,11 +114,11 @@ export const getProductDetails = (id) => async (dispatch) => {
       type: PRODUCT_DETAILS_SUCCESS,
       payload: { product: data },
     });
-  } catch (err) {
+  } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
       payload: {
-        error: err?.response?.data?.message || 'Could not get the product',
+        error: error?.response?.data?.message || 'Could not get the product',
       },
     });
   }
@@ -142,11 +142,11 @@ export const newReview = (productId, review) => async (dispatch) => {
         message: data.message,
       },
     });
-  } catch (err) {
+  } catch (error) {
     dispatch({
       type: NEW_REVIEW_FAIL,
       payload: {
-        error: err?.response?.data?.message || 'Could not get the product',
+        error: error?.response?.data?.message || 'Could not get the product',
       },
     });
   }
@@ -170,11 +170,11 @@ export const deleteReview = (productId, reviewId) => async (dispatch) => {
         message: data.message,
       },
     });
-  } catch (err) {
+  } catch (error) {
     dispatch({
       type: DELETE_REVIEW_FAIL,
       payload: {
-        error: err?.response?.data?.message || 'Could not get the product',
+        error: error?.response?.data?.message || 'Could not get the product',
       },
     });
   }

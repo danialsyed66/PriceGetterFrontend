@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../utils/axios';
 import {
   useStripe,
   useElements,
@@ -9,11 +9,11 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from '@stripe/react-stripe-js';
-import Swal from 'sweetalert2';
 
 import MetaData from '../layouts/MetaData';
 import CheckoutSteps from '../layouts/CheckoutSteps';
 import { createOrder } from '../../redux/actions/orderActions';
+import fire from '../../utils/swal';
 
 const Payment = () => {
   const dispatch = useDispatch();
@@ -57,14 +57,10 @@ const Payment = () => {
         },
       });
 
+      console.log(result);
+
       if (result.error) {
-        Swal.fire({
-          position: 'top-end',
-          icon: 'error',
-          title: result.error.message,
-          showConfirmButton: true,
-          timer: 2000,
-        });
+        fire(result.error.message);
 
         if (document.getElementById('pay_btn'))
           document.getElementById('pay_btn').disabled = false;
@@ -94,13 +90,7 @@ const Payment = () => {
         return;
       }
 
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'There is some error while payment processing',
-        showConfirmButton: true,
-        timer: 2000,
-      });
+      fire('There is some error while payment processing!');
     } catch (err) {
       if (document.getElementById('pay_btn'))
         document.getElementById('pay_btn').disabled = false;

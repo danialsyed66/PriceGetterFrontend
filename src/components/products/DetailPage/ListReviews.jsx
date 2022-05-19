@@ -1,11 +1,10 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { deleteReview } from "../../../redux/actions/productActions";
+import { deleteReview } from '../../../redux/actions/productActions';
 
 const ListReviews = ({ reviews, productId }) => {
   const dispatch = useDispatch();
-  console.log(reviews);
 
   const { isAuth, user } = useSelector((state) => state.auth);
 
@@ -15,7 +14,7 @@ const ListReviews = ({ reviews, productId }) => {
 
   return (
     <div className="reviews m-auto w-75">
-      <h3>Other's Reviews:</h3>
+      <h3>User's Reviews:</h3>
       <hr />
       {reviews?.map((review) => (
         <div className="review-card my-3" key={review._id}>

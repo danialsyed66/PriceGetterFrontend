@@ -24,17 +24,17 @@ const Menu = () => (
       </Link>
     </p>
     <p>
-      <Link className="nav-a" to="/login">
+      <Link className="nav-a" to="/wishlist">
         Wishlist
       </Link>
     </p>
     <p>
-      <Link className="nav-a" to="/login">
-        Forems
+      <Link className="nav-a" to="/forums">
+        Forums
       </Link>
     </p>
     <p>
-      <Link className="nav-a" to="/login">
+      <Link className="nav-a" to="/loginsss">
         Guide
       </Link>
     </p>

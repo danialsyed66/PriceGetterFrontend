@@ -4,7 +4,7 @@ import { Button, FormControl } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 
 import './Login.css';
-import axios from '../../../redux/actions/axios';
+import axios from '../../../utils/axios';
 import priceGetter from '../../../assets/PriceGetter.svg';
 import vector from '../../../assets/Vectors.svg';
 import { InputText } from './InputText';
@@ -13,7 +13,7 @@ const SignupPage = () => {
   const [logo, setLogo] = useState('');
   const [logoPreview, setlogoPreview] = useState('/default_avatar.jpg');
 
-  const handleLOgoUpload = e => {
+  const handleLOgoUpload = (e) => {
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -36,7 +36,7 @@ const SignupPage = () => {
       formData.set('user', user);
       if (logo) formData.set('logo', logo);
 
-      const create = async userData => {
+      const create = async (userData) => {
         const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
         await axios.post('/api/v1/seller', userData, config);

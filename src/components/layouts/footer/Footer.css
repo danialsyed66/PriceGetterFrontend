@@ -1,5 +1,5 @@
 .background_color {
-  background-color: #90ee90;
+  background-color: #e2e2e240;
   height: 300px;
   margin-top: 60px;
 }
@@ -13,4 +13,25 @@
   color: white;
   font-weight: bold;
   font-size: larger;
+}
+.lists_footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.lists_ul {
+  padding-top: 10px;
+  list-style-type: none;
+  display: flex;
+}
+.lists_ul li {
+  margin: 0 10px 0 10px;
+}
+.icons_list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icons_list img {
+  margin: 0 10px 0 10px;
 }

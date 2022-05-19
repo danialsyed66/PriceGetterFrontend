@@ -13,6 +13,7 @@ import orderReducer, {
 import reviewReducer from './reviewReducer';
 import homeReducer from './homeReducer';
 import filtersReducer from './filtersReducer';
+import forumsReducer from './forumsReducer';
 
 export default combineReducers({
   products: productsReducer,
@@ -27,4 +28,5 @@ export default combineReducers({
   review: reviewReducer,
   home: homeReducer,
   filters: filtersReducer,
+  forums: forumsReducer,
 });
