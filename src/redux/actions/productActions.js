@@ -47,19 +47,19 @@ export const getProducts = (filters) => async (dispatch, getState) => {
       data: { data },
     } = await axios.get(link);
 
-    const { products: prevProducts } = getState();
+    const { products: prevProducts, filters: options } = getState();
 
-    const { options: prevOptions } = prevProducts;
+    // const { options: prevOptions } = prevProducts;
 
-    let newReq = false;
+    // let newReq = false;
 
-    if (prevOptions) {
-      if (prevOptions.keyword !== keyword) newReq = true;
-      if (prevOptions.category !== category) newReq = true;
-      if (prevOptions.rating !== rating) newReq = true;
-      if (prevOptions.priceRange[0] !== priceRange[0]) newReq = true;
-      if (prevOptions.priceRange[1] !== priceRange[1]) newReq = true;
-    }
+    // if (prevOptions) {
+    //   if (prevOptions.keyword !== keyword) newReq = true;
+    //   if (prevOptions.category !== category) newReq = true;
+    //   if (prevOptions.rating !== rating) newReq = true;
+    //   if (prevOptions.priceRange[0] !== priceRange[0]) newReq = true;
+    //   if (prevOptions.priceRange[1] !== priceRange[1]) newReq = true;
+    // }
 
     if (
       !(prevProducts.length + data.data.length === data.numOfDocs) &&
@@ -78,14 +78,7 @@ export const getProducts = (filters) => async (dispatch, getState) => {
         products: data.data,
         totalProducts: data.numOfDocs,
         resPerPage: data.resPerPage,
-        options: {
-          currentPage,
-          keyword,
-          priceRange,
-          category,
-          rating,
-          newReq,
-        },
+        options,
       },
     });
   } catch (error) {

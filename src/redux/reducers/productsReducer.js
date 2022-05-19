@@ -30,13 +30,15 @@ const reducer = (state = { products: [] }, { type, payload }) => {
       };
     case ALL_PRODUCTS_FAIL:
       return { ...state, loading: false, error: payload.error };
+
     case CLEAR_ERRORS:
       if (state?.options?.newReq)
-        return {
-          ...state,
-          error: null,
-          products: [],
-        };
+        if (state?.error)
+          return {
+            ...state,
+            error: null,
+            products: [],
+          };
 
       return {
         ...state,
