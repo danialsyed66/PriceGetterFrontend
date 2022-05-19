@@ -273,8 +273,8 @@ footer {
 
 #checkout_btn,
 .review-btn {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: green;
+  border-color: green;
   margin-top: 2rem;
   border-radius: 5rem;
 }
