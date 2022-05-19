@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 
 :root {
-  --font-family: "Manrope", sans-serif;
+  --font-family: 'Manrope', sans-serif;
 
   --gradient-text: linear-gradient(to right, #10181f 0%, #477ea8 100%);
 
@@ -16,3 +16,77 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.large {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.lead {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.post-form .post-form-header {
+  background: var(--primary-color);
+  padding: 0.5rem;
+}
+
+.post {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 2rem;
+  align-items: center;
+}
+
+.post > div:first-child {
+  text-align: center;
+}
+
+.post img {
+  width: 100px;
+}
+
+.post .comment-count {
+  background: var(--light-color);
+  color: var(--primary-color);
+  padding: 0.1rem 0.2rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.post .post-date {
+  color: #aaa;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.bg-white {
+  background: #fff;
+  color: #333;
+  border: #ccc solid 1px;
+}
+
+@media (max-width: 700px) {
+  .large {
+    font-size: 2rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+
+  .post {
+    grid-template-columns: 1fr;
+  }
+
+  .post a,
+  .post button {
+    padding: 0.3rem 0.4rem;
+  }
+}

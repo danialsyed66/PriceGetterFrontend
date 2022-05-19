@@ -1,4 +1,4 @@
-import axios from './axios';
+import axios from '../../utils/axios';
 
 import {
   UPDATE_PROFILE_REQUEST,

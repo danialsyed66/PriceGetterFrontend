@@ -5,7 +5,6 @@ import { deleteReview } from '../../../redux/actions/productActions';
 
 const ListReviews = ({ reviews, productId }) => {
   const dispatch = useDispatch();
-  console.log(reviews);
 
   const { isAuth, user } = useSelector((state) => state.auth);
 

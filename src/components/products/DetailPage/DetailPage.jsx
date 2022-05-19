@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Swal from 'sweetalert2';
 
 import './Detailpage.css';
+import '../Home.css';
 
 import ListReviews from './ListReviews';
+import Navbar from '../../layouts/navbar/Navbar';
+import Footer from '../../layouts/footer/Footer';
 import {
   getProductDetails,
   newReview,
 } from '../../../redux/actions/productActions';
 import { addToCart } from './../../../redux/actions/cartActions';
 import { NEW_REVIEW_RESET } from './../../../redux/consts';
-import Navbar from '../../layouts/navbar/Navbar';
-import '../Home.css';
-import Footer from '../../layouts/footer/Footer';
+import fire from './../../../utils/swal';
+
 const DetailPage = () => {
   const isImage = (url) =>
     /http(|s):(.*?).(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
@@ -67,13 +68,7 @@ const DetailPage = () => {
 
     dispatch(addToCart({ ...product, quantity }));
 
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Product added to cart',
-      showConfirmButton: true,
-      timer: 2000,
-    });
+    fire('Product added to cart!', 'success');
   };
 
   // const setUserReview = () => {
@@ -127,13 +122,7 @@ const DetailPage = () => {
 
     if (!reviewSuccess) return;
 
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: reviewMessage,
-      showConfirmButton: true,
-      timer: 2000,
-    });
+    fire(reviewSuccess, 'success');
 
     dispatch({ type: NEW_REVIEW_RESET });
   }, [dispatch, id, reviewSuccess, reviewMessage]);

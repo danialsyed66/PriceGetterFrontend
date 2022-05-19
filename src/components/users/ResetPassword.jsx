@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 import { MetaData, Loader } from '../layouts';
 import { resetPassword } from '../../redux/actions/forgotPasswordActions';
 import { RESET_PASSWORD_RESET } from '../../redux/consts';
+import fire from '../../utils/swal';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -24,13 +24,7 @@ const ResetPassword = () => {
     if (isAuth) return navigate('/');
 
     if (isReset) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Password reset successfully. Plaeale Login.',
-        showConfirmButton: true,
-        timer: 2000,
-      });
+      fire('Password reset successfully! Plaease Login.', 'success');
 
       navigate('/login');
 

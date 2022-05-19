@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 import { MetaData, Loader } from '../layouts';
 import { updateProfile } from '../../redux/actions/userActions';
 import { loadUser } from '../../redux/actions/authActions';
 import { UPDATE_PROFILE_RESET } from '../../redux/consts';
+import fire from '../../utils/swal';
 
 const UpdateProfile = () => {
   const navigate = useNavigate();
@@ -23,23 +23,11 @@ const UpdateProfile = () => {
   );
 
   useEffect(() => {
-    if (error)
-      return Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: error,
-        showConfirmButton: true,
-        timer: 2000,
-      });
+    if (error) return fire(error);
 
     if (isUpdated) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'User updated successfully',
-        showConfirmButton: true,
-        timer: 2000,
-      });
+      fire('User updated successfully!', 'success');
+
       dispatch(loadUser());
 
       navigate('/profile');

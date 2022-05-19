@@ -1,4 +1,4 @@
-import axios from './axios';
+import axios from '../../utils/axios';
 
 import {
   HOME_PAGE_REQUEST,
@@ -28,4 +28,5 @@ export const getHome = (userData) => async (dispatch) => {
     });
   }
 };
+
 export const clearErrors = () => ({ type: CLEAR_ERRORS });

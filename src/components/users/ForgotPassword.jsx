@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 import { MetaData, Loader } from '../layouts';
 import { forgotPassword } from '../../redux/actions/forgotPasswordActions';
 import { FORGOT_PASSWORD_RESET } from '../../redux/consts';
+import fire from '../../utils/swal';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -22,13 +22,7 @@ const ForgotPassword = () => {
     if (isAuth) return navigate('/');
 
     if (mailSent) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: message,
-        showConfirmButton: true,
-        timer: 2000,
-      });
+      fire(message, 'success');
 
       navigate('/');
 
