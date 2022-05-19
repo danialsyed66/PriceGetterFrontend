@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { MetaData, Loader } from '../layouts';
-import { resetPassword } from '../../redux/actions/forgotPasswordActions';
-import { RESET_PASSWORD_RESET } from '../../redux/consts';
-import fire from '../../utils/swal';
+import { MetaData, Loader, Navbar, Footer } from "../layouts";
+import { resetPassword } from "../../redux/actions/forgotPasswordActions";
+import { RESET_PASSWORD_RESET } from "../../redux/consts";
+import fire from "../../utils/swal";
 
 const ResetPassword = () => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const { loading, isReset, error } = useSelector(
     (state) => state.forgotPassword
@@ -21,12 +21,12 @@ const ResetPassword = () => {
   const { token } = useParams();
 
   useEffect(() => {
-    if (isAuth) return navigate('/');
+    if (isAuth) return navigate("/");
 
     if (isReset) {
-      fire('Password reset successfully! Plaease Login.', 'success');
+      fire("Password reset successfully! Plaease Login.", "success");
 
-      navigate('/login');
+      navigate("/login");
 
       dispatch({ type: RESET_PASSWORD_RESET });
     }
@@ -45,44 +45,50 @@ const ResetPassword = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="row wrapper">
-          <div className="col-10 col-lg-5">
-            <form className="shadow-lg">
-              <h1 className="mb-3">New Password</h1>
+        <>
+          <Navbar />
+          <div className="row wrapper">
+            <div className="col-10 col-lg-5">
+              <form className="shadow-lg">
+                <h1 className="mb-3">New Password</h1>
 
-              <div className="form-group">
-                <label htmlFor="password_field">Password</label>
-                <input
-                  type="password"
-                  id="password_field"
-                  className="form-control"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
+                <div className="form-group">
+                  <label htmlFor="password_field">Password</label>
+                  <input
+                    type="password"
+                    id="password_field"
+                    className="form-control"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="confirm_password_field">Confirm Password</label>
-                <input
-                  type="password"
-                  id="confirm_password_field"
-                  className="form-control"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-              </div>
+                <div className="form-group">
+                  <label htmlFor="confirm_password_field">
+                    Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    id="confirm_password_field"
+                    className="form-control"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </div>
 
-              <button
-                id="new_password_button"
-                type="submit"
-                className="btn btn-block py-3"
-                onClick={handleSubmit}
-              >
-                Set Password
-              </button>
-            </form>
+                <button
+                  id="new_password_button"
+                  type="submit"
+                  className="btn btn-block py-3"
+                  onClick={handleSubmit}
+                >
+                  Set Password
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
+          <Footer />
+        </>
       )}
     </>
   );

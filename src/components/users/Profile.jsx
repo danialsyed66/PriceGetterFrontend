@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { MetaData, Loader } from '../layouts';
+import { MetaData, Loader, Navbar, Footer } from "../layouts";
 
 const Profile = ({ user, loading }) => {
   return (
@@ -13,9 +13,10 @@ const Profile = ({ user, loading }) => {
         <Loader />
       ) : (
         <>
+          <Navbar />
           <h2 className="mt-5 ml-5">My Profile</h2>
           <div className="row justify-content-around mt-5 user-info">
-            <div className="col-12 col-md-3">
+            <div className="col-12 col-md-3 d-flex justify-content-center flex-column align-items-center">
               <figure className="avatar avatar-profile">
                 <img
                   className="rounded-circle img-fluid"
@@ -26,7 +27,7 @@ const Profile = ({ user, loading }) => {
               <Link
                 to="/profile/edit"
                 id="edit_profile"
-                className="btn btn-primary btn-block my-5"
+                className="btn btn-primary my-5"
               >
                 Edit Profile
               </Link>
@@ -41,21 +42,23 @@ const Profile = ({ user, loading }) => {
 
               <h4>Joined On</h4>
               <p>{String(user.createdAt).substring(0, 10)}</p>
+              <div className="d-flex flex-column justify-content-center align-items-start">
+                {user.role !== "admin" && (
+                  <Link to="/orders" className="btn btn-danger mt-5 w-25">
+                    My Orders
+                  </Link>
+                )}
 
-              {user.role !== 'admin' && (
-                <Link to="/orders" className="btn btn-danger btn-block mt-5">
-                  My Orders
+                <Link
+                  to="/profile/password/change"
+                  className="btn btn-primary mt-3 w-25"
+                >
+                  Change Password
                 </Link>
-              )}
-
-              <Link
-                to="/profile/password/change"
-                className="btn btn-primary btn-block mt-3"
-              >
-                Change Password
-              </Link>
+              </div>
             </div>
           </div>
+          <Footer />
         </>
       )}
     </>
