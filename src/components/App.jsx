@@ -1,47 +1,49 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
-import Swal from 'sweetalert2';
+import React, { lazy, Suspense, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import Swal from "sweetalert2";
 
-import './App.css';
+import "./App.css";
 
-import { Loader } from './layouts';
+import { Loader } from "./layouts";
 import {
   loadUser,
   clearErrors,
   socialLogin,
-} from '../redux/actions/authActions';
-import axios from '../redux/actions/axios';
-import { getHome } from '../redux/actions/homeActions';
-import { HANDLE_FAVOURITE_RESET } from '../redux/consts';
-const Home = lazy(() => import('./products/Home'));
-const Filter = lazy(() => import('./products/Filter'));
-const DetailPage = lazy(() => import('./products/DetailPage/DetailPage'));
-const SELLER = lazy(() => import('./users/login-signup/SELLER'));
-const Login = lazy(() => import('./users/login-signup/Login'));
-const Signup = lazy(() => import('./users/login-signup/Signup'));
-// const ForgetPassword = lazy(() =>import("./users/login-signup/ForgotPassword"));
-// const SetPassword = lazy(() => import("./users/login-signup/SetPassword"));
-// const VerifyOpt = lazy(() => import("./users/login-signup/OptVerify"));
+} from "../redux/actions/authActions";
+import axios from "../redux/actions/axios";
+import { getHome } from "../redux/actions/homeActions";
+import { HANDLE_FAVOURITE_RESET } from "../redux/consts";
+const Home = lazy(() => import("./products/Home"));
+const Filter = lazy(() => import("./products/Filter"));
+const DetailPage = lazy(() => import("./products/DetailPage/DetailPage"));
+const SELLER = lazy(() => import("./users/login-signup/SELLER"));
+const Login = lazy(() => import("./users/login-signup/Login"));
+const Signup = lazy(() => import("./users/login-signup/Signup"));
+const ForgetPassword = lazy(() =>
+  import("./users/login-signup/ForgotPassword")
+);
+const SetPassword = lazy(() => import("./users/login-signup/SetPassword"));
+const VerifyOpt = lazy(() => import("./users/login-signup/OptVerify"));
 
-const ProtectedRoute = lazy(() => import('./layouts/ProtectedRoute'));
-const Profile = lazy(() => import('./users/Profile'));
-const UpdateProfile = lazy(() => import('./users/UpdateProfile'));
-const ChangePassword = lazy(() => import('./users/ChangePassword'));
-const ForgotPassword = lazy(() => import('./users/ForgotPassword'));
-const ResetPassword = lazy(() => import('./users/ResetPassword'));
-const Cart = lazy(() => import('./cart/Cart'));
-const Shipping = lazy(() => import('./cart/Shipping'));
-const ConfirmOrder = lazy(() => import('./cart/ConfirmOrder'));
-const Payment = lazy(() => import('./cart/Payment'));
-const Success = lazy(() => import('./cart/Success'));
-const MyOrders = lazy(() => import('./order/MyOrders'));
-const OrderDetails = lazy(() => import('./order/OrderDetails'));
+const ProtectedRoute = lazy(() => import("./layouts/ProtectedRoute"));
+const Profile = lazy(() => import("./users/Profile"));
+const UpdateProfile = lazy(() => import("./users/UpdateProfile"));
+const ChangePassword = lazy(() => import("./users/ChangePassword"));
+const ForgotPassword = lazy(() => import("./users/ForgotPassword"));
+const ResetPassword = lazy(() => import("./users/ResetPassword"));
+const Cart = lazy(() => import("./cart/Cart"));
+const Shipping = lazy(() => import("./cart/Shipping"));
+const ConfirmOrder = lazy(() => import("./cart/ConfirmOrder"));
+const Payment = lazy(() => import("./cart/Payment"));
+const Success = lazy(() => import("./cart/Success"));
+const MyOrders = lazy(() => import("./order/MyOrders"));
+const OrderDetails = lazy(() => import("./order/OrderDetails"));
 
 const App = () => {
-  const [stripeKey, setStripeKey] = useState('');
+  const [stripeKey, setStripeKey] = useState("");
   const dispatch = useDispatch();
 
   const { error: productsError } = useSelector((state) => state.products);
@@ -67,8 +69,8 @@ const App = () => {
 
   const fire = (error) =>
     Swal.fire({
-      position: 'top-end',
-      icon: 'error',
+      position: "top-end",
+      icon: "error",
       title: error,
       showConfirmButton: true,
       timer: 2000,
@@ -125,7 +127,7 @@ const App = () => {
       try {
         const {
           data: { data },
-        } = await axios.get('api/v1/payment/getStripeApiKey');
+        } = await axios.get("api/v1/payment/getStripeApiKey");
 
         setStripeKey(data.stripeApiKey);
       } catch (err) {
@@ -147,9 +149,9 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
             <Route path="/seller/add" element={<SELLER />} />
-            {/* <Route path="/setpassword" element={<SetPassword />} />
+            <Route path="/setpassword" element={<SetPassword />} />
             <Route path="/optverify" element={<VerifyOpt />} />
-            <Route path="/forgetpassword" element={<ForgetPassword />} /> */}
+            <Route path="/forgetpassword" element={<ForgetPassword />} />
             <Route path="/password/forgot" exact element={<ForgotPassword />} />
             <Route path="/cart" exact element={<Cart />} />
             <Route
