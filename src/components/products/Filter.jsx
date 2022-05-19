@@ -11,7 +11,7 @@ import {
 
 import './Home.css';
 import { Product } from '.';
-import { Footer, Navbar, Loader, CATEGORIES, SELLERS } from '../layouts';
+import { Navbar, Loader, CATEGORIES, SELLERS } from '../layouts';
 import { getProducts } from '../../redux/actions/productActions';
 import { updateFilters } from '../../redux/actions/filterActions';
 
@@ -230,9 +230,7 @@ const Filter = () => {
               {length ? (
                 <>
                   {newReq && loading ? (
-                    <>
-                      <Loader />
-                    </>
+                    <Loader />
                   ) : (
                     <>
                       {products.map((prod, i) => (
@@ -245,16 +243,12 @@ const Filter = () => {
                           }
                         />
                       ))}
-                      {!loading || (
-                        <>
-                          <Loader />
-                        </>
-                      )}
+                      {loading && <Loader />}
                     </>
                   )}
                 </>
               ) : (
-                <>{/* <Loader /> */}</>
+                <Loader />
               )}
             </div>
           </div>

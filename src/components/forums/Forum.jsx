@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Footer, Loader, Navbar } from "../layouts";
-import Post from "./Post";
-import { getPosts } from "../../redux/actions/forumsActions";
-import { DELETE_POST_RESET } from "../../redux/consts";
-import fire from "../../utils/swal";
-import { display } from "@mui/system";
+import { Footer, Loader, Navbar } from '../layouts';
+import Post from './Post';
+import { getPosts } from '../../redux/actions/forumsActions';
+import { DELETE_POST_RESET } from '../../redux/consts';
+import fire from '../../utils/swal';
+// import { display } from "@mui/system";
 
 const Forum = () => {
   const dispatch = useDispatch();
@@ -22,14 +22,14 @@ const Forum = () => {
   useEffect(() => {
     if (!message) return;
 
-    fire(message, "success");
+    fire(message, 'success');
 
     dispatch({ type: DELETE_POST_RESET });
   }, [dispatch, message]);
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+      style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
     >
       <Navbar />
       {loading ? (
@@ -47,7 +47,7 @@ const Forum = () => {
           </div>
         </div>
       )}
-      <div style={{ marginTop: "auto" }}>
+      <div style={{ marginTop: 'auto' }}>
         <Footer />
       </div>
     </div>
