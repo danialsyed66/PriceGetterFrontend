@@ -1,0 +1,11 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.title_wish {
+  font-size: 40px;
+  padding: 30px;
+  font-weight: bolder;
+}

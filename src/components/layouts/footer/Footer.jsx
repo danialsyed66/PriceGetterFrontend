@@ -1,47 +1,53 @@
-import React from 'react';
-import whatsapp from '../../../assets/whatsapp.svg';
-import email from '../../../assets/envelope.svg';
-import phone from '../../../assets/headset.svg';
-import youtube from '../../../assets/youtube.svg';
-import linkdn from '../../../assets/linkedin.svg';
+import React from "react";
+import whatsapp from "../../../assets/whatsapp.svg";
+import email from "../../../assets/envelope.svg";
+import youtube from "../../../assets/youtube.svg";
 
-import facebook from '../../../assets/facebook.svg';
-import './Footer.css';
+import linkdn from "../../../assets/linkedin.svg";
+import gameday from "../../../assets/gameday.svg";
+import wishlist from "../../../assets/tolly.svg";
+import facebook from "../../../assets/facebook.svg";
+import "./Footer.css";
 
 const Footer = () => {
   return (
-    <div className="background_color d-flex flex-column justify-content-between mt-5">
-      <div>
-        <h3 className="text_white text-center">We’re always ready to help.</h3>
-        <div
-          className="d-flex justify-content-between align-items-center w-50 m-auto"
-          style={{ paddingTop: '30px' }}
-        >
-          <div className="d-flex flex-column justify-content-center align-items-center">
-            <img src={whatsapp} alt="" />
-            <p className="p_white ">03224916205</p>
-          </div>
-          <div className="d-flex flex-column justify-content-center align-items-center">
-            <img src={email} alt="" />
-            <p className="p_white  ">naumanashraf30@gmail.com</p>
-          </div>
-          <div className="d-flex flex-column justify-content-center align-items-center">
-            <img src={phone} alt="" />
-            <p className="p_white  "> 03224916205</p>
-          </div>
-        </div>
+    <div className="background_color d-flex flex-column   ">
+      <div className=" lists_footer">
+        <ul className="lists_ul">
+          <li>About us</li>
+          <li>Press Release</li>
+          <li>Terms of Service</li>
+          <li>Privacy</li>
+          <li>Contact Us</li>
+        </ul>
       </div>
-      <div className="d-flex justify-content-between align-items-center ">
-        <p className="p_white">@2022PriceGetter.pk</p>
-        <div>
-          <img style={{ padding: '10px' }} src={youtube} alt="" />
-          <img style={{ padding: '10px' }} src={linkdn} alt="" />
-          <img
-            style={{ padding: '10  px', marginRight: '20px' }}
-            src={facebook}
-            alt=""
-          />
-        </div>
+      <div className=" lists_footer">
+        <ul className="lists_ul">
+          <li>Research</li>
+          <li>Guide</li>
+          <li>Blogs</li>
+          <li>Our Success</li>
+          <li>Our Story</li>
+        </ul>
+      </div>
+      <div className="icons_list">
+        <img src={whatsapp} alt="" />
+        <img src={email} alt="" />
+        <img src={youtube} alt="" />
+        <img src={linkdn} alt="" />
+        <img src={facebook} alt="" />
+      </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <img
+          style={{ width: "200px", marginLeft: "10px" }}
+          src={gameday}
+          alt=""
+        />
+        <img
+          src={wishlist}
+          style={{ width: "200px", marginLeft: "10px" }}
+          alt=""
+        />
       </div>
     </div>
   );
