@@ -9,3 +9,15 @@
   padding: 30px;
   font-weight: bolder;
 }
+.imgwishlist {
+  width: 400px;
+}
+
+@media only screen and (max-width: 780px) {
+  .main {
+    flex-direction: column;
+  }
+  .imgwishlist {
+    width: 200px;
+  }
+}
