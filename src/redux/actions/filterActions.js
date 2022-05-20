@@ -33,7 +33,6 @@ export const updateFilters = filters => (dispatch, getState) => {
 
   if (newReq) filters.page = 1;
 
-  console.log({ ...filters, newReq });
   dispatch({
     type: UPDATE_FILTERS,
     payload: { ...filters, newReq },
