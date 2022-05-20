@@ -15,7 +15,7 @@ const Post = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector(state => state.auth);
 
   const [isLiked, setIsLiked] = useState(false);
 
@@ -24,7 +24,7 @@ const Post = ({
 
     if (!auth.isAuth) return;
 
-    const liked = likes.filter((like) => like.user === auth?.user?._id);
+    const liked = likes.filter(like => like.user === auth?.user?._id);
 
     setIsLiked(liked.length > 0 ? true : false);
   }, [setIsLiked, likes, auth]);
@@ -57,7 +57,7 @@ const Post = ({
           icon={<Like color="grey" likes={likes.length} />}
           checkedIcon={<Like color="red" likes={likes.length} />}
           className="zoom-box"
-          onClick={(e) => handleLike(e, _id)}
+          onClick={e => handleLike(e, _id)}
           checked={isLiked}
         />
         <Link to={`/forums/post/${_id}`} className="btn btn-primary m-1">

@@ -5,7 +5,7 @@ import {
   SAVE_SHIPPING_INFO,
 } from '../consts';
 
-export const addToCart = (product) => (dispatch, getState) => {
+export const addToCart = product => (dispatch, getState) => {
   dispatch({
     type: ADD_TO_CART,
     payload: product,
@@ -14,7 +14,7 @@ export const addToCart = (product) => (dispatch, getState) => {
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 
-export const removeFromCart = (id) => (dispatch, getState) => {
+export const removeFromCart = id => (dispatch, getState) => {
   dispatch({
     type: REMOVE_FROM_CART,
     payload: id,
@@ -32,7 +32,7 @@ export const updateCart = (id, quantity) => (dispatch, getState) => {
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 
-export const saveShippingInfo = (shippingInfo) => (dispatch, getState) => {
+export const saveShippingInfo = shippingInfo => (dispatch, getState) => {
   dispatch({
     type: SAVE_SHIPPING_INFO,
     payload: shippingInfo,

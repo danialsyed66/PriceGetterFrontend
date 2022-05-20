@@ -15,9 +15,10 @@ import {
 import { addToCart } from './../../../redux/actions/cartActions';
 import { NEW_REVIEW_RESET } from './../../../redux/consts';
 import fire from './../../../utils/swal';
+import { MetaData } from '../../layouts';
 
 const DetailPage = () => {
-  const isImage = (url) =>
+  const isImage = url =>
     /http(|s):(.*?).(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -27,12 +28,10 @@ const DetailPage = () => {
   const [userRating /* , setUserRating */] = useState(0);
   const [comment, setComment] = useState('');
 
-  const { /* loading, */ product } = useSelector(
-    (state) => state.productDetails
-  );
+  const { /* loading, */ product } = useSelector(state => state.productDetails);
   // const { isAuth } = useSelector((state) => state.auth);
   const { success: reviewSuccess, message: reviewMessage } = useSelector(
-    (state) => state.review
+    state => state.review
   );
 
   const {
@@ -99,7 +98,7 @@ const DetailPage = () => {
   //   }
   // };
 
-  const submitHandler = (e) => {
+  const submitHandler = e => {
     newReview(_id, {
       review: comment,
       rating: userRating,
@@ -129,12 +128,14 @@ const DetailPage = () => {
 
   return (
     <>
+      <MetaData title="Product Details" />
+
       <Navbar />
       <div className="p-2 m-5">
         <div className="row">
           <div className="col-md-1 offset-md-2">
             <div className="boxs-img " style={{ cursor: 'pointer' }}>
-              {images?.map((image) => {
+              {images?.map(image => {
                 if (isImage(image?.url)) {
                   return (
                     <div
@@ -274,7 +275,7 @@ const DetailPage = () => {
                         id="review"
                         className="form-control mt-3"
                         value={comment}
-                        onChange={(e) => setComment(e.target.value)}
+                        onChange={e => setComment(e.target.value)}
                       ></textarea>
 
                       <button

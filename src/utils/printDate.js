@@ -1,4 +1,4 @@
-const printDate = (dateVal) => {
+const printDate = dateVal => {
   const months = [
     'January',
     'February',

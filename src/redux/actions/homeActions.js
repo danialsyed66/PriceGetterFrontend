@@ -7,7 +7,7 @@ import {
   CLEAR_ERRORS,
 } from '../consts';
 
-export const getHome = (userData) => async (dispatch) => {
+export const getHome = userData => async dispatch => {
   try {
     dispatch({
       type: HOME_PAGE_REQUEST,

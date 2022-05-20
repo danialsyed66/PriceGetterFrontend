@@ -1,36 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { MetaData, Loader, Navbar, Footer } from "../layouts";
-import { updateProfile } from "../../redux/actions/userActions";
-import { loadUser } from "../../redux/actions/authActions";
-import { UPDATE_PROFILE_RESET } from "../../redux/consts";
-import fire from "../../utils/swal";
+import { MetaData, Loader, Navbar, Footer } from '../layouts';
+import { updateProfile } from '../../redux/actions/userActions';
+import { loadUser } from '../../redux/actions/authActions';
+import { UPDATE_PROFILE_RESET } from '../../redux/consts';
+import fire from '../../utils/swal';
 
 const UpdateProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.auth);
-  const { isUpdated, error, loading } = useSelector((state) => state.user);
+  const { user } = useSelector(state => state.auth);
+  const { isUpdated, error, loading } = useSelector(state => state.user);
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState('');
   const [avatarPreview, setAvatarPreview] = useState(
-    user.avatar ? user.avatar.url : "/images/default_avatar.jpg"
+    user.avatar ? user.avatar.url : '/images/default_avatar.jpg'
   );
 
   useEffect(() => {
     if (error) return fire(error);
 
     if (isUpdated) {
-      fire("User updated successfully!", "success");
+      fire('User updated successfully!', 'success');
 
       dispatch(loadUser());
 
-      navigate("/profile");
+      navigate('/profile');
 
       dispatch({
         type: UPDATE_PROFILE_RESET,
@@ -38,7 +38,7 @@ const UpdateProfile = () => {
     }
   }, [navigate, dispatch, error, isUpdated]);
 
-  const handleAvatarUpload = (e) => {
+  const handleAvatarUpload = e => {
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -52,20 +52,20 @@ const UpdateProfile = () => {
     if (e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.set("name", name);
-    formData.set("email", email);
-    if (avatar) formData.set("avatar", avatar);
+    formData.set('name', name);
+    formData.set('email', email);
+    if (avatar) formData.set('avatar', avatar);
 
     dispatch(updateProfile(formData));
   };
 
   return (
     <>
-      <MetaData title="Edit User Profile" />
+      <MetaData title="Update Profile" />
 
       {loading ? (
         <Loader />
@@ -76,7 +76,7 @@ const UpdateProfile = () => {
             <div className="col-10 col-lg-5">
               <form
                 className="shadow-lg"
-                style={{ borderRadius: "20px" }}
+                style={{ borderRadius: '20px' }}
                 encType="multipart/form-data"
                 onSubmit={handleSubmit}
               >
@@ -90,7 +90,7 @@ const UpdateProfile = () => {
                     className="form-control"
                     name="name"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={e => setName(e.target.value)}
                   />
                 </div>
 
@@ -102,7 +102,7 @@ const UpdateProfile = () => {
                     className="form-control"
                     name="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={e => setEmail(e.target.value)}
                   />
                 </div>
 
@@ -135,7 +135,7 @@ const UpdateProfile = () => {
                 </div>
 
                 <button
-                  style={{ backgroundColor: "lightgrey", borderColor: "white" }}
+                  style={{ backgroundColor: 'lightgrey', borderColor: 'white' }}
                   type="submit"
                   className="btn btn-block mt-4 mb-3"
                 >

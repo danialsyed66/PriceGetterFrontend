@@ -17,7 +17,7 @@ import {
   CLEAR_ERRORS,
 } from '../consts';
 
-export const login = (userData) => async (dispatch) => {
+export const login = userData => async dispatch => {
   try {
     dispatch({
       type: LOGIN_REQUEST,
@@ -47,7 +47,7 @@ export const login = (userData) => async (dispatch) => {
   }
 };
 
-export const socialLogin = () => async (dispatch) => {
+export const socialLogin = () => async dispatch => {
   try {
     const config = { headers: { 'Content-Type': 'application/json' } };
 
@@ -91,7 +91,7 @@ export const socialLogin = () => async (dispatch) => {
   }
 };
 
-export const register = (userData) => async (dispatch) => {
+export const register = userData => async dispatch => {
   try {
     dispatch({
       type: REGISTER_REQUEST,
@@ -117,7 +117,7 @@ export const register = (userData) => async (dispatch) => {
   }
 };
 
-export const loadUser = () => async (dispatch) => {
+export const loadUser = () => async dispatch => {
   try {
     dispatch({
       type: LOAD_USER_REQUEST,
@@ -139,7 +139,7 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-export const logout = () => (dispatch) => {
+export const logout = () => dispatch => {
   try {
     // await axios.post('/api/v1/logout');
     localStorage.removeItem('token');

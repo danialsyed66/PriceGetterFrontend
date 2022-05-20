@@ -30,7 +30,7 @@ const reducer = (state = { posts: [], error: {} }, { type, payload }) => {
     case LIKE_POST_SUCCESS:
       return {
         ...state,
-        posts: state.posts.map((post) =>
+        posts: state.posts.map(post =>
           post._id === payload.id ? { ...post, likes: payload.likes } : post
         ),
       };
@@ -38,7 +38,7 @@ const reducer = (state = { posts: [], error: {} }, { type, payload }) => {
     case DELETE_POST_SUCCESS:
       return {
         ...state,
-        posts: state.posts.filter((post) => post._id !== payload),
+        posts: state.posts.filter(post => post._id !== payload),
         message: 'Post Deleted Successfully!',
       };
 

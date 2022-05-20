@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Footer, Loader, Navbar } from '../layouts';
+import { Footer, Loader, MetaData, Navbar } from '../layouts';
 import Post from './Post';
 import { getPosts } from '../../redux/actions/forumsActions';
 import { DELETE_POST_RESET } from '../../redux/consts';
@@ -12,7 +12,7 @@ const Forum = () => {
   const dispatch = useDispatch();
 
   const { loading, posts, message /*,  error, post */ } = useSelector(
-    (state) => state.forums
+    state => state.forums
   );
 
   useEffect(() => {
@@ -31,6 +31,8 @@ const Forum = () => {
     <div
       style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
     >
+      <MetaData title="Forums" />
+
       <Navbar />
       {loading ? (
         <Loader />
@@ -41,7 +43,7 @@ const Forum = () => {
             <i className="fas fa-user" /> Welcome to the community.
           </p>
           <div className="posts">
-            {posts.map((post) => (
+            {posts.map(post => (
               <Post key={post._id} post={post} />
             ))}
           </div>

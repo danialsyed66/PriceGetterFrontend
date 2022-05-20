@@ -8,7 +8,7 @@ import Navbar from '../layouts/navbar/Navbar';
 // import Footer from "../layouts/footer/Footer";
 
 const Cart = () => {
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems } = useSelector(state => state.cart);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

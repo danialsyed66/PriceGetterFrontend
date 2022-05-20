@@ -1,16 +1,17 @@
-import React, {  useState } from "react";
-import "./Login.css";
-import "./Login.css";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import './Login.css';
+import './Login.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 // import { useDispatch } from "react-redux";
-import priceGetter from "../../../assets/PriceGetter.svg";
+import priceGetter from '../../../assets/PriceGetter.svg';
+import { MetaData } from '../../layouts';
 
-function OptVerify({ history }) {
+function OtpVerify({ history }) {
   const navigate = useNavigate();
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [otp, setOtp] = useState(['', '', '', '', '', '']);
 
-  const ResendOpt = async (e) => {
+  const ResendOtp = async e => {
     e.preventDefault();
   };
 
@@ -25,40 +26,42 @@ function OptVerify({ history }) {
   };
   // const dispatch = useDispatch();
 
-  const verifyy = (e) => {
-    setOtp([...otp.map((v) => "")]);
-    // const newopt = otp.join("");
+  const verifyy = e => {
+    setOtp([...otp.map(v => '')]);
+    // const newotp = otp.join("");
   };
 
   return (
     <div>
+      <MetaData title="OTP Verify" />
+
       <div className="container-fluid">
         <div className="row align-items-center Background">
           <div
             className="offset-md-4 col-md-4 offset-md-3 h-100  d-flex   align-items-center justify-content-center"
-            style={{ flexDirection: "column" }}
+            style={{ flexDirection: 'column' }}
           >
             <img
               src={priceGetter}
-              style={{ width: "220px", cursor: "pointer" }}
+              style={{ width: '220px', cursor: 'pointer' }}
               alt="logo"
               onClick={() => {
-                navigate("/");
+                navigate('/');
               }}
             />
             <h1
               style={{
-                textAlign: "center",
-                fontSize: "25px",
-                color: "#5A5A5A",
-                fontFamily: "Ubuntu",
-                fontStyle: "normal",
-                fontWeight: "900",
+                textAlign: 'center',
+                fontSize: '25px',
+                color: '#5A5A5A',
+                fontFamily: 'Ubuntu',
+                fontStyle: 'normal',
+                fontWeight: '900',
               }}
             >
               Verify your new account
             </h1>
-            <span className="mb-4 w-75" style={{ textAlign: "center" }}>
+            <span className="mb-4 w-75" style={{ textAlign: 'center' }}>
               Enter the 6-digit confirmation code sent to your email
             </span>
 
@@ -73,22 +76,22 @@ function OptVerify({ history }) {
                       maxLength="1"
                       key={index}
                       value={data}
-                      onChange={(e) => handleChange(e.target, index)}
-                      onFocus={(e) => e.target.select()}
+                      onChange={e => handleChange(e.target, index)}
+                      onFocus={e => e.target.select()}
                     />
                   );
                 })}
               </div>
-              <p>OTP Entered: {otp.join("")}</p>
+              <p>OTP Entered: {otp.join('')}</p>
               <button
                 style={{
-                  width: "100%",
-                  marginTop: "1rem",
-                  height: "40px",
+                  width: '100%',
+                  marginTop: '1rem',
+                  height: '40px',
                 }}
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
-                  setOtp(["", "", "", "", "", ""]);
+                  setOtp(['', '', '', '', '', '']);
                 }}
                 className="btn btn-secondary"
               >
@@ -96,35 +99,35 @@ function OptVerify({ history }) {
               </button>
               <button
                 style={{
-                  width: "100%",
-                  marginTop: "1rem",
-                  height: "40px",
-                  color: "#FFFFFF",
-                  backgroundColor: " #3EE18F",
+                  width: '100%',
+                  marginTop: '1rem',
+                  height: '40px',
+                  color: '#FFFFFF',
+                  backgroundColor: ' #3EE18F',
                 }}
                 onClick={verifyy}
                 className="btn btn-light"
               >
-                Verify OPT
+                Verify OTP
               </button>
-              <div style={{ textAlign: "center", marginTop: "20px" }}>
+              <div style={{ textAlign: 'center', marginTop: '20px' }}>
                 <span>Didn't Get The Code? </span>
                 <span
-                  onClick={ResendOpt}
+                  onClick={ResendOtp}
                   className="d-sm-inline d-block"
                   style={{
-                    color: " #3EE18F",
-                    fontWeight: "bolder",
-                    cursor: "pointer",
+                    color: ' #3EE18F',
+                    fontWeight: 'bolder',
+                    cursor: 'pointer',
                   }}
                 >
-                  Resend OPT
+                  Resend OTP
                 </span>
               </div>
-              <div style={{ textAlign: "center", marginTop: "20px" }}>
+              <div style={{ textAlign: 'center', marginTop: '20px' }}>
                 <Link
                   to="/"
-                  style={{ color: " #3EE18F", fontWeight: "bolder" }}
+                  style={{ color: ' #3EE18F', fontWeight: 'bolder' }}
                 >
                   Return To Log In
                 </Link>
@@ -137,4 +140,4 @@ function OptVerify({ history }) {
   );
 }
 
-export default OptVerify;
+export default OtpVerify;

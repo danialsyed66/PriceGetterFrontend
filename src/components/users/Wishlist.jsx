@@ -1,23 +1,26 @@
-import React, { Fragment } from "react";
-import wish from "../../assets/wishlist.svg";
-import heart from "../../assets/hearted.svg";
-import "./wishlist.css";
-import { Footer, Navbar } from "../layouts";
-import { Link } from "react-router-dom";
+import React from 'react';
+import wish from '../../assets/wishlist.svg';
+import heart from '../../assets/hearted.svg';
+import './wishlist.css';
+import { Footer, MetaData, Navbar } from '../layouts';
+// import { Link } from 'react-router-dom';
+
 const Wishlist = () => {
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+      style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
     >
       <div>
+        <MetaData title="Wishlist" />
+
         <Navbar />
         <div className="main mt-5">
           <div className="mr-5 pt-5">
-            <div style={{ display: "flex" }}>
+            <div style={{ display: 'flex' }}>
               <h1 className="title_wish">My WishList</h1>
-              <img style={{ width: "100px" }} src={heart} alt="" />
+              <img style={{ width: '100px' }} src={heart} alt="" />
             </div>
-            <p style={{ color: "grey" }}>
+            <p style={{ color: 'grey' }}>
               All the products entered in the wishlist can be seen and managed!!
             </p>
           </div>
@@ -78,7 +81,7 @@ const Wishlist = () => {
           )}
         </div> */}
       </div>
-      <div style={{ marginTop: "auto" }}>
+      <div style={{ marginTop: 'auto' }}>
         <Footer />
       </div>
     </div>

@@ -11,7 +11,7 @@ import {
 
 import './Home.css';
 import { Product } from '.';
-import { Navbar, Loader, CATEGORIES, SELLERS } from '../layouts';
+import { Navbar, Loader, CATEGORIES, SELLERS, MetaData } from '../layouts';
 import { getProducts } from '../../redux/actions/productActions';
 import { updateFilters } from '../../redux/actions/filterActions';
 
@@ -21,7 +21,7 @@ const Filter = () => {
   };
 
   const { page, price, leastRating, query, sellers, categories, newReq } =
-    useSelector((state) => state.filters);
+    useSelector(state => state.filters);
 
   const [currentPage, setCurrentPage] = useState(page);
   const [priceRange, setPriceRange] = useState(price);
@@ -40,7 +40,7 @@ const Filter = () => {
   const observer = useRef();
   const dispatch = useDispatch();
   const { products, loading, totalProducts } = useSelector(
-    (state) => state.products
+    state => state.products
   );
   const length = products.length;
   // const { currentProduct } = useSelector(state => state.productDetails);
@@ -55,7 +55,7 @@ const Filter = () => {
     return arr;
   };
 
-  const categoriesCheckBoxHandler = (pos) => {
+  const categoriesCheckBoxHandler = pos => {
     setCategoriesCheckBox(
       categoriesCheckBox.map((item, i) => (i === pos ? !item : item))
     );
@@ -63,7 +63,7 @@ const Filter = () => {
     setCategory(pushOrPullFromArray(category, CATEGORIES[pos].val));
   };
 
-  const sellerCheckBoxHandler = (pos) => {
+  const sellerCheckBoxHandler = pos => {
     setSellerCheckBox(
       sellerCheckBox.map((item, i) => (i === pos ? !item : item))
     );
@@ -118,14 +118,14 @@ const Filter = () => {
   }, [length, totalProducts]);
 
   const observerCallBack = useCallback(
-    (node) => {
+    node => {
       if (loading) return;
 
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting && hasMore) {
-          setCurrentPage((currentPage) => currentPage + 1);
+          setCurrentPage(currentPage => currentPage + 1);
         }
       });
 
@@ -136,6 +136,8 @@ const Filter = () => {
 
   return (
     <div>
+      <MetaData title="Filters Page" />
+
       <div>
         <Navbar />
       </div>

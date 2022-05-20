@@ -19,6 +19,7 @@ import { InputText } from './InputText';
 import { login } from '../../../redux/actions/authActions';
 import { SERVER_URI } from '../../../redux/consts';
 import fire from '../../../utils/swal';
+import { MetaData } from '../../layouts';
 
 const LoginPage = () => {
   const SignupSchema = Yup.object().shape({
@@ -49,11 +50,11 @@ const LoginPage = () => {
 
   const redirect = useQuery().get('redirect');
 
-  const handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = event => {
     event.preventDefault();
   };
 
-  const { isAuth } = useSelector((state) => state.auth);
+  const { isAuth } = useSelector(state => state.auth);
 
   useEffect(() => {
     if (isAuth) {
@@ -74,6 +75,8 @@ const LoginPage = () => {
         alignItems: 'center',
       }}
     >
+      <MetaData title="Login" />
+
       <div style={{ textAlign: 'center' }} className="mb-4">
         <img
           src={priceGetter}
@@ -94,7 +97,7 @@ const LoginPage = () => {
             password: '',
           }}
           validationSchema={SignupSchema}
-          onSubmit={(values) => dispatch(login(values))}
+          onSubmit={values => dispatch(login(values))}
         >
           {({ errors, touched }) => (
             <Form>

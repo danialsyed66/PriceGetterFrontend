@@ -1,36 +1,36 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { MetaData, Loader, Navbar, Footer } from "../layouts";
-import { changePassword } from "../../redux/actions/userActions";
-import { loadUser } from "../../redux/actions/authActions";
-import { CHANGE_PASSWORD_RESET } from "../../redux/consts";
-import fire from "../../utils/swal";
+import { MetaData, Loader, Navbar, Footer } from '../layouts';
+import { changePassword } from '../../redux/actions/userActions';
+import { loadUser } from '../../redux/actions/authActions';
+import { CHANGE_PASSWORD_RESET } from '../../redux/consts';
+import fire from '../../utils/swal';
 
 const ChangePassword = () => {
-  const [oldPassword, setOldPassword] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { isUpdated, loading, error } = useSelector((state) => state.user);
+  const { isUpdated, loading, error } = useSelector(state => state.user);
 
   useEffect(() => {
     if (isUpdated) {
-      fire("Password changed successfully!", "success");
+      fire('Password changed successfully!', 'success');
 
       dispatch(loadUser());
 
-      navigate("/");
+      navigate('/');
 
       dispatch({ type: CHANGE_PASSWORD_RESET });
     }
   }, [error, isUpdated, dispatch, navigate]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     dispatch(changePassword({ oldPassword, password, confirmPassword }));
@@ -56,7 +56,7 @@ const ChangePassword = () => {
                     id="old_password_field"
                     className="form-control"
                     value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
+                    onChange={e => setOldPassword(e.target.value)}
                   />
                 </div>
 
@@ -67,7 +67,7 @@ const ChangePassword = () => {
                     id="new_password_field"
                     className="form-control"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={e => setPassword(e.target.value)}
                   />
                 </div>
 
@@ -80,13 +80,13 @@ const ChangePassword = () => {
                     id="confirm_password_field"
                     className="form-control"
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={e => setConfirmPassword(e.target.value)}
                   />
                 </div>
 
                 <button
                   type="submit"
-                  style={{ backgroundColor: "lightgrey", borderColor: "white" }}
+                  style={{ backgroundColor: 'lightgrey', borderColor: 'white' }}
                   className="btn update-btn btn-block mt-4 mb-3"
                 >
                   Update Password

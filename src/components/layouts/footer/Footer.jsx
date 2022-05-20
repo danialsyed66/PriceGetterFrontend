@@ -1,13 +1,13 @@
-import React from "react";
-import whatsapp from "../../../assets/whatsapp.svg";
-import email from "../../../assets/envelope.svg";
-import youtube from "../../../assets/youtube.svg";
+import React from 'react';
+import whatsapp from '../../../assets/whatsapp.svg';
+import email from '../../../assets/envelope.svg';
+import youtube from '../../../assets/youtube.svg';
 
-import linkdn from "../../../assets/linkedin.svg";
-import gameday from "../../../assets/gameday.svg";
-import wishlist from "../../../assets/tolly.svg";
-import facebook from "../../../assets/facebook.svg";
-import "./Footer.css";
+import linkdn from '../../../assets/linkedin.svg';
+import gameday from '../../../assets/gameday.svg';
+import wishlist from '../../../assets/tolly.svg';
+import facebook from '../../../assets/facebook.svg';
+import './Footer.css';
 
 const Footer = () => {
   return (
@@ -37,15 +37,15 @@ const Footer = () => {
         <img src={linkdn} alt="" />
         <img src={facebook} alt="" />
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
         <img
-          style={{ width: "200px", marginLeft: "10px" }}
+          style={{ width: '200px', marginLeft: '10px' }}
           src={gameday}
           alt=""
         />
         <img
           src={wishlist}
-          style={{ width: "200px", marginLeft: "10px" }}
+          style={{ width: '200px', marginLeft: '10px' }}
           alt=""
         />
       </div>

@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import MetaData from "../layouts/MetaData";
+import MetaData from '../layouts/MetaData';
 
 const Success = () => {
   return (

@@ -7,7 +7,7 @@ import { getOrderDetails } from '../../redux/actions/orderActions';
 
 const MyOrders = () => {
   const dispatch = useDispatch();
-  const { order, loading } = useSelector((state) => state.orderDetails);
+  const { order, loading } = useSelector(state => state.orderDetails);
   const {
     _id,
     paymentInfo,
@@ -75,7 +75,7 @@ const MyOrders = () => {
 
             <hr />
             <div className="cart-item my-1">
-              {orderItems?.map((item) => (
+              {orderItems?.map(item => (
                 <div className="row my-5" key={item._id}>
                   <div className="col-4 col-lg-2">
                     <img

@@ -1,8 +1,8 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { MetaData, Loader, Navbar, Footer } from "../layouts";
+import { MetaData, Loader, Navbar, Footer } from '../layouts';
 
 const Profile = ({ user, loading }) => {
   return (
@@ -43,7 +43,7 @@ const Profile = ({ user, loading }) => {
               <h4>Joined On</h4>
               <p>{String(user.createdAt).substring(0, 10)}</p>
               <div className="d-flex flex-column justify-content-center align-items-start">
-                {user.role !== "admin" && (
+                {user.role !== 'admin' && (
                   <Link to="/orders" className="btn btn-danger mt-5 w-25">
                     My Orders
                   </Link>

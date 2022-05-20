@@ -15,12 +15,13 @@ import { InputText } from './InputText';
 import { Checkboxmui } from './Checkboxmui';
 import { register } from '../../../redux/actions/authActions';
 import fire from '../../../utils/swal';
+import { MetaData } from '../../layouts';
 
 const SignupPage = () => {
   const [avatar, setAvatar] = useState('');
   const [avatarPreview, setAvatarPreview] = useState('/default_avatar.jpg');
 
-  const handleAvatarUpload = (e) => {
+  const handleAvatarUpload = e => {
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -52,7 +53,7 @@ const SignupPage = () => {
       .required('Please enter your Email'),
     password: Yup.string().required('Please enter your Password'),
     confirmpassword: Yup.string().when('password', {
-      is: (val) => val?.length > 0,
+      is: val => val?.length > 0,
       then: Yup.string().oneOf(
         [Yup.ref('password')],
         'Your passwords donot match.'
@@ -67,10 +68,10 @@ const SignupPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = event => {
     event.preventDefault();
   };
-  const { isAuth } = useSelector((state) => state.auth);
+  const { isAuth } = useSelector(state => state.auth);
   useEffect(() => {
     if (isAuth) {
       fire('User Sign In Successfully!', 'success');
@@ -89,6 +90,8 @@ const SignupPage = () => {
         alignItems: 'center',
       }}
     >
+      <MetaData title="SignUp" />
+
       <div style={{ textAlign: 'center' }}>
         <img
           src={priceGetter}

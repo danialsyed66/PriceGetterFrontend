@@ -1,38 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { MetaData, Loader, Navbar, Footer } from "../layouts";
-import { resetPassword } from "../../redux/actions/forgotPasswordActions";
-import { RESET_PASSWORD_RESET } from "../../redux/consts";
-import fire from "../../utils/swal";
+import { MetaData, Loader, Navbar, Footer } from '../layouts';
+import { resetPassword } from '../../redux/actions/forgotPasswordActions';
+import { RESET_PASSWORD_RESET } from '../../redux/consts';
+import fire from '../../utils/swal';
 
 const ResetPassword = () => {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const { loading, isReset, error } = useSelector(
-    (state) => state.forgotPassword
+    state => state.forgotPassword
   );
-  const { isAuth } = useSelector((state) => state.auth);
+  const { isAuth } = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { token } = useParams();
 
   useEffect(() => {
-    if (isAuth) return navigate("/");
+    if (isAuth) return navigate('/');
 
     if (isReset) {
-      fire("Password reset successfully! Plaease Login.", "success");
+      fire('Password reset successfully! Plaease Login.', 'success');
 
-      navigate("/login");
+      navigate('/login');
 
       dispatch({ type: RESET_PASSWORD_RESET });
     }
   }, [isReset, error, navigate, dispatch, isAuth]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     dispatch(resetPassword(token, { password, confirmPassword }));
@@ -40,7 +40,7 @@ const ResetPassword = () => {
 
   return (
     <>
-      <MetaData title="Password Reset Page" />
+      <MetaData title="Reset Password" />
 
       {loading ? (
         <Loader />
@@ -59,7 +59,7 @@ const ResetPassword = () => {
                     id="password_field"
                     className="form-control"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={e => setPassword(e.target.value)}
                   />
                 </div>
 
@@ -72,7 +72,7 @@ const ResetPassword = () => {
                     id="confirm_password_field"
                     className="form-control"
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={e => setConfirmPassword(e.target.value)}
                   />
                 </div>
 

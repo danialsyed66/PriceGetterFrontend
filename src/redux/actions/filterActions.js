@@ -1,13 +1,14 @@
 import { SET_FILTERS, UPDATE_FILTERS } from '../consts';
+import arraysEqual from '../../utils/arrayEquals';
 
-export const setFilters = (filters) => (dispatch) => {
+export const setFilters = filters => dispatch => {
   dispatch({
     type: SET_FILTERS,
     payload: filters,
   });
 };
 
-export const updateFilters = (filters) => (dispatch, getState) => {
+export const updateFilters = filters => (dispatch, getState) => {
   const { filters: prevFilters } = getState();
 
   // query,
@@ -26,8 +27,8 @@ export const updateFilters = (filters) => (dispatch, getState) => {
   if (prevFilters?.leastRating !== filters?.leastRating) newReq = true;
   if (prevFilters?.price[0] !== filters?.price[0]) newReq = true;
   if (prevFilters?.price[1] !== filters?.price[1]) newReq = true;
-  // if (!arraysEqual(prevFilters?.sellers, filters?.sellers)) newReq = true;
-  // if (!arraysEqual(prevFilters?.categories, filters?.categories)) newReq = true;
+  if (!arraysEqual(prevFilters?.sellers, filters?.sellers)) newReq = true;
+  if (!arraysEqual(prevFilters?.categories, filters?.categories)) newReq = true;
   // if (!arraysEqual(prevFilters?.sort, filters?.sort)) newReq = true;
 
   if (newReq) filters.page = 1;

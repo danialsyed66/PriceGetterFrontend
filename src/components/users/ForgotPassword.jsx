@@ -11,9 +11,9 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState('');
 
   const { loading, mailSent, message, error } = useSelector(
-    (state) => state.forgotPassword
+    state => state.forgotPassword
   );
-  const { isAuth } = useSelector((state) => state.auth);
+  const { isAuth } = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const ForgotPassword = () => {
     }
   }, [message, mailSent, error, navigate, dispatch, isAuth]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     dispatch(forgotPassword(email));
@@ -38,7 +38,7 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <MetaData title="Forgot Password Page" />
+      <MetaData title="Forgot Password" />
 
       {loading ? (
         <Loader />
@@ -54,7 +54,7 @@ const ForgotPassword = () => {
                   id="email_field"
                   className="form-control"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </div>
 

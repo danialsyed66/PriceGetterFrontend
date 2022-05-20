@@ -16,7 +16,7 @@ import {
   CLEAR_ERRORS,
 } from '../consts';
 
-export const getProducts = (filters) => async (dispatch, getState) => {
+export const getProducts = filters => async (dispatch, getState) => {
   try {
     dispatch({
       type: ALL_PRODUCTS_REQUEST,
@@ -91,7 +91,7 @@ export const getProducts = (filters) => async (dispatch, getState) => {
   }
 };
 
-export const getProductDetails = (id) => async (dispatch) => {
+export const getProductDetails = id => async dispatch => {
   try {
     dispatch({
       type: PRODUCT_DETAILS_REQUEST,
@@ -117,7 +117,7 @@ export const getProductDetails = (id) => async (dispatch) => {
   }
 };
 
-export const newReview = (productId, review) => async (dispatch) => {
+export const newReview = (productId, review) => async dispatch => {
   try {
     dispatch({
       type: NEW_REVIEW_REQUEST,
@@ -145,7 +145,7 @@ export const newReview = (productId, review) => async (dispatch) => {
   }
 };
 
-export const deleteReview = (productId, reviewId) => async (dispatch) => {
+export const deleteReview = (productId, reviewId) => async dispatch => {
   try {
     dispatch({
       type: DELETE_REVIEW_REQUEST,

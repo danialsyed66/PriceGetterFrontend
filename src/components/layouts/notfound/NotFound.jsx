@@ -4,10 +4,13 @@ import './NotFound.css';
 import { Footer, Navbar } from '../';
 import priceGetter from '../../../assets/headericon.svg';
 import { Link } from 'react-router-dom';
+import MetaData from '../MetaData';
 
 const Forum = () => {
   return (
     <>
+      <MetaData title="Not Found" />
+
       <Navbar />
       <div className="site">
         <div className="sketch">

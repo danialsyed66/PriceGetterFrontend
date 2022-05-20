@@ -3,7 +3,7 @@ import {
   REMOVE_FROM_CART,
   UPDATE_CART,
   SAVE_SHIPPING_INFO,
-} from "../consts";
+} from '../consts';
 
 const reducer = (
   state = { cartItems: [], shippingInfo: {} },
@@ -11,14 +11,14 @@ const reducer = (
 ) => {
   switch (type) {
     case ADD_TO_CART:
-      const isInCart = state.cartItems.find((item) => item._id === payload._id);
+      const isInCart = state.cartItems.find(item => item._id === payload._id);
 
       if (!isInCart)
         return { ...state, cartItems: [...state.cartItems, payload] };
 
       return {
         ...state,
-        cartItems: state.cartItems.map((item) =>
+        cartItems: state.cartItems.map(item =>
           item._id === payload._id ? payload : item
         ),
       };
@@ -26,13 +26,13 @@ const reducer = (
     case REMOVE_FROM_CART:
       return {
         ...state,
-        cartItems: state.cartItems.filter((item) => item._id !== payload),
+        cartItems: state.cartItems.filter(item => item._id !== payload),
       };
 
     case UPDATE_CART:
       return {
         ...state,
-        cartItems: state.cartItems.map((item) =>
+        cartItems: state.cartItems.map(item =>
           item._id === payload.id
             ? { ...item, quantity: payload.quantity }
             : item

@@ -1,38 +1,41 @@
-import React, { useState } from "react";
-import priceGetter from "../../../assets/PriceGetter.svg";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import priceGetter from '../../../assets/PriceGetter.svg';
+import { useNavigate } from 'react-router-dom';
+import { MetaData } from '../../layouts';
 
 const SetPassword = ({ history }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
   };
 
   return (
     <div>
+      <MetaData title="Set Password" />
+
       <div className="container-fluid">
         <div className="row align-items-center  Background">
           <div
             className="offset-md-4 col-md-4 offset-md-3 h-100  d-flex   align-items-center justify-content-center"
-            style={{ flexDirection: "column" }}
+            style={{ flexDirection: 'column' }}
           >
             <img
               src={priceGetter}
-              style={{ width: "220px", cursor: "pointer" }}
+              style={{ width: '220px', cursor: 'pointer' }}
               alt="logo"
               onClick={() => {
-                navigate("/");
+                navigate('/');
               }}
             />
             <h1
               style={{
-                textAlign: "center",
-                fontSize: "25px",
-                color: "#5A5A5A",
-                fontFamily: "Ubuntu",
-                fontStyle: "normal",
-                fontWeight: "900",
+                textAlign: 'center',
+                fontSize: '25px',
+                color: '#5A5A5A',
+                fontFamily: 'Ubuntu',
+                fontStyle: 'normal',
+                fontWeight: '900',
               }}
             >
               Reset password
@@ -40,7 +43,7 @@ const SetPassword = ({ history }) => {
 
             <div
               className="d-flex justify-content-center align-items-center"
-              style={{ marginTop: "10px" }}
+              style={{ marginTop: '10px' }}
             >
               <form
                 action=""
@@ -54,7 +57,7 @@ const SetPassword = ({ history }) => {
                   <div className="mb-3">
                     <label
                       for="exampleInputEmail1 w-100"
-                      style={{ color: "#696969", fontWeight: "bolder" }}
+                      style={{ color: '#696969', fontWeight: 'bolder' }}
                     >
                       New Password
                     </label>
@@ -71,7 +74,7 @@ const SetPassword = ({ history }) => {
                   <div className="mb-3">
                     <label
                       for="exampleInputEmail1 w-100"
-                      style={{ color: "#696969", fontWeight: "bolder" }}
+                      style={{ color: '#696969', fontWeight: 'bolder' }}
                     >
                       Confirm Password
                     </label>
@@ -91,11 +94,11 @@ const SetPassword = ({ history }) => {
                   <button
                     type="submit"
                     style={{
-                      width: "50%",
-                      marginTop: "1rem",
-                      height: "40px",
-                      color: "#FFFFFF",
-                      backgroundColor: " #3EE18F",
+                      width: '50%',
+                      marginTop: '1rem',
+                      height: '40px',
+                      color: '#FFFFFF',
+                      backgroundColor: ' #3EE18F',
                     }}
                     className="btn btn-light"
                   >

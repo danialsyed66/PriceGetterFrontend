@@ -12,12 +12,12 @@ const Product = ({ product, col, callbackRef }) => {
   const navigate = useNavigate();
   const imgRef = useRef(null);
 
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector(state => state.auth);
   const [isFavourite, setIsFavourite] = useState(false);
 
   useEffect(() => {
     // if (!user || !product) return;
-    const favourites = user?.favourites?.map((favourite) => favourite.product);
+    const favourites = user?.favourites?.map(favourite => favourite.product);
 
     setIsFavourite(favourites?.includes(product?._id));
   }, [user, product]);
@@ -29,7 +29,7 @@ const Product = ({ product, col, callbackRef }) => {
 
     dispatch(handleFavouriteAction(id));
   };
-  const isImage = (url) =>
+  const isImage = url =>
     /http(|s):(.*?).(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -68,7 +68,7 @@ const Product = ({ product, col, callbackRef }) => {
                 icon={<Heart color="grey" />}
                 checkedIcon={<Heart color="red" />}
                 className="zoom-box"
-                onClick={(e) => handleFavourite(e, product._id)}
+                onClick={e => handleFavourite(e, product._id)}
                 checked={isFavourite}
               />
               {product.discount && (

@@ -11,7 +11,7 @@ import {
   CLEAR_ERRORS,
 } from '../consts';
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = () => async dispatch => {
   try {
     dispatch({
       type: GET_POSTS_REQUEST,
@@ -33,7 +33,7 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
-export const handleLike = (postId) => async (dispatch) => {
+export const handleLike = postId => async dispatch => {
   try {
     const {
       data: { data },
@@ -51,7 +51,7 @@ export const handleLike = (postId) => async (dispatch) => {
   }
 };
 
-export const deletePost = (postId) => async (dispatch) => {
+export const deletePost = postId => async dispatch => {
   try {
     await axios.delete(`/api/v1/posts/${postId}`);
 

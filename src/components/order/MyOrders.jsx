@@ -8,7 +8,7 @@ import { getMyOrders } from '../../redux/actions/orderActions';
 
 const MyOrders = () => {
   const dispatch = useDispatch();
-  const { /* orders, */ loading } = useSelector((state) => state.myOrders);
+  const { /* orders, */ loading } = useSelector(state => state.myOrders);
 
   useEffect(() => {
     dispatch(getMyOrders());

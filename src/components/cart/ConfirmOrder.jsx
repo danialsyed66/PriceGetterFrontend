@@ -10,11 +10,11 @@ const ConfirmOrder = () => {
 
   const {
     user: { name },
-  } = useSelector((state) => state.auth);
+  } = useSelector(state => state.auth);
   const {
     shippingInfo: { phoneNo, address, city, postalCode, country },
     cartItems,
-  } = useSelector((state) => state.cart);
+  } = useSelector(state => state.cart);
 
   const subTotal = +cartItems.reduce(
     (acc, cur) => acc + cur.price * cur.quantity,
@@ -35,7 +35,7 @@ const ConfirmOrder = () => {
 
   return (
     <>
-      <MetaData title="Confirm Order Page" />
+      <MetaData title="Confirm Order" />
 
       <CheckoutSteps shipping confirmOrder />
 

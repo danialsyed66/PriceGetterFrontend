@@ -21,8 +21,8 @@ const Payment = () => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const { user } = useSelector((state) => state.auth);
-  const { cartItems, shippingInfo } = useSelector((state) => state.cart);
+  const { user } = useSelector(state => state.auth);
+  const { cartItems, shippingInfo } = useSelector(state => state.cart);
 
   const options = {
     style: {
@@ -34,7 +34,7 @@ const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'));
   const paymentData = { amount: Math.round(orderInfo.total * 100) };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     try {
       e.preventDefault();
 
@@ -101,7 +101,7 @@ const Payment = () => {
 
   return (
     <>
-      <MetaData title={'Payment Page'} />
+      <MetaData title="Payment" />
 
       <CheckoutSteps shipping confirmOrder payment />
 
