@@ -6,14 +6,12 @@ import Post from './Post';
 import { getPosts } from '../../redux/actions/forumsActions';
 import { DELETE_POST_RESET } from '../../redux/consts';
 import fire from '../../utils/swal';
-// import { display } from "@mui/system";
+import PostForm from './PostForm';
 
 const Forum = () => {
   const dispatch = useDispatch();
 
-  const { loading, posts, message /*,  error, post */ } = useSelector(
-    state => state.forums
-  );
+  const { loading, posts, message } = useSelector(state => state.forums);
 
   useEffect(() => {
     dispatch(getPosts());
@@ -37,17 +35,18 @@ const Forum = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="container">
-          <h1 className="large text-primary">Posts</h1>
+        <section className="container">
+          <h1 className="large text-primary">Forums</h1>
           <p className="lead">
             <i className="fas fa-user" /> Welcome to the community.
           </p>
+          <PostForm />
           <div className="posts">
             {posts.map(post => (
               <Post key={post._id} post={post} />
             ))}
           </div>
-        </div>
+        </section>
       )}
       <div style={{ marginTop: 'auto' }}>
         <Footer />

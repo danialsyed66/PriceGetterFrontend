@@ -70,7 +70,6 @@ const Navbar = () => {
 
   const renderCartIcon = () => (
     <>
-      <img style={{ width: '30px' }} src={cart} alt="" />
       <Link
         to="/cart"
         style={{
@@ -78,6 +77,7 @@ const Navbar = () => {
           margin: '-30px 0 0 -2px',
         }}
       >
+        <img style={{ width: '30px' }} src={cart} alt="" />
         <span id="cart_count">{cartItems?.length}</span>
       </Link>
     </>

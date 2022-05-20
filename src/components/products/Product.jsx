@@ -17,9 +17,7 @@ const Product = ({ product, col, callbackRef }) => {
 
   useEffect(() => {
     // if (!user || !product) return;
-    const favourites = user?.favourites?.map(favourite => favourite.product);
-
-    setIsFavourite(favourites?.includes(product?._id));
+    setIsFavourite(user?.favouriteIds?.includes(product?._id));
   }, [user, product]);
 
   const handleFavourite = (e, id) => {

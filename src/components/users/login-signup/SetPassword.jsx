@@ -56,7 +56,7 @@ const SetPassword = ({ history }) => {
                 <div className="form-group mb-3">
                   <div className="mb-3">
                     <label
-                      for="exampleInputEmail1 w-100"
+                      htmlFor="exampleInputEmail1 w-100"
                       style={{ color: '#696969', fontWeight: 'bolder' }}
                     >
                       New Password
@@ -73,7 +73,7 @@ const SetPassword = ({ history }) => {
                   </div>
                   <div className="mb-3">
                     <label
-                      for="exampleInputEmail1 w-100"
+                      htmlFor="exampleInputEmail1 w-100"
                       style={{ color: '#696969', fontWeight: 'bolder' }}
                     >
                       Confirm Password

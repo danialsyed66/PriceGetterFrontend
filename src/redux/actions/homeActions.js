@@ -7,26 +7,30 @@ import {
   CLEAR_ERRORS,
 } from '../consts';
 
-export const getHome = userData => async dispatch => {
-  try {
-    dispatch({
-      type: HOME_PAGE_REQUEST,
-    });
+export const getHome =
+  (resPerPage = 5) =>
+  async dispatch => {
+    try {
+      dispatch({
+        type: HOME_PAGE_REQUEST,
+      });
 
-    const {
-      data: { data },
-    } = await axios.get('/api/v1/products/getHomePage?resPerPage=10');
+      const {
+        data: { data },
+      } = await axios.get(
+        `/api/v1/products/getHomePage?resPerPage=${resPerPage}`
+      );
 
-    dispatch({
-      type: HOME_PAGE_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: HOME_PAGE_FAIL,
-      payload: error?.response?.data?.message,
-    });
-  }
-};
+      dispatch({
+        type: HOME_PAGE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: HOME_PAGE_FAIL,
+        payload: error?.response?.data?.message,
+      });
+    }
+  };
 
 export const clearErrors = () => ({ type: CLEAR_ERRORS });

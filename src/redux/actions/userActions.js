@@ -10,6 +10,9 @@ import {
   HANDLE_FAVOURITE_REQUEST,
   HANDLE_FAVOURITE_SUCCESS,
   HANDLE_FAVOURITE_FAIL,
+  GET_FAVOURITES_REQUEST,
+  GET_FAVOURITES_SUCCESS,
+  GET_FAVOURITES_FAIL,
   CLEAR_ERRORS,
 } from '../consts';
 
@@ -55,7 +58,29 @@ export const changePassword = userData => async dispatch => {
   }
 };
 
-export const handleFavourite = productId => async dispatch => {
+export const getFavourites = () => async dispatch => {
+  try {
+    dispatch({
+      type: GET_FAVOURITES_REQUEST,
+    });
+
+    const {
+      data: { data },
+    } = await axios.get(`/api/v1/favourites`);
+
+    dispatch({
+      type: GET_FAVOURITES_SUCCESS,
+      payload: data.favourites,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_FAVOURITES_FAIL,
+      payload: error?.response?.data?.message,
+    });
+  }
+};
+
+export const handleFavourite = (productId, favouriteId) => async dispatch => {
   try {
     dispatch({
       type: HANDLE_FAVOURITE_REQUEST,
@@ -65,7 +90,10 @@ export const handleFavourite = productId => async dispatch => {
 
     dispatch({
       type: HANDLE_FAVOURITE_SUCCESS,
-      payload: data.status === 'success' ? true : false,
+      payload: {
+        status: data.status === 'success' ? true : false,
+        favouriteId,
+      },
     });
   } catch (error) {
     dispatch({

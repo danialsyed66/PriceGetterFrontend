@@ -50,7 +50,7 @@ function ForgotPassword({ history }) {
                   <form className="w-75">
                     <div className="form-group mb-3">
                       <label
-                        for="exampleInputEmail1 w-100"
+                        htmlFor="exampleInputEmail1 w-100"
                         style={{ color: '#696969', fontWeight: 'bolder' }}
                       >
                         Email

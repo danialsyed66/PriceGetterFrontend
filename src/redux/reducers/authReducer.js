@@ -26,7 +26,17 @@ const reducer = (state = {}, { type, payload }) => {
     case SOCIAL_LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
     case LOAD_USER_SUCCESS:
-      return { ...state, loading: false, isAuth: true, user: payload };
+      return {
+        ...state,
+        loading: false,
+        isAuth: true,
+        user: {
+          ...payload,
+          favouriteIds: payload?.favourites?.map(
+            favourite => favourite.product
+          ),
+        },
+      };
 
     case LOGIN_FAIL:
     case REGISTER_FAIL:

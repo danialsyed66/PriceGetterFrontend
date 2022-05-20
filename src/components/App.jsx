@@ -42,6 +42,7 @@ const Success = lazy(() => import('./cart/Success'));
 const MyOrders = lazy(() => import('./order/MyOrders'));
 const OrderDetails = lazy(() => import('./order/OrderDetails'));
 const Forum = lazy(() => import('./forums/Forum'));
+const PostPage = lazy(() => import('./forums/PostPage'));
 const Wishlist = lazy(() => import('./users/Wishlist'));
 
 const App = () => {
@@ -80,7 +81,7 @@ const App = () => {
     if (myOrdersError) fire(myOrdersError);
     if (orderDetailsError) fire(orderDetailsError);
     if (reviewError) fire(reviewError);
-    if (forumsError[1]) fire(forumsError[1]);
+    if (forumsError) fire(forumsError);
 
     dispatch(clearErrors());
   }, [
@@ -110,6 +111,8 @@ const App = () => {
 
   useEffect(() => {
     if (!isUpdated) return;
+
+    if (window.location.pathname === '/wishlist') return;
 
     dispatch(loadUser());
 
@@ -149,11 +152,24 @@ const App = () => {
             <Route path="/password/forgot" exact element={<ForgotPassword />} />
             <Route path="/cart" exact element={<Cart />} />
             <Route path="/forums" exact element={<Forum />} />
-            <Route path="/wishlist" exact element={<Wishlist />} />
+            <Route path="/forums/post/:id" exact element={<PostPage />} />
+            <Route
+              path="/wishlist"
+              exact
+              element={
+                <ProtectedRoute>
+                  <Wishlist />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/password/reset/:token"
               exact
-              element={<ResetPassword />}
+              element={
+                <ProtectedRoute>
+                  <ResetPassword />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/shipping"
