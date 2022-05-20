@@ -15,7 +15,7 @@ import {
 import { addToCart } from './../../../redux/actions/cartActions';
 import { NEW_REVIEW_RESET } from './../../../redux/consts';
 import fire from './../../../utils/swal';
-import { MetaData } from '../../layouts';
+import { Loader, MetaData } from '../../layouts';
 
 const DetailPage = () => {
   const isImage = url =>
@@ -28,7 +28,7 @@ const DetailPage = () => {
   const [userRating /* , setUserRating */] = useState(0);
   const [comment, setComment] = useState('');
 
-  const { /* loading, */ product } = useSelector(state => state.productDetails);
+  const { loading, product } = useSelector(state => state.productDetails);
   // const { isAuth } = useSelector((state) => state.auth);
   const { success: reviewSuccess, message: reviewMessage } = useSelector(
     state => state.review
@@ -48,6 +48,7 @@ const DetailPage = () => {
     reviews,
     // createdAt,
     discount,
+    type,
   } = product;
 
   const decreaseQuantity = () => {
@@ -131,170 +132,199 @@ const DetailPage = () => {
       <MetaData title="Product Details" />
 
       <Navbar />
-      <div className="p-2 m-5">
-        <div className="row">
-          <div className="col-md-1 offset-md-2">
-            <div className="boxs-img " style={{ cursor: 'pointer' }}>
-              {images?.map(image => {
-                if (isImage(image?.url)) {
-                  return (
-                    <div
-                      className="small_pic p-2 my-2"
-                      onClick={() => setSellectedImage(image?.url)}
-                      key={image?.url}
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <div className="p-2 m-5">
+            <div className="row">
+              <div className="col-md-1 offset-md-2">
+                <div className="boxs-img " style={{ cursor: 'pointer' }}>
+                  {images?.map(image => {
+                    if (isImage(image?.url)) {
+                      return (
+                        <div
+                          className="small_pic p-2 my-2"
+                          onClick={() => setSellectedImage(image?.url)}
+                          key={image?.url}
+                        >
+                          <img src={image?.url} alt="" />
+                        </div>
+                      );
+                    }
+                    return <></>;
+                  })}
+                </div>
+              </div>
+
+              <div
+                className="col-md-4 d-flex justify-content-center align-items-center"
+                style={{ height: '400px' }}
+              >
+                <div className=" d-flex flex-column justify-content-center align-items-center w-100">
+                  <p className="discount_bar p-1">{discount}</p>
+
+                  <img
+                    className="w-75"
+                    style={{ maxHeight: '350px' }}
+                    src={sellectedImage}
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div className="col-md-5 heaing_detail">
+                <h2>{name}</h2>
+                <hr />
+                <div className="rating-outer">
+                  <div
+                    className="rating-inner"
+                    style={{ width: `${(rating / 5) * 100}%` }}
+                  ></div>
+                </div>
+                <span id="no_of_reviews">
+                  ({noOfReviews} {noOfReviews === 1 ? 'Review' : 'Reviews'})
+                </span>
+                <hr />
+                <p id="product_price">{`$${price}`}</p>
+                <hr />
+                {type !== 'PriceGetter' ? (
+                  <>
+                    Go To Site:
+                    <img
+                      style={{ width: '80px', cursor: 'pointer' }}
+                      className="ml-3"
+                      alt="seller pic"
+                      src={product?.seller?.logo?.url}
+                      onClick={() => {
+                        const newWindow = window.open(product.url, '_blank');
+                        if (newWindow) newWindow.opener = null;
+                      }}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <div className="stockCounter d-flex">
+                      <button
+                        className="btn btn-danger minus"
+                        onClick={decreaseQuantity}
+                        disabled={quantity === 1}
+                      >
+                        -
+                      </button>
+
+                      <input
+                        type="number"
+                        className="form-control count d-inline"
+                        value={quantity}
+                        readOnly
+                      />
+
+                      <button
+                        className="btn btn-primary plus"
+                        onClick={increaseQuantity}
+                        disabled={quantity >= stock}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <button
+                      type="button"
+                      id="cart_btn"
+                      className="btn btn-primary d-inline  mt-3"
+                      onClick={handleAddCart}
+                      disabled={stock < 1}
                     >
-                      <img src={image?.url} alt="" />
-                    </div>
-                  );
-                }
-                return <></>;
-              })}
-            </div>
-          </div>
+                      Add to Cart
+                    </button>
+                  </>
+                )}
 
-          <div
-            className="col-md-4 d-flex justify-content-center align-items-center"
-            style={{ height: '400px' }}
-          >
-            <div className=" d-flex flex-column justify-content-center align-items-center w-100">
-              <p className="discount_bar p-1">{discount}</p>
+                <hr />
+                <p>
+                  Status:{' '}
+                  <span id="stock_status">
+                    {stock > 0 ? 'In Stock' : 'Out of Stock'}
+                  </span>
+                </p>
+                <hr />
+                <p className="p_detail">{description} </p>
+              </div>
 
-              <img
-                className="w-75"
-                style={{ maxHeight: '350px' }}
-                src={sellectedImage}
-                alt=""
-              />
-            </div>
-          </div>
-          <div className="col-md-5 heaing_detail">
-            <h2>{name}</h2>
-            <hr />
-            <div className="rating-outer">
-              <div
-                className="rating-inner"
-                style={{ width: `${(rating / 5) * 100}%` }}
-              ></div>
-            </div>
-            <span id="no_of_reviews">
-              ({noOfReviews} {noOfReviews === 1 ? 'Review' : 'Reviews'})
-            </span>
-            <hr />
-            <p id="product_price">{`$${price}`}</p>
-            <div className="stockCounter d-flex">
-              <button
-                className="btn btn-danger minus"
-                onClick={decreaseQuantity}
-                disabled={quantity === 1}
-              >
-                -
-              </button>
+              <div className="row mt-2 mb-5">
+                <div className="rating w-50">
+                  <div
+                    className="modal fade"
+                    id="ratingModal"
+                    tabIndex="-1"
+                    role="dialog"
+                    aria-labelledby="ratingModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog" role="document">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="ratingModalLabel">
+                            Submit Review
+                          </h5>
+                          <button
+                            type="button"
+                            className="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                          >
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div className="modal-body">
+                          <ul className="stars">
+                            <li className="star">
+                              {' '}
+                              <i className="fa fa-star"></i>{' '}
+                            </li>
+                            <li className="star">
+                              <i className="fa fa-star"></i>
+                            </li>
+                            <li className="star">
+                              <i className="fa fa-star"></i>
+                            </li>
+                            <li className="star">
+                              <i className="fa fa-star"></i>
+                            </li>
+                            <li className="star">
+                              <i className="fa fa-star"></i>
+                            </li>
+                          </ul>
 
-              <input
-                type="number"
-                className="form-control count d-inline"
-                value={quantity}
-                readOnly
-              />
+                          <textarea
+                            name="review"
+                            id="review"
+                            className="form-control mt-3"
+                            value={comment}
+                            onChange={e => setComment(e.target.value)}
+                          ></textarea>
 
-              <button
-                className="btn btn-primary plus"
-                onClick={increaseQuantity}
-                disabled={quantity >= stock}
-              >
-                +
-              </button>
-            </div>
-            <button
-              type="button"
-              id="cart_btn"
-              className="btn btn-primary d-inline  mt-3"
-              onClick={handleAddCart}
-              disabled={stock < 1}
-            >
-              Add to Cart
-            </button>
-            <hr />
-            <p>
-              Status:{' '}
-              <span id="stock_status">
-                {stock > 0 ? 'In Stock' : 'Out of Stock'}
-              </span>
-            </p>
-            <hr />
-            <p className="p_detail">{description} </p>
-          </div>
-
-          <div className="row mt-2 mb-5">
-            <div className="rating w-50">
-              <div
-                className="modal fade"
-                id="ratingModal"
-                tabIndex="-1"
-                role="dialog"
-                aria-labelledby="ratingModalLabel"
-                aria-hidden="true"
-              >
-                <div className="modal-dialog" role="document">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <h5 className="modal-title" id="ratingModalLabel">
-                        Submit Review
-                      </h5>
-                      <button
-                        type="button"
-                        className="close"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                      >
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div className="modal-body">
-                      <ul className="stars">
-                        <li className="star">
-                          {' '}
-                          <i className="fa fa-star"></i>{' '}
-                        </li>
-                        <li className="star">
-                          <i className="fa fa-star"></i>
-                        </li>
-                        <li className="star">
-                          <i className="fa fa-star"></i>
-                        </li>
-                        <li className="star">
-                          <i className="fa fa-star"></i>
-                        </li>
-                        <li className="star">
-                          <i className="fa fa-star"></i>
-                        </li>
-                      </ul>
-
-                      <textarea
-                        name="review"
-                        id="review"
-                        className="form-control mt-3"
-                        value={comment}
-                        onChange={e => setComment(e.target.value)}
-                      ></textarea>
-
-                      <button
-                        className="btn my-3 float-right review-btn px-4 text-white"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                        onClick={submitHandler}
-                      >
-                        Submit
-                      </button>
+                          <button
+                            className="btn my-3 float-right review-btn px-4 text-white"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                            onClick={submitHandler}
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      {reviews?.length && <ListReviews reviews={reviews} productId={_id} />}
+          {reviews?.length > 0 && (
+            <ListReviews reviews={reviews} productId={_id} />
+          )}
+        </>
+      )}
+
       <Footer />
     </>
   );
