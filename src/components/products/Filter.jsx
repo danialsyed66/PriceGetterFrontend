@@ -143,7 +143,7 @@ const Filter = () => {
       </div>
       <section id="products" className="container-fluid mt-5">
         <div className="row mt-4">
-          <div className="col-md-2">
+          <aside className="col-md-2 sidebar">
             <h4 style={{ fontWeight: 'bold' }}>Filters</h4>
             <div className="mb-3 pl-3">
               <p style={{ margin: '0', fontWeight: 'bold' }}>Price</p>
@@ -225,7 +225,7 @@ const Filter = () => {
                 <p style={{ margin: '0' }}>{text}</p>
               </div>
             ))}
-          </div>
+          </aside>
           <div className="col-md-10">
             <h1 id="products_heading">Search Related Products</h1>
             <div className="row filter_box">
