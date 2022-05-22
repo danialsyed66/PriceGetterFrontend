@@ -116,6 +116,11 @@
     display: block;
   }
 }
+.nav-permanent {
+  border-bottom: 3px solid rgba(62, 115, 17, 1) !important;
+  color: rgba(62, 115, 17, 1) !important;
+  text-decoration: none;
+}
 
 .nav-a:hover {
   border-bottom: 3px solid rgba(62, 115, 17, 1) !important;

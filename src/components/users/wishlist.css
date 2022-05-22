@@ -12,6 +12,12 @@
 .imgwishlist {
   width: 400px;
 }
+.p_w {
+  width: 70%;
+  text-align: justify;
+  row-gap: 10px;
+  font-size: large;
+}
 
 @media only screen and (max-width: 780px) {
   .main {
@@ -19,5 +25,9 @@
   }
   .imgwishlist {
     width: 200px;
+  }
+
+  .p_w {
+    width: 100%;
   }
 }

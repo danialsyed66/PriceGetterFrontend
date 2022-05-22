@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Checkbox } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Checkbox } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import "./forum.css";
 
-import Like from '../../utils/Like';
+import Like from "../../utils/Like";
 import {
   handleLike as handleLikeAction,
   deletePost,
-} from '../../redux/actions/forumsActions';
-import printDate from '../../utils/printDate';
+} from "../../redux/actions/forumsActions";
+import printDate from "../../utils/printDate";
 
 const Post = ({
   post: { _id, text, name, avatar, user, likes, comments, createdAt },
@@ -16,7 +17,7 @@ const Post = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const auth = useSelector(state => state.auth);
+  const auth = useSelector((state) => state.auth);
 
   const [isLiked, setIsLiked] = useState(false);
 
@@ -25,13 +26,13 @@ const Post = ({
 
     if (!auth.isAuth) return;
 
-    const liked = likes.filter(like => like.user === auth?.user?._id);
+    const liked = likes.filter((like) => like.user === auth?.user?._id);
 
     setIsLiked(liked.length > 0 ? true : false);
   }, [setIsLiked, likes, auth]);
 
   const handleLike = (e, id) => {
-    if (!auth.isAuth) return navigate('/login');
+    if (!auth.isAuth) return navigate("/login");
 
     setIsLiked(!isLiked);
 
@@ -39,46 +40,69 @@ const Post = ({
   };
 
   return (
-    <div className="post bg-white my-1 p-1" style={{ minHeight: '30vh' }}>
+    <div
+      className="post rounded-4 my-1 p-1 btn_forum mb-4"
+      style={{ minHeight: "30vh" }}
+    >
       <div>
-        <Link to={`/user/${user}`}>
-          <img
-            className="rounded-circle"
-            src={avatar}
-            alt={`${name}'s Avatar`}
-          />
-          <h4>{name}</h4>
-        </Link>
+        <img
+          className="rounded-circle m-3"
+          src={avatar}
+          alt={`${name}'s Avatar`}
+          style={{ width: "60px" }}
+        />
+        <h5>{name}</h5>
       </div>
 
-      <div>
-        <p className="my-1">{text}</p>
-        <p className="post-date">{printDate(createdAt)}</p>
-        <Checkbox
-          icon={<Like color="grey" likes={likes?.length} />}
-          checkedIcon={<Like color="red" likes={likes?.length} />}
-          className="zoom-box"
-          onClick={e => handleLike(e, _id)}
-          checked={isLiked}
-        />
-        {showActions && (
-          <>
-            <Link to={`/forums/post/${_id}`} className="btn btn-primary m-1">
-              Discussion{' '}
-              {comments?.length > 0 && (
-                <span className="comment-count">{comments?.length}</span>
-              )}
-            </Link>
-            {auth.isAuth && auth.user._id === user && (
-              <i
-                id="delete_cart_item"
-                className="fa fa-trash m-3"
-                style={{ color: 'red' }}
-                onClick={() => dispatch(deletePost(_id))}
-              ></i>
-            )}
-          </>
-        )}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <div>
+          <p className="my-1">{text}</p>
+          <p className="post-date">{printDate(createdAt)}</p>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Checkbox
+            icon={<Like color="grey" likes={likes?.length} />}
+            checkedIcon={<Like color="red" likes={likes?.length} />}
+            onClick={(e) => handleLike(e, _id)}
+            checked={isLiked}
+            style={{ border: "none" }}
+          />
+          {showActions && (
+            <>
+              <div className="d-flex ml-5 ">
+                <Link to={`/forums/post/${_id}`} className="btn ">
+                  Proceed To Discussion
+                  {comments?.length > 0 && (
+                    <p
+                      className="comment-count "
+                      style={{ margin: "0 0 0 0" }}
+                    >{`${comments?.length} Comments`}</p>
+                  )}
+                </Link>
+                {auth.isAuth && auth.user._id === user && (
+                  <i
+                    id="delete_cart_item"
+                    className="fa fa-trash m-3"
+                    style={{ color: "red" }}
+                    onClick={() => dispatch(deletePost(_id))}
+                  ></i>
+                )}
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,73 +1,76 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
+import React, { lazy, Suspense, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
-import './App.css';
+import "./App.css";
 
-import { Loader, NotFound } from './layouts';
+import { Loader, NotFound } from "./layouts";
 import {
   loadUser,
   clearErrors,
   socialLogin,
-} from '../redux/actions/authActions';
-import axios from '../utils/axios';
-import fire from '../utils/swal';
-import { getHome } from '../redux/actions/homeActions';
-import { HANDLE_FAVOURITE_RESET } from '../redux/consts';
-const Home = lazy(() => import('./products/Home'));
-const Filter = lazy(() => import('./products/Filter'));
-const DetailPage = lazy(() => import('./products/DetailPage/DetailPage'));
-const SELLER = lazy(() => import('./users/login-signup/SELLER'));
-const Login = lazy(() => import('./users/login-signup/Login'));
-const Signup = lazy(() => import('./users/login-signup/Signup'));
+} from "../redux/actions/authActions";
+import axios from "../utils/axios";
+import fire from "../utils/swal";
+import { getHome } from "../redux/actions/homeActions";
+import { HANDLE_FAVOURITE_RESET } from "../redux/consts";
+import Guide from "./users/Guide";
+const Home = lazy(() => import("./products/Home"));
+const Filter = lazy(() => import("./products/Filter"));
+const DetailPage = lazy(() => import("./products/DetailPage/DetailPage"));
+const SELLER = lazy(() => import("./users/login-signup/SELLER"));
+const Login = lazy(() => import("./users/login-signup/Login"));
+const Signup = lazy(() => import("./users/login-signup/Signup"));
 const ForgetPassword = lazy(() =>
-  import('./users/login-signup/ForgotPassword')
+  import("./users/login-signup/ForgotPassword")
 );
-const SetPassword = lazy(() => import('./users/login-signup/SetPassword'));
-const VerifyOtp = lazy(() => import('./users/login-signup/OtpVerify'));
+const SetPassword = lazy(() => import("./users/login-signup/SetPassword"));
+const VerifyOtp = lazy(() => import("./users/login-signup/OtpVerify"));
 
-const ProtectedRoute = lazy(() => import('./layouts/ProtectedRoute'));
-const Profile = lazy(() => import('./users/Profile'));
-const UpdateProfile = lazy(() => import('./users/UpdateProfile'));
-const ChangePassword = lazy(() => import('./users/ChangePassword'));
-const ForgotPassword = lazy(() => import('./users/ForgotPassword'));
-const ResetPassword = lazy(() => import('./users/ResetPassword'));
-const Cart = lazy(() => import('./cart/Cart'));
-const Shipping = lazy(() => import('./cart/Shipping'));
-const ConfirmOrder = lazy(() => import('./cart/ConfirmOrder'));
-const Payment = lazy(() => import('./cart/Payment'));
-const Success = lazy(() => import('./cart/Success'));
-const MyOrders = lazy(() => import('./order/MyOrders'));
-const OrderDetails = lazy(() => import('./order/OrderDetails'));
-const Forum = lazy(() => import('./forums/Forum'));
-const PostPage = lazy(() => import('./forums/PostPage'));
-const Wishlist = lazy(() => import('./users/Wishlist'));
+const ProtectedRoute = lazy(() => import("./layouts/ProtectedRoute"));
+const Profile = lazy(() => import("./users/Profile"));
+const UpdateProfile = lazy(() => import("./users/UpdateProfile"));
+const ChangePassword = lazy(() => import("./users/ChangePassword"));
+const ForgotPassword = lazy(() => import("./users/ForgotPassword"));
+const ResetPassword = lazy(() => import("./users/ResetPassword"));
+const Cart = lazy(() => import("./cart/Cart"));
+const Shipping = lazy(() => import("./cart/Shipping"));
+const ConfirmOrder = lazy(() => import("./cart/ConfirmOrder"));
+const Payment = lazy(() => import("./cart/Payment"));
+const Success = lazy(() => import("./cart/Success"));
+const MyOrders = lazy(() => import("./order/MyOrders"));
+const OrderDetails = lazy(() => import("./order/OrderDetails"));
+const Forum = lazy(() => import("./forums/Forum"));
+const PostPage = lazy(() => import("./forums/PostPage"));
+const Wishlist = lazy(() => import("./users/Wishlist"));
 
 const App = () => {
-  const [stripeKey, setStripeKey] = useState('');
+  const [stripeKey, setStripeKey] = useState("");
   const dispatch = useDispatch();
 
-  const { error: productsError } = useSelector(state => state.products);
+  const { error: productsError } = useSelector((state) => state.products);
   const { error: productDetailsError } = useSelector(
-    state => state.productDetails
+    (state) => state.productDetails
   );
-  const { error: authError } = useSelector(state => state.auth);
-  const { error: userError } = useSelector(state => state.user);
-  const { error: homeError } = useSelector(state => state.home);
+  const { error: authError } = useSelector((state) => state.auth);
+  const { error: userError } = useSelector((state) => state.user);
+  const { error: homeError } = useSelector((state) => state.home);
   const { error: forgotPasswordError } = useSelector(
-    state => state.forgotPassword
+    (state) => state.forgotPassword
   );
-  const { error: cartError } = useSelector(state => state.cart);
-  const { error: orderError } = useSelector(state => state.order);
-  const { error: myOrdersError } = useSelector(state => state.myOrders);
-  const { error: orderDetailsError } = useSelector(state => state.orderDetails);
-  const { error: reviewError } = useSelector(state => state.review);
-  const { error: forumsError } = useSelector(state => state.forums);
+  const { error: cartError } = useSelector((state) => state.cart);
+  const { error: orderError } = useSelector((state) => state.order);
+  const { error: myOrdersError } = useSelector((state) => state.myOrders);
+  const { error: orderDetailsError } = useSelector(
+    (state) => state.orderDetails
+  );
+  const { error: reviewError } = useSelector((state) => state.review);
+  const { error: forumsError } = useSelector((state) => state.forums);
 
-  const { isAuth } = useSelector(state => state.auth);
-  const { isUpdated } = useSelector(state => state.user);
+  const { isAuth } = useSelector((state) => state.auth);
+  const { isUpdated } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (productsError) fire(productsError);
@@ -112,7 +115,7 @@ const App = () => {
   useEffect(() => {
     if (!isUpdated) return;
 
-    if (window.location.pathname === '/wishlist') return;
+    if (window.location.pathname === "/wishlist") return;
 
     dispatch(loadUser());
 
@@ -124,7 +127,7 @@ const App = () => {
       try {
         const {
           data: { data },
-        } = await axios.get('api/v1/payment/getStripeApiKey');
+        } = await axios.get("api/v1/payment/getStripeApiKey");
 
         setStripeKey(data.stripeApiKey);
       } catch (err) {
@@ -142,6 +145,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/filter" element={<Filter />} />
+            <Route path="/guide" element={<Guide />} />
             <Route path="/product/:id" element={<DetailPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />

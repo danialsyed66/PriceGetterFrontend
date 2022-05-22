@@ -1,27 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import * as Yup from 'yup';
-import { Button, FormControl, IconButton } from '@mui/material';
-import { Field, Form, Formik } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import * as Yup from "yup";
+import { Button, FormControl, IconButton } from "@mui/material";
+import { Field, Form, Formik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import './Login.css';
+import "./Login.css";
 
-import eye from '../../../assets/eye.svg';
-import eyeslash from '../../../assets/eye-slash.svg';
-import priceGetter from '../../../assets/PriceGetter.svg';
+import eye from "../../../assets/eye.svg";
+import eyeslash from "../../../assets/eye-slash.svg";
+import priceGetter from "../../../assets/PriceGetter.svg";
 
-import { InputText } from './InputText';
-import { Checkboxmui } from './Checkboxmui';
-import { register } from '../../../redux/actions/authActions';
-import fire from '../../../utils/swal';
-import { MetaData } from '../../layouts';
+import { InputText } from "./InputText";
+
+import { register } from "../../../redux/actions/authActions";
+import fire from "../../../utils/swal";
+import { MetaData } from "../../layouts";
 
 const SignupPage = () => {
-  const [avatar, setAvatar] = useState('');
-  const [avatarPreview, setAvatarPreview] = useState('/default_avatar.jpg');
+  const [avatar, setAvatar] = useState("");
+  const [avatarPreview, setAvatarPreview] = useState("/default_avatar.jpg");
+  const [seller, setSeller] = useState(false);
 
-  const handleAvatarUpload = e => {
+  const handleAvatarUpload = (e) => {
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -35,31 +36,31 @@ const SignupPage = () => {
     if (e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
   };
 
-  const handleSubmit = ({ name, email, password, seller }) => {
+  const handleSubmit = ({ name, email, password }) => {
     const formData = new FormData();
 
-    formData.set('name', name);
-    formData.set('email', email);
-    formData.set('password', password);
-    if (seller) formData.set('role', 'seller');
-    if (avatar) formData.set('avatar', avatar);
+    formData.set("name", name);
+    formData.set("email", email);
+    formData.set("password", password);
+    if (seller) formData.set("role", seller);
+    if (avatar) formData.set("avatar", avatar);
 
     dispatch(register(formData));
   };
 
   const SignupSchema = Yup.object().shape({
     email: Yup.string()
-      .email('Invalid email')
-      .required('Please enter your Email'),
-    password: Yup.string().required('Please enter your Password'),
-    confirmpassword: Yup.string().when('password', {
-      is: val => val?.length > 0,
+      .email("Invalid email")
+      .required("Please enter your Email"),
+    password: Yup.string().required("Please enter your Password"),
+    confirmpassword: Yup.string().when("password", {
+      is: (val) => val?.length > 0,
       then: Yup.string().oneOf(
-        [Yup.ref('password')],
-        'Your passwords donot match.'
+        [Yup.ref("password")],
+        "Your passwords donot match."
       ),
     }),
-    name: Yup.string().required('please enter the name'),
+    name: Yup.string().required("please enter the name"),
   });
 
   const [values, setValues] = React.useState(false);
@@ -68,15 +69,15 @@ const SignupPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleMouseDownPassword = event => {
+  const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const { isAuth } = useSelector(state => state.auth);
+  const { isAuth } = useSelector((state) => state.auth);
   useEffect(() => {
     if (isAuth) {
-      fire('User Sign In Successfully!', 'success');
+      fire("User Sign In Successfully!", "success");
 
-      navigate('/');
+      navigate("/");
     }
   }, [dispatch, navigate, isAuth]);
 
@@ -84,21 +85,21 @@ const SignupPage = () => {
     <div
       className="main_div background"
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <MetaData title="SignUp" />
 
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: "center" }}>
         <img
           src={priceGetter}
-          style={{ width: '220px', cursor: 'pointer' }}
+          style={{ width: "220px", cursor: "pointer" }}
           alt="logo"
           onClick={() => {
-            navigate('/');
+            navigate("/");
           }}
         />
 
@@ -108,11 +109,10 @@ const SignupPage = () => {
       <div className="p-3">
         <Formik
           initialValues={{
-            name: '',
-            email: '',
-            password: '',
-            confirmpassword: '',
-            seller: 'false',
+            name: "",
+            email: "",
+            password: "",
+            confirmpassword: "",
           }}
           validationSchema={SignupSchema}
           onSubmit={handleSubmit}
@@ -120,7 +120,7 @@ const SignupPage = () => {
           {({ errors, touched }) => (
             <Form>
               <div className="d-flex flex-column justify-content-center align-content-center mb-2">
-                <FormControl sx={{ m: 0.5, width: '40ch' }}>
+                <FormControl sx={{ m: 0.5, width: "40ch" }}>
                   <Field
                     placeholder="User Name"
                     name="name"
@@ -128,10 +128,10 @@ const SignupPage = () => {
                     component={InputText}
                   />
                 </FormControl>
-                <div style={{ height: '15px' }}>
+                <div style={{ height: "15px" }}>
                   {errors.name && touched.name ? (
                     <div
-                      style={{ width: '100%', textAlign: 'center' }}
+                      style={{ width: "100%", textAlign: "center" }}
                       className="errorText mb-1"
                     >
                       {errors.name}
@@ -140,7 +140,7 @@ const SignupPage = () => {
                 </div>
               </div>
               <div className="d-flex flex-column justify-content-center align-content-center mb-2">
-                <FormControl sx={{ m: 0.5, width: '40ch' }}>
+                <FormControl sx={{ m: 0.5, width: "40ch" }}>
                   <Field
                     placeholder="email"
                     name="email"
@@ -148,10 +148,10 @@ const SignupPage = () => {
                     component={InputText}
                   />
                 </FormControl>
-                <div style={{ height: '15px' }}>
+                <div style={{ height: "15px" }}>
                   {errors.email && touched.email ? (
                     <div
-                      style={{ width: '100%', textAlign: 'center' }}
+                      style={{ width: "100%", textAlign: "center" }}
                       className="errorText"
                     >
                       {errors.email}
@@ -161,19 +161,19 @@ const SignupPage = () => {
               </div>
 
               <div className="d-flex flex-column justify-content-center align-align-items-center ">
-                <FormControl sx={{ m: 1, width: '40ch' }}>
+                <FormControl sx={{ m: 1, width: "40ch" }}>
                   <Field
                     label="password"
                     name="password"
                     component={InputText}
-                    type={values ? 'text' : 'password'}
+                    type={values ? "text" : "password"}
                   />
                 </FormControl>
                 <IconButton
                   style={{
-                    marginTop: '-35px',
-                    marginLeft: '300px',
-                    width: '5px',
+                    marginTop: "-35px",
+                    marginLeft: "300px",
+                    width: "5px",
                   }}
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
@@ -185,10 +185,10 @@ const SignupPage = () => {
                     <img alt="" src={eyeslash} />
                   )}
                 </IconButton>
-                <div style={{ height: '25px' }}>
+                <div style={{ height: "25px" }}>
                   {errors.password && touched.password ? (
                     <div
-                      style={{ width: '100%', textAlign: 'center' }}
+                      style={{ width: "100%", textAlign: "center" }}
                       className="errorText"
                     >
                       {errors.password}
@@ -197,19 +197,19 @@ const SignupPage = () => {
                 </div>
               </div>
               <div className="d-flex flex-column justify-content-center align-content-center">
-                <FormControl sx={{ m: 1, width: '40ch' }}>
+                <FormControl sx={{ m: 1, width: "40ch" }}>
                   <Field
                     label=" Confirm password"
                     name="confirmpassword"
                     component={InputText}
-                    type={values ? 'text' : 'password'}
+                    type={values ? "text" : "password"}
                   />
                 </FormControl>
                 <IconButton
                   style={{
-                    width: '5px',
-                    marginTop: '-35px',
-                    marginLeft: '300px',
+                    width: "5px",
+                    marginTop: "-35px",
+                    marginLeft: "300px",
                   }}
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
@@ -221,10 +221,10 @@ const SignupPage = () => {
                     <img alt="" src={eyeslash} />
                   )}
                 </IconButton>
-                <div style={{ height: '15px' }}>
+                <div style={{ height: "15px" }}>
                   {errors.confirmpassword && touched.confirmpassword ? (
                     <div
-                      style={{ width: '100%', textAlign: 'center' }}
+                      style={{ width: "100%", textAlign: "center" }}
                       className="errorText"
                     >
                       {errors.confirmpassword}
@@ -260,25 +260,32 @@ const SignupPage = () => {
                 </div>
               </div>
               <label>
-                <Field name="seller" value="true" component={Checkboxmui} />
+                <input
+                  name="seller"
+                  className="mr-5"
+                  onClick={() => {
+                    setSeller(!seller);
+                  }}
+                  type="checkbox"
+                />
                 Seller
               </label>
               <div
                 style={{
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 <Button
                   className="mb-2"
                   style={{
-                    margin: 'auto',
-                    background: ' #3EE18F',
-                    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.3)',
-                    borderRadius: '10px',
-                    width: '100%',
+                    margin: "auto",
+                    background: " #3EE18F",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.3)",
+                    borderRadius: "10px",
+                    width: "100%",
                   }}
                   variant="contained"
                   type="submit"
@@ -290,7 +297,7 @@ const SignupPage = () => {
                 <p
                   className="login_p"
                   onClick={() => {
-                    navigate('/login');
+                    navigate("/login");
                   }}
                 >
                   Already have account?
@@ -298,7 +305,7 @@ const SignupPage = () => {
                 <p
                   className="login_p"
                   onClick={() => {
-                    navigate('/forgetpassword');
+                    navigate("/forgetpassword");
                   }}
                 >
                   ForgetPassword
