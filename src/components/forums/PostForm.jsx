@@ -1,36 +1,53 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addComment, addPost } from '../../redux/actions/forumsActions';
+import React, { useState } from "react";
+import "./forum.css";
+import { useDispatch } from "react-redux";
+import { addComment, addPost } from "../../redux/actions/forumsActions";
 
 const PostForm = ({ forComment, postId }) => {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (forComment) dispatch(addComment(postId, { text }));
     else dispatch(addPost({ text }));
 
-    setText('');
+    setText("");
   };
 
   return (
     <div className="post-form">
-      <div className="post-form-header bg-primary">
-        <h3>{forComment ? 'Leave a comment...' : 'Say Something...'}</h3>
+      <div className="post-form-header ">
+        <h3>
+          {forComment
+            ? "Leave a comment..."
+            : "Ask About Products in Community"}
+        </h3>
       </div>
       <form className="form my-1" onSubmit={handleSubmit}>
         <textarea
           cols="30"
           rows="5"
-          placeholder={forComment ? 'Write some comment' : 'Create a post'}
+          placeholder={forComment ? "Write some comment" : "Create a post"}
           value={text}
-          onChange={e => setText(e.target.value)}
+          onChange={(e) => setText(e.target.value)}
           required
         ></textarea>
-        <input type="submit" value="Submit" className="btn btn-dark my-1" />
+        <div className="post_forum">
+          {forComment ? (
+            ""
+          ) : (
+            <>
+              <p style={{ color: "grey", margin: "0" }}>
+                Attach picture for post
+              </p>{" "}
+              <input type="file" />
+            </>
+          )}
+          <input type="submit" value="Submit" className="btn btn-dark my-1" />
+        </div>
       </form>
     </div>
   );

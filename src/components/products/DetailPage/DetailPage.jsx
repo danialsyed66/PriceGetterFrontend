@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import './Detailpage.css';
-import '../Home.css';
+import "./Detailpage.css";
+import "../Home.css";
 
-import ListReviews from './ListReviews';
-import Navbar from '../../layouts/navbar/Navbar';
-import Footer from '../../layouts/footer/Footer';
+import ListReviews from "./ListReviews";
+import Navbar from "../../layouts/navbar/Navbar";
+import Footer from "../../layouts/footer/Footer";
 import {
   getProductDetails,
   newReview,
-} from '../../../redux/actions/productActions';
-import { addToCart } from './../../../redux/actions/cartActions';
-import { NEW_REVIEW_RESET } from './../../../redux/consts';
-import fire from './../../../utils/swal';
-import { Loader, MetaData } from '../../layouts';
+} from "../../../redux/actions/productActions";
+import { addToCart } from "./../../../redux/actions/cartActions";
+import { NEW_REVIEW_RESET } from "./../../../redux/consts";
+import fire from "./../../../utils/swal";
+import { Loader, MetaData } from "../../layouts";
 
 const DetailPage = () => {
-  const isImage = url =>
+  const isImage = (url) =>
     /http(|s):(.*?).(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const [sellectedImage, setSellectedImage] = useState('');
+  const [sellectedImage, setSellectedImage] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [userRating /* , setUserRating */] = useState(0);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
 
-  const { loading, product } = useSelector(state => state.productDetails);
+  const { loading, product } = useSelector((state) => state.productDetails);
   // const { isAuth } = useSelector((state) => state.auth);
   const { success: reviewSuccess, message: reviewMessage } = useSelector(
-    state => state.review
+    (state) => state.review
   );
 
   const {
@@ -41,7 +41,9 @@ const DetailPage = () => {
     description,
     rating,
     images,
+    category,
     // seller,
+    shippingCost,
     stock,
     noOfReviews,
     // category,
@@ -68,7 +70,7 @@ const DetailPage = () => {
 
     dispatch(addToCart({ ...product, quantity }));
 
-    fire('Product added to cart!', 'success');
+    fire("Product added to cart!", "success");
   };
 
   // const setUserReview = () => {
@@ -99,7 +101,7 @@ const DetailPage = () => {
   //   }
   // };
 
-  const submitHandler = e => {
+  const submitHandler = (e) => {
     newReview(_id, {
       review: comment,
       rating: userRating,
@@ -122,13 +124,19 @@ const DetailPage = () => {
 
     if (!reviewSuccess) return;
 
-    fire(reviewSuccess, 'success');
+    fire(reviewSuccess, "success");
 
     dispatch({ type: NEW_REVIEW_RESET });
   }, [dispatch, id, reviewSuccess, reviewMessage]);
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
+    >
       <MetaData title="Product Details" />
 
       <Navbar />
@@ -137,10 +145,11 @@ const DetailPage = () => {
       ) : (
         <>
           <div className="p-2 m-5">
+            <p style={{ fontWeight: "bold" }}>{`home/${category?.sub}`}</p>
             <div className="row">
               <div className="col-md-1 offset-md-2">
-                <div className="boxs-img " style={{ cursor: 'pointer' }}>
-                  {images?.map(image => {
+                <div className="boxs-img " style={{ cursor: "pointer" }}>
+                  {images?.map((image) => {
                     if (isImage(image?.url)) {
                       return (
                         <div
@@ -159,14 +168,12 @@ const DetailPage = () => {
 
               <div
                 className="col-md-4 d-flex justify-content-center align-items-center"
-                style={{ height: '400px' }}
+                style={{ height: "400px" }}
               >
                 <div className=" d-flex flex-column justify-content-center align-items-center w-100">
-                  <p className="discount_bar p-1">{discount}</p>
-
                   <img
                     className="w-75"
-                    style={{ maxHeight: '350px' }}
+                    style={{ maxHeight: "350px" }}
                     src={sellectedImage}
                     alt=""
                   />
@@ -174,6 +181,7 @@ const DetailPage = () => {
               </div>
               <div className="col-md-5 heaing_detail">
                 <h2>{name}</h2>
+                <p className="discount_bar p-1">{discount}%</p>
                 <hr />
                 <div className="rating-outer">
                   <div
@@ -182,21 +190,21 @@ const DetailPage = () => {
                   ></div>
                 </div>
                 <span id="no_of_reviews">
-                  ({noOfReviews} {noOfReviews === 1 ? 'Review' : 'Reviews'})
+                  ({noOfReviews} {noOfReviews === 1 ? "Review" : "Reviews"})
                 </span>
                 <hr />
-                <p id="product_price">{`$${price}`}</p>
+                <p id="product_price">{`RS.${price}`}</p>
                 <hr />
-                {type !== 'PriceGetter' ? (
+                {type !== "PriceGetter" ? (
                   <>
                     Go To Site:
                     <img
-                      style={{ width: '80px', cursor: 'pointer' }}
+                      style={{ width: "80px", cursor: "pointer" }}
                       className="ml-3"
                       alt="seller pic"
                       src={product?.seller?.logo?.url}
                       onClick={() => {
-                        const newWindow = window.open(product.url, '_blank');
+                        const newWindow = window.open(product.url, "_blank");
                         if (newWindow) newWindow.opener = null;
                       }}
                     />
@@ -238,16 +246,28 @@ const DetailPage = () => {
                     </button>
                   </>
                 )}
-
                 <hr />
                 <p>
-                  Status:{' '}
+                  Status:{" "}
                   <span id="stock_status">
-                    {stock > 0 ? 'In Stock' : 'Out of Stock'}
+                    {stock > 0 ? "In Stock" : "Out of Stock"}
                   </span>
                 </p>
                 <hr />
-                <p className="p_detail">{description} </p>
+                <hr />
+                <p>
+                  Delivery:
+                  <span id="stock_status">
+                    {shippingCost > 0 ? "Paid" : "Free"}
+                  </span>
+                </p>
+                <hr />
+                <h4>Product Description</h4>
+                <p className="p_detail">
+                  {description?.split(",").map((val) => {
+                    return <p>{val}</p>;
+                  })}{" "}
+                </p>
               </div>
 
               <div className="row mt-2 mb-5">
@@ -278,8 +298,8 @@ const DetailPage = () => {
                         <div className="modal-body">
                           <ul className="stars">
                             <li className="star">
-                              {' '}
-                              <i className="fa fa-star"></i>{' '}
+                              {" "}
+                              <i className="fa fa-star"></i>{" "}
                             </li>
                             <li className="star">
                               <i className="fa fa-star"></i>
@@ -300,7 +320,7 @@ const DetailPage = () => {
                             id="review"
                             className="form-control mt-3"
                             value={comment}
-                            onChange={e => setComment(e.target.value)}
+                            onChange={(e) => setComment(e.target.value)}
                           ></textarea>
 
                           <button
@@ -324,9 +344,10 @@ const DetailPage = () => {
           )}
         </>
       )}
-
-      <Footer />
-    </>
+      <div className="mt-auto">
+        <Footer />
+      </div>
+    </div>
   );
 };
 
