@@ -262,6 +262,7 @@ const SignupPage = () => {
               <label>
                 <input
                   name="seller"
+                  className="mr-5"
                   onClick={() => {
                     setSeller(!seller);
                   }}
