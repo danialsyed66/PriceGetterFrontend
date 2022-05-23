@@ -271,7 +271,7 @@ const DetailPage = () => {
                 )}
                 <hr />
                 <p>
-                  Status:{" "}
+                  Status:
                   <span id="stock_status">
                     {stock > 0 ? "In Stock" : "Out of Stock"}
                   </span>
