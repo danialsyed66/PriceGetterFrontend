@@ -6,6 +6,7 @@ import { countries } from 'countries-list';
 import MetaData from '../layouts/MetaData';
 import CheckoutSteps from '../layouts/CheckoutSteps';
 import { saveShippingInfo } from '../../redux/actions/cartActions';
+import { Footer, Navbar } from '../layouts';
 
 const Shipping = () => {
   const countryList = Object.values(countries);
@@ -40,6 +41,8 @@ const Shipping = () => {
   return (
     <>
       <MetaData title="Shipping Info" />
+
+      <Navbar />
 
       <CheckoutSteps shipping />
 
@@ -122,6 +125,8 @@ const Shipping = () => {
           </form>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 };

@@ -14,6 +14,7 @@ import MetaData from '../layouts/MetaData';
 import CheckoutSteps from '../layouts/CheckoutSteps';
 import { createOrder } from '../../redux/actions/orderActions';
 import fire from '../../utils/swal';
+import { Footer, Navbar } from '../layouts';
 
 const Payment = () => {
   const dispatch = useDispatch();
@@ -103,9 +104,11 @@ const Payment = () => {
     <>
       <MetaData title="Payment" />
 
+      <Navbar />
+
       <CheckoutSteps shipping confirmOrder payment />
 
-      <div className="row wrapper">
+      <div className="row wrapper mb-5">
         <div className="col-10 col-lg-5">
           <form className="shadow-lg" onSubmit={handleSubmit}>
             <h1 className="mb-4">Card Info</h1>
@@ -145,6 +148,8 @@ const Payment = () => {
           </form>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 };

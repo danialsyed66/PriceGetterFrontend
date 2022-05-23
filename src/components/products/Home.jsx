@@ -133,7 +133,7 @@ const Home = props => {
                   ))}
                 </Carousel>
               </div>
-              <div className="col-md-12 ml-4">
+              {/* <div className="col-md-12 ml-4">
                 <h1 id="products_heading">food and refreshments </h1>
               </div>
               <div className="col-md-12">
@@ -162,7 +162,7 @@ const Home = props => {
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
-              </div>
+              </div> */}
               <div className="col-md-12 ml-4">
                 <h1 id="products_heading">New Laptops</h1>
               </div>
@@ -183,7 +183,7 @@ const Home = props => {
                   ))}
                 </Carousel>
               </div>
-              <div className="col-md-12 ml-4">
+              {/*<div className="col-md-12 ml-4">
                 <h1 id="products_heading">Dive into sports</h1>
               </div>
               <div className="col-md-12">
@@ -192,7 +192,7 @@ const Home = props => {
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
-              </div>
+              </div> */}
             </>
           )}
         </div>
