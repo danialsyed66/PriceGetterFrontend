@@ -104,6 +104,25 @@ const Home = props => {
   };
   const { home, loading } = useSelector(state => state.home);
 
+  const renderCrouser = (object, text) => (
+    <>
+      {object && (
+        <>
+          <div className="col-md-12 ml-4">
+            <h1 id="products_heading">{text}</h1>
+          </div>
+          <div className="col-md-12">
+            <Carousel responsive={responsive}>
+              {object.map(prod => (
+                <Product col={10} key={prod._id} product={prod} />
+              ))}
+            </Carousel>
+          </div>
+        </>
+      )}
+    </>
+  );
+
   return (
     <div>
       <MetaData title="Home" />
@@ -123,76 +142,38 @@ const Home = props => {
             <Loader />
           ) : (
             <>
+              {renderCrouser(
+                home?.categories?.books,
+                'Escape the real world with a Book!'
+              )}
+              {renderCrouser(home?.categories?.food, 'Food and Refreshments!')}
+              {renderCrouser(home?.categories?.clothes, 'Clothes and Wears!')}
+              {renderCrouser(home?.categories?.cameras, 'Cameras and Lens!')}
+              {renderCrouser(
+                home?.categories?.laptops,
+                'New Laptops & Computers!'
+              )}
+              {renderCrouser(home?.categories?.smartPhones, 'Phone Offers!')}
+              {renderCrouser(home?.categories?.sports, 'Dive into Sports!')}
+              {renderCrouser(home?.categories?.home, 'Household Necessities!')}
+              {renderCrouser(
+                home?.categories?.accessories,
+                'Accessories for you!'
+              )}
+              {renderCrouser(home?.categories?.electronics, 'Electronics')}
+              {renderCrouser(
+                home?.categories?.outdoor,
+                'Take a step into the wild!'
+              )}
+              {renderCrouser(home?.categories?.headphones, 'Best Headphones!')}
+              <hr />
               <div className="col-md-12 ml-4">
-                <h1 id="products_heading">Escape the real world with a book</h1>
+                <h1 id="products_heading">Products by Various Sellers</h1>
               </div>
-              <div className="col-md-12">
-                <Carousel responsive={responsive}>
-                  {home?.categories?.books.map(prod => (
-                    <Product col={10} key={prod._id} product={prod} />
-                  ))}
-                </Carousel>
-              </div>
-              {/* <div className="col-md-12 ml-4">
-                <h1 id="products_heading">food and refreshments </h1>
-              </div>
-              <div className="col-md-12">
-                <Carousel responsive={responsive}>
-                  {home?.categories?.food.map(prod => (
-                    <Product col={10} key={prod._id} product={prod} />
-                  ))}
-                </Carousel>
-              </div>
-              <div className="col-md-12 ml-4">
-                <h1 id="products_heading">Clothes And Wears</h1>
-              </div>
-              <div className="col-md-12">
-                <Carousel responsive={responsive}>
-                  {home?.categories?.clothes.map(prod => (
-                    <Product col={10} key={prod._id} product={prod} />
-                  ))}
-                </Carousel>
-              </div>
-              <div className="col-md-12 ml-4">
-                <h1 id="products_heading">Cameras and lens</h1>
-              </div>
-              <div className="col-md-12">
-                <Carousel responsive={responsive}>
-                  {home?.categories?.cameras.map(prod => (
-                    <Product col={10} key={prod._id} product={prod} />
-                  ))}
-                </Carousel>
-              </div> */}
-              <div className="col-md-12 ml-4">
-                <h1 id="products_heading">New Laptops</h1>
-              </div>
-              <div className="col-md-12">
-                <Carousel responsive={responsive}>
-                  {home?.categories?.laptops.map(prod => (
-                    <Product col={10} key={prod._id} product={prod} />
-                  ))}
-                </Carousel>
-              </div>
-              <div className="col-md-12 ml-4">
-                <h1 id="products_heading">Phone offers </h1>
-              </div>
-              <div className="col-md-12">
-                <Carousel responsive={responsive}>
-                  {home?.categories?.smartPhones.map(prod => (
-                    <Product col={10} key={prod._id} product={prod} />
-                  ))}
-                </Carousel>
-              </div>
-              {/*<div className="col-md-12 ml-4">
-                <h1 id="products_heading">Dive into sports</h1>
-              </div>
-              <div className="col-md-12">
-                <Carousel responsive={responsive}>
-                  {home?.categories?.sports.map(prod => (
-                    <Product col={10} key={prod._id} product={prod} />
-                  ))}
-                </Carousel>
-              </div> */}
+              {renderCrouser(home?.sellers?.daraz, 'By Daraz')}
+              {renderCrouser(home?.sellers?.yayvo, 'By Yayvo')}
+              {renderCrouser(home?.sellers?.iBucket, 'By iBucket')}
+              {renderCrouser(home?.sellers?.goto, 'By Goto')}
             </>
           )}
         </div>

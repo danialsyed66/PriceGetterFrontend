@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { MDBDataTable } from "mdbreact";
 
-import { MetaData, Loader } from '../layouts';
+import { MetaData, Loader, Navbar, Footer } from '../layouts';
 import { getMyOrders } from '../../redux/actions/orderActions';
 
 const MyOrders = () => {
@@ -63,15 +63,20 @@ const MyOrders = () => {
   return (
     <>
       <MetaData title="My Orders" />
+      <Navbar />
 
-      <h1 className="my-5">My Orders</h1>
+      <div className="container">
+        <h1 className="my-5">My Orders</h1>
 
-      {loading ? (
-        <Loader />
-      ) : (
-        // <MDBDataTable data={data} className="px-3" bordered striped hover />
-        <></>
-      )}
+        {loading ? (
+          <Loader />
+        ) : (
+          // <MDBDataTable data={data} className="px-3" bordered striped hover />
+          <></>
+        )}
+      </div>
+
+      <Footer />
     </>
   );
 };

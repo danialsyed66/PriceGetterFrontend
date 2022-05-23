@@ -95,6 +95,7 @@ const Payment = () => {
     } catch (err) {
       if (document.getElementById('pay_btn'))
         document.getElementById('pay_btn').disabled = false;
+      fire('Failed to process payment');
       console.log(err);
       console.log(err?.response?.data?.message);
     }
