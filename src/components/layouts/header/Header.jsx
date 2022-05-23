@@ -30,7 +30,7 @@ const Header = () => {
             type="button"
             onClick={() => {
               dispatch(setFilters({ query }));
-              navigate('/filter');
+              navigate('/filter?nav=true');
             }}
           >
             Search

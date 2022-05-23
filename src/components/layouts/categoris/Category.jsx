@@ -12,7 +12,7 @@ const Category = () => {
   const handleNavigate = category => {
     dispatch(setFilters({ categories: [category] }));
 
-    navigate('/filter');
+    navigate('/filter?nav=true');
   };
 
   return (

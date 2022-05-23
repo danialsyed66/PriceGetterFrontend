@@ -14,6 +14,7 @@ import { Product } from '.';
 import { Navbar, Loader, CATEGORIES, SELLERS, MetaData } from '../layouts';
 import { getProducts } from '../../redux/actions/productActions';
 import { updateFilters } from '../../redux/actions/filterActions';
+import { useLocation } from 'react-router-dom';
 
 const Filter = () => {
   const {
@@ -105,12 +106,38 @@ const Filter = () => {
     setSeller(pushOrPullFromArray(seller, SELLERS[pos].val));
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      let sortArr = [];
-      if (sortObj.val?.length && sortObj.order?.length)
-        sortArr = [sortObj.val, sortObj.order];
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
+  const nav = useRef(useQuery().get('nav'));
+
+  useEffect(() => {
+    if (nav.current) {
+      nav.current = false;
+      return;
+    }
+
+    let sortArr = [];
+    if (sortObj.val?.length && sortObj.order?.length)
+      sortArr = [sortObj.val, sortObj.order];
+
+    if (page !== currentPage) {
+      return dispatch(
+        updateFilters({
+          query,
+          page: currentPage,
+          price: priceRange,
+          leastRating: rating,
+          sellers: seller,
+          categories: category,
+          sort: sortArr,
+          onSale: sale,
+        })
+      );
+    }
+
+    const timer = setTimeout(() => {
       dispatch(
         updateFilters({
           query,
@@ -120,6 +147,7 @@ const Filter = () => {
           sellers: seller,
           categories: category,
           sort: sortArr,
+          onSale: sale,
         })
       );
 
@@ -140,6 +168,7 @@ const Filter = () => {
     return () => {
       clearTimeout(timer);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     dispatch,
     currentPage,
@@ -149,6 +178,7 @@ const Filter = () => {
     rating,
     seller,
     sortObj,
+    sale,
   ]);
 
   useEffect(() => {
@@ -193,6 +223,10 @@ const Filter = () => {
     },
     [loading, hasMore]
   );
+
+  useEffect(() => {
+    console.log(currentPage);
+  }, [currentPage]);
 
   return (
     <div>

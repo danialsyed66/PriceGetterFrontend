@@ -82,7 +82,7 @@ const Navbar = () => {
     if (!query.length) return;
 
     dispatch(setFilters({ query }));
-    navigate('/filter');
+    navigate('/filter?nav=true');
   }, [dispatch, navigate, query]);
 
   const renderCartIcon = () => (
