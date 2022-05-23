@@ -3,14 +3,19 @@ import {
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
   CLEAR_ERRORS,
-} from '../consts';
+} from "../consts";
 
 const reducer = (state = { product: {} }, { type, payload }) => {
   switch (type) {
     case PRODUCT_DETAILS_REQUEST:
       return { ...state, loading: true };
     case PRODUCT_DETAILS_SUCCESS:
-      return { ...state, loading: false, product: payload.product };
+      return {
+        ...state,
+        loading: false,
+        product: payload.product,
+        similar: payload.similar,
+      };
     case PRODUCT_DETAILS_FAIL:
       return { ...state, loading: false, error: payload.error };
     case CLEAR_ERRORS:

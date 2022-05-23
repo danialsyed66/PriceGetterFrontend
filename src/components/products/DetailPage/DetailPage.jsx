@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import "react-multi-carousel/lib/styles.css";
 
 import "./Detailpage.css";
 import "../Home.css";
@@ -16,6 +17,8 @@ import { addToCart } from "./../../../redux/actions/cartActions";
 import { NEW_REVIEW_RESET } from "./../../../redux/consts";
 import fire from "./../../../utils/swal";
 import { Loader, MetaData } from "../../layouts";
+import Carousel from "react-multi-carousel";
+import Product from "../Product";
 
 const DetailPage = () => {
   const isImage = (url) =>
@@ -28,7 +31,10 @@ const DetailPage = () => {
   const [userRating /* , setUserRating */] = useState(0);
   const [comment, setComment] = useState("");
 
-  const { loading, product } = useSelector((state) => state.productDetails);
+  const { loading, product, similar } = useSelector(
+    (state) => state.productDetails
+  );
+
   // const { isAuth } = useSelector((state) => state.auth);
   const { success: reviewSuccess, message: reviewMessage } = useSelector(
     (state) => state.review
@@ -107,6 +113,23 @@ const DetailPage = () => {
       rating: userRating,
     });
   };
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      slidesToSlide: 3, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
 
   useEffect(() => {
     if (images) {
@@ -181,7 +204,7 @@ const DetailPage = () => {
               </div>
               <div className="col-md-5 heaing_detail">
                 <h2>{name}</h2>
-                <p className="discount_bar p-1">{discount}%</p>
+                {discount && <p className="discount_bar p-1">{discount}%</p>}
                 <hr />
                 <div className="rating-outer">
                   <div
@@ -253,7 +276,6 @@ const DetailPage = () => {
                     {stock > 0 ? "In Stock" : "Out of Stock"}
                   </span>
                 </p>
-                <hr />
                 <hr />
                 <p>
                   Delivery:
@@ -336,6 +358,20 @@ const DetailPage = () => {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div className="container mb-5">
+            <div className="row">
+              <div className="col-md-12 ml-4">
+                <h1 id="products_heading">Related Products</h1>
+              </div>
+              <div className="col-md-12">
+                <Carousel responsive={responsive}>
+                  {similar?.similar?.map((prod) => (
+                    <Product col={10} key={prod._id} product={prod} />
+                  ))}
+                </Carousel>
               </div>
             </div>
           </div>
