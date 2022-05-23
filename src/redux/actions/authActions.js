@@ -92,7 +92,6 @@ export const socialLogin = () => async (dispatch) => {
 };
 
 export const register = (userData) => async (dispatch) => {
-  console.log(userData);
   try {
     dispatch({
       type: REGISTER_REQUEST,
