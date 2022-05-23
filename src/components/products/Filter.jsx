@@ -16,20 +16,31 @@ import { getProducts } from '../../redux/actions/productActions';
 import { updateFilters } from '../../redux/actions/filterActions';
 
 const Filter = () => {
-  const handleChange = (event, newValue) => {
-    setPriceRange(newValue);
-  };
+  const {
+    onSale,
+    page,
+    price,
+    leastRating,
+    sellers,
+    categories,
+    sort,
+    query,
+    newReq,
+  } = useSelector(state => state.filters);
 
-  const { page, price, leastRating, query, sellers, categories, newReq } =
-    useSelector(state => state.filters);
+  const [hasMore, setHasMore] = useState(true);
 
+  const [sale, setSale] = useState(onSale);
   const [currentPage, setCurrentPage] = useState(page);
   const [priceRange, setPriceRange] = useState(price);
   const [rating /*,setRating*/] = useState(leastRating);
-  const [hasMore, setHasMore] = useState(true);
-  const [category, setCategory] = useState(categories);
   const [seller, setSeller] = useState(sellers);
-  const [sort /* , setSort */] = useState();
+  const [category, setCategory] = useState(categories);
+  const [sortObj, setSortObj] = useState({ val: sort[0], order: sort[1] });
+
+  const [priceRadio, setPriceRadio] = useState(0);
+  const [sortRadioOrder, setSortRadioOrder] = useState(sortObj.order || 0);
+  const [sortRadioVal, setSortRadioVal] = useState(sortObj.val || 0);
   const [categoriesCheckBox, setCategoriesCheckBox] = useState(
     CATEGORIES.map(({ val }) => category.includes(val))
   );
@@ -44,6 +55,29 @@ const Filter = () => {
   );
   const length = products.length;
   // const { currentProduct } = useSelector(state => state.productDetails);
+
+  const handleSliderChange = (e, newValue) => {
+    setPriceRange(newValue);
+  };
+
+  const handlePriceRadioChange = (e, radioIndex) => {
+    setPriceRadio(radioIndex);
+    setPriceRange(e.target.value.split(','));
+  };
+
+  const handleSortRadioOrderChange = e => {
+    const { value } = e.target;
+
+    setSortRadioOrder(value);
+    setSortObj({ ...sortObj, order: value });
+  };
+
+  const handleSortRadioValChange = e => {
+    const { value } = e.target;
+
+    setSortRadioVal(value);
+    setSortObj({ ...sortObj, val: value });
+  };
 
   const pushOrPullFromArray = (array, val) => {
     const arr = [...array];
@@ -72,16 +106,40 @@ const Filter = () => {
   };
 
   useEffect(() => {
-    dispatch(
-      updateFilters({
-        query,
-        page: currentPage,
-        price: priceRange,
-        leastRating: rating,
-        sellers: seller,
-        categories: category,
-      })
-    );
+    const timer = setTimeout(() => {
+      let sortArr = [];
+      if (sortObj.val?.length && sortObj.order?.length)
+        sortArr = [sortObj.val, sortObj.order];
+
+      dispatch(
+        updateFilters({
+          query,
+          page: currentPage,
+          price: priceRange,
+          leastRating: rating,
+          sellers: seller,
+          categories: category,
+          sort: sortArr,
+        })
+      );
+
+      // TODO Scroll to top
+      /* 
+
+
+
+
+
+
+
+
+
+       */
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [
     dispatch,
     currentPage,
@@ -90,8 +148,9 @@ const Filter = () => {
     category,
     rating,
     seller,
-    sort,
+    sortObj,
   ]);
+
   useEffect(() => {
     dispatch(
       getProducts({
@@ -101,9 +160,10 @@ const Filter = () => {
         leastRating,
         sellers,
         categories,
+        sort,
       })
     );
-  }, [dispatch, page, query, price, leastRating, sellers, categories]);
+  }, [dispatch, page, query, price, leastRating, sellers, categories, sort]);
 
   // useEffect(() => {
   //   if (!currentProduct) return;
@@ -134,20 +194,16 @@ const Filter = () => {
     [loading, hasMore]
   );
 
-  const [sale, setSale] = useState(true);
-
   return (
     <div>
       <MetaData title="Filters Page" />
 
-      <div>
-        <Navbar />
-      </div>
+      <Navbar />
       <section id="products" className="container-fluid mt-5">
         <div className="row mt-4">
           <aside className="col-md-2 sidebar">
             <h4 style={{ fontWeight: 'bold' }}>Filters</h4>
-            <div class="radio-toolbar">
+            <div className="radio-toolbar">
               <input
                 type="radio"
                 id="radioApple"
@@ -158,7 +214,7 @@ const Filter = () => {
                 }}
                 checked={sale}
               />
-              <label for="radioApple">Sale</label>
+              <label htmlFor="radioApple">Sale</label>
             </div>
             <div className="mb-3 pl-3">
               <p style={{ margin: '0', fontWeight: 'bold' }}>Price</p>
@@ -166,7 +222,7 @@ const Filter = () => {
                 color="secondary"
                 sx={{ width: '200px' }}
                 value={priceRange}
-                onChange={handleChange}
+                onChange={handleSliderChange}
                 valueLabelDisplay="auto"
                 max={500000}
               />
@@ -181,26 +237,36 @@ const Filter = () => {
                   value={[0, 1000]}
                   control={<Radio color="secondary" />}
                   label="Upto Rs. 1000"
+                  checked={priceRadio === 1}
+                  onChange={e => handlePriceRadioChange(e, 1)}
                 />
                 <FormControlLabel
                   value={[0, 5000]}
                   control={<Radio color="secondary" />}
                   label="Upto Rs. 5000"
+                  checked={priceRadio === 2}
+                  onChange={e => handlePriceRadioChange(e, 2)}
                 />
                 <FormControlLabel
                   value={[10000, 50000]}
                   control={<Radio color="secondary" />}
                   label="Rs. 10,000 - Rs. 50,000"
+                  checked={priceRadio === 3}
+                  onChange={e => handlePriceRadioChange(e, 3)}
                 />
                 <FormControlLabel
                   value={[50000, 100000]}
                   control={<Radio color="secondary" />}
                   label="Rs. 50,000 - Rs. 100,000"
+                  checked={priceRadio === 4}
+                  onChange={e => handlePriceRadioChange(e, 4)}
                 />
                 <FormControlLabel
                   value={[100000]}
                   control={<Radio color="secondary" />}
                   label={`Atleast Rs. 100,000`}
+                  checked={priceRadio === 5}
+                  onChange={e => handlePriceRadioChange(e, 5)}
                 />
               </RadioGroup>
             </FormControl>
@@ -254,14 +320,18 @@ const Filter = () => {
                 name="radio-buttons-group2"
               >
                 <FormControlLabel
-                  value={1}
+                  value={'asd'}
                   control={<Radio color="secondary" />}
                   label="Asd"
+                  checked={sortRadioOrder === 'asd'}
+                  onChange={e => handleSortRadioOrderChange(e)}
                 />
                 <FormControlLabel
-                  value={-1}
+                  value={'desd'}
                   control={<Radio color="secondary" />}
                   label="Desd"
+                  checked={sortRadioOrder === 'desd'}
+                  onChange={e => handleSortRadioOrderChange(e)}
                 />
               </RadioGroup>
             </FormControl>
@@ -276,16 +346,22 @@ const Filter = () => {
                   value={'price'}
                   control={<Radio color="secondary" />}
                   label="By Price"
+                  checked={sortRadioVal === 'price'}
+                  onChange={e => handleSortRadioValChange(e)}
                 />
                 <FormControlLabel
                   value={'rating'}
                   control={<Radio color="secondary" />}
                   label="By Rating"
+                  checked={sortRadioVal === 'rating'}
+                  onChange={e => handleSortRadioValChange(e)}
                 />
                 <FormControlLabel
                   value={'noOfReviews'}
                   control={<Radio color="secondary" />}
                   label="By Reviews"
+                  checked={sortRadioVal === 'noOfReviews'}
+                  onChange={e => handleSortRadioValChange(e)}
                 />
               </RadioGroup>
             </FormControl>

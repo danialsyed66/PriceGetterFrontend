@@ -16,7 +16,6 @@ const Wishlist = () => {
   const dispatch = useDispatch();
 
   const { favourites, gettingFavourites } = useSelector(state => state.user);
-  console.log(favourites);
 
   useEffect(() => {
     dispatch(getFavourites());

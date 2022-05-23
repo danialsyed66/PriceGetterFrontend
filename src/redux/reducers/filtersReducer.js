@@ -5,8 +5,10 @@ const reducer = (
     page: 1,
     price: [0, 500000],
     leastRating: 0,
+    onSale: false,
     sellers: [],
     categories: [],
+    sort: [],
   },
   { type, payload }
 ) => {
@@ -16,8 +18,10 @@ const reducer = (
         page: 1,
         price: [0, 500000],
         leastRating: 0,
+        onSale: false,
         sellers: [],
         categories: [],
+        sort: [],
         ...payload,
       };
 

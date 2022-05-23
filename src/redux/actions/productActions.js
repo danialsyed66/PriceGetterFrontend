@@ -30,17 +30,21 @@ export const getProducts = filters => async (dispatch, getState) => {
       sellers,
       categories,
       sort,
+      sale,
     } = filters;
 
-    const seller = sellers.join(',');
-    const category = categories.join(',');
+    const seller = sellers?.join(',');
+    const category = categories?.join(',');
+    const sortQuery = sort?.join(',');
 
     const link = `/api/v1/products?page=${currentPage}
-      &price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}
       &rating[gte]=${rating}
+      &price[gte]=${priceRange[0]}
+      ${priceRange[1] ? `&price[lte]=${priceRange[1]}` : ''}
       ${keyword ? `&keyword=${keyword}` : ''}
+      ${sale ? `&sale=true` : ''}
       ${category.length ? `&category=${category}` : ''}
-      ${sort ? `&sort=${sort}` : ''}
+      ${sortQuery.length ? `&sort=${sortQuery}` : ''}
       ${seller.length ? `&seller=${seller}` : ''}`;
 
     const {
@@ -82,6 +86,7 @@ export const getProducts = filters => async (dispatch, getState) => {
       },
     });
   } catch (error) {
+    console.log(error);
     dispatch({
       type: ALL_PRODUCTS_FAIL,
       payload: {
