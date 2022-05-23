@@ -134,6 +134,8 @@ const Filter = () => {
     [loading, hasMore]
   );
 
+  const [sale, setSale] = useState(true);
+
   return (
     <div>
       <MetaData title="Filters Page" />
@@ -145,6 +147,19 @@ const Filter = () => {
         <div className="row mt-4">
           <aside className="col-md-2 sidebar">
             <h4 style={{ fontWeight: 'bold' }}>Filters</h4>
+            <div class="radio-toolbar">
+              <input
+                type="radio"
+                id="radioApple"
+                name="radioFruit"
+                value="apple"
+                onClick={() => {
+                  setSale(!sale);
+                }}
+                checked={sale}
+              />
+              <label for="radioApple">Sale</label>
+            </div>
             <div className="mb-3 pl-3">
               <p style={{ margin: '0', fontWeight: 'bold' }}>Price</p>
               <Slider
@@ -189,10 +204,11 @@ const Filter = () => {
                 />
               </RadioGroup>
             </FormControl>
+            <hr />
+
             <div className="d-flex mb-2">
               <p style={{ margin: '0', fontWeight: 'bold' }}>Categorys</p>
             </div>
-
             {CATEGORIES.map(({ val }, i) => (
               <div className="d-flex mb-2" key={val}>
                 <Checkbox
@@ -207,6 +223,7 @@ const Filter = () => {
                 <p style={{ margin: '0' }}>{val}</p>
               </div>
             ))}
+            <hr />
 
             <div className="d-flex mb-2">
               <p style={{ margin: '0', fontWeight: 'bold' }}>From Sites</p>
@@ -225,6 +242,53 @@ const Filter = () => {
                 <p style={{ margin: '0' }}>{text}</p>
               </div>
             ))}
+            <hr />
+
+            <div className="d-flex mb-2">
+              <p style={{ margin: '0', fontWeight: 'bold' }}>Sort</p>
+            </div>
+            <FormControl className="pl-1">
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label2"
+                defaultValue="female"
+                name="radio-buttons-group2"
+              >
+                <FormControlLabel
+                  value={1}
+                  control={<Radio color="secondary" />}
+                  label="Asd"
+                />
+                <FormControlLabel
+                  value={-1}
+                  control={<Radio color="secondary" />}
+                  label="Desd"
+                />
+              </RadioGroup>
+            </FormControl>
+            <br />
+            <FormControl className="pl-1">
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label2"
+                defaultValue="female"
+                name="radio-buttons-group2"
+              >
+                <FormControlLabel
+                  value={'price'}
+                  control={<Radio color="secondary" />}
+                  label="By Price"
+                />
+                <FormControlLabel
+                  value={'rating'}
+                  control={<Radio color="secondary" />}
+                  label="By Rating"
+                />
+                <FormControlLabel
+                  value={'noOfReviews'}
+                  control={<Radio color="secondary" />}
+                  label="By Reviews"
+                />
+              </RadioGroup>
+            </FormControl>
           </aside>
           <div className="col-md-10">
             <h1 id="products_heading">Search Related Products</h1>

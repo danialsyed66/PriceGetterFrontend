@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import MetaData from '../layouts/MetaData';
 import CheckoutSteps from '../layouts/CheckoutSteps';
+import { Footer, Navbar } from '../layouts';
 
 const ConfirmOrder = () => {
   const navigate = useNavigate();
@@ -37,9 +38,11 @@ const ConfirmOrder = () => {
     <>
       <MetaData title="Confirm Order" />
 
+      <Navbar />
+
       <CheckoutSteps shipping confirmOrder />
 
-      <div className="row d-flex justify-content-between">
+      <div className="row d-flex justify-content-between container m-auto">
         <div className="col-12 col-lg-8 mt-5 order-confirm">
           <h4 className="mb-3">Shipping Info</h4>
           <p>
@@ -117,6 +120,8 @@ const ConfirmOrder = () => {
           </div>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 };
