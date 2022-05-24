@@ -142,6 +142,11 @@ const Home = props => {
             <Loader />
           ) : (
             <>
+              {home?.recommended &&
+                renderCrouser(
+                  home?.recommended?.recommended,
+                  'Recommended for you!'
+                )}
               {renderCrouser(
                 home?.categories?.books,
                 'Escape the real world with a Book!'
