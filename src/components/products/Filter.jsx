@@ -1,22 +1,95 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import uparrow from "../../assets/arrow-up-short.svg";
+import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import {
+  AppBar,
+  Box,
   Checkbox,
+  Fab,
   FormControl,
   FormControlLabel,
   Radio,
   RadioGroup,
   Slider,
-} from '@mui/material';
+  useScrollTrigger,
+  Zoom,
+} from "@mui/material";
 
-import './Home.css';
-import { Product } from '.';
-import { Navbar, Loader, CATEGORIES, SELLERS, MetaData } from '../layouts';
-import { getProducts } from '../../redux/actions/productActions';
-import { updateFilters } from '../../redux/actions/filterActions';
-import { useLocation } from 'react-router-dom';
+import "./Home.css";
+import { Product } from ".";
+import { Navbar, Loader, CATEGORIES, SELLERS, MetaData } from "../layouts";
+import { getProducts } from "../../redux/actions/productActions";
+import { updateFilters } from "../../redux/actions/filterActions";
+import { useLocation } from "react-router-dom";
 
-const Filter = () => {
+function ScrollTop(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector(
+      "#back-to-top-anchor"
+    );
+
+    if (anchor) {
+      anchor.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+
+  return (
+    <Zoom in={trigger}>
+      <Box
+        onClick={handleClick}
+        role="presentation"
+        sx={{ position: "fixed", bottom: 16, right: 16 }}
+      >
+        {children}
+      </Box>
+    </Zoom>
+  );
+}
+
+ScrollTop.propTypes = {
+  children: PropTypes.element.isRequired,
+  window: PropTypes.func,
+};
+function ElevationScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window() : undefined,
+  });
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0,
+  });
+}
+
+ElevationScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+
+const Filter = (props) => {
   const {
     onSale,
     page,
@@ -27,7 +100,7 @@ const Filter = () => {
     sort,
     query,
     newReq,
-  } = useSelector(state => state.filters);
+  } = useSelector((state) => state.filters);
 
   const [hasMore, setHasMore] = useState(true);
 
@@ -52,7 +125,7 @@ const Filter = () => {
   const observer = useRef();
   const dispatch = useDispatch();
   const { products, loading, totalProducts } = useSelector(
-    state => state.products
+    (state) => state.products
   );
   const length = products.length;
   // const { currentProduct } = useSelector(state => state.productDetails);
@@ -63,17 +136,17 @@ const Filter = () => {
 
   const handlePriceRadioChange = (e, radioIndex) => {
     setPriceRadio(radioIndex);
-    setPriceRange(e.target.value.split(','));
+    setPriceRange(e.target.value.split(","));
   };
 
-  const handleSortRadioOrderChange = e => {
+  const handleSortRadioOrderChange = (e) => {
     const { value } = e.target;
 
     setSortRadioOrder(value);
     setSortObj({ ...sortObj, order: value });
   };
 
-  const handleSortRadioValChange = e => {
+  const handleSortRadioValChange = (e) => {
     const { value } = e.target;
 
     setSortRadioVal(value);
@@ -90,7 +163,7 @@ const Filter = () => {
     return arr;
   };
 
-  const categoriesCheckBoxHandler = pos => {
+  const categoriesCheckBoxHandler = (pos) => {
     setCategoriesCheckBox(
       categoriesCheckBox.map((item, i) => (i === pos ? !item : item))
     );
@@ -98,7 +171,7 @@ const Filter = () => {
     setCategory(pushOrPullFromArray(category, CATEGORIES[pos].val));
   };
 
-  const sellerCheckBoxHandler = pos => {
+  const sellerCheckBoxHandler = (pos) => {
     setSellerCheckBox(
       sellerCheckBox.map((item, i) => (i === pos ? !item : item))
     );
@@ -110,7 +183,7 @@ const Filter = () => {
     return new URLSearchParams(useLocation().search);
   }
 
-  const nav = useRef(useQuery().get('nav'));
+  const nav = useRef(useQuery().get("nav"));
 
   useEffect(() => {
     if (nav.current) {
@@ -208,14 +281,14 @@ const Filter = () => {
   }, [length, totalProducts]);
 
   const observerCallBack = useCallback(
-    node => {
+    (node) => {
       if (loading) return;
 
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting && hasMore) {
-          setCurrentPage(currentPage => currentPage + 1);
+          setCurrentPage((currentPage) => currentPage + 1);
         }
       });
 
@@ -231,12 +304,17 @@ const Filter = () => {
   return (
     <div>
       <MetaData title="Filters Page" />
-
-      <Navbar />
+      <div id="back-to-top-anchor">
+        <ElevationScroll {...props}>
+          <AppBar>
+            <Navbar />
+          </AppBar>
+        </ElevationScroll>
+      </div>
       <section id="products" className="container-fluid mt-5">
         <div className="row mt-4">
-          <aside className="col-md-2 sidebar">
-            <h4 style={{ fontWeight: 'bold' }}>Filters</h4>
+          <aside className="col-md-2 sidebar mt-5">
+            <h4 style={{ fontWeight: "bold" }}>Filters</h4>
             <div className="radio-toolbar">
               <input
                 type="radio"
@@ -251,10 +329,10 @@ const Filter = () => {
               <label htmlFor="radioApple">Sale</label>
             </div>
             <div className="mb-3 pl-3">
-              <p style={{ margin: '0', fontWeight: 'bold' }}>Price</p>
+              <p style={{ margin: "0", fontWeight: "bold" }}>Price</p>
               <Slider
                 color="secondary"
-                sx={{ width: '200px' }}
+                sx={{ width: "200px" }}
                 value={priceRange}
                 onChange={handleSliderChange}
                 valueLabelDisplay="auto"
@@ -272,42 +350,42 @@ const Filter = () => {
                   control={<Radio color="secondary" />}
                   label="Upto Rs. 1000"
                   checked={priceRadio === 1}
-                  onChange={e => handlePriceRadioChange(e, 1)}
+                  onChange={(e) => handlePriceRadioChange(e, 1)}
                 />
                 <FormControlLabel
                   value={[0, 5000]}
                   control={<Radio color="secondary" />}
                   label="Upto Rs. 5000"
                   checked={priceRadio === 2}
-                  onChange={e => handlePriceRadioChange(e, 2)}
+                  onChange={(e) => handlePriceRadioChange(e, 2)}
                 />
                 <FormControlLabel
                   value={[10000, 50000]}
                   control={<Radio color="secondary" />}
                   label="Rs. 10,000 - Rs. 50,000"
                   checked={priceRadio === 3}
-                  onChange={e => handlePriceRadioChange(e, 3)}
+                  onChange={(e) => handlePriceRadioChange(e, 3)}
                 />
                 <FormControlLabel
                   value={[50000, 100000]}
                   control={<Radio color="secondary" />}
                   label="Rs. 50,000 - Rs. 100,000"
                   checked={priceRadio === 4}
-                  onChange={e => handlePriceRadioChange(e, 4)}
+                  onChange={(e) => handlePriceRadioChange(e, 4)}
                 />
                 <FormControlLabel
                   value={[100000]}
                   control={<Radio color="secondary" />}
                   label={`Atleast Rs. 100,000`}
                   checked={priceRadio === 5}
-                  onChange={e => handlePriceRadioChange(e, 5)}
+                  onChange={(e) => handlePriceRadioChange(e, 5)}
                 />
               </RadioGroup>
             </FormControl>
             <hr />
 
             <div className="d-flex mb-2">
-              <p style={{ margin: '0', fontWeight: 'bold' }}>Categorys</p>
+              <p style={{ margin: "0", fontWeight: "bold" }}>Categorys</p>
             </div>
             {CATEGORIES.map(({ val }, i) => (
               <div className="d-flex mb-2" key={val}>
@@ -320,13 +398,13 @@ const Filter = () => {
                   checked={categoriesCheckBox[i]}
                   onChange={() => categoriesCheckBoxHandler(i)}
                 />
-                <p style={{ margin: '0' }}>{val}</p>
+                <p style={{ margin: "0" }}>{val}</p>
               </div>
             ))}
             <hr />
 
             <div className="d-flex mb-2">
-              <p style={{ margin: '0', fontWeight: 'bold' }}>From Sites</p>
+              <p style={{ margin: "0", fontWeight: "bold" }}>From Sites</p>
             </div>
             {SELLERS.map(({ val, text }, i) => (
               <div className="d-flex mb-2" key={val}>
@@ -339,13 +417,13 @@ const Filter = () => {
                   checked={sellerCheckBox[i]}
                   onChange={() => sellerCheckBoxHandler(i)}
                 />
-                <p style={{ margin: '0' }}>{text}</p>
+                <p style={{ margin: "0" }}>{text}</p>
               </div>
             ))}
             <hr />
 
             <div className="d-flex mb-2">
-              <p style={{ margin: '0', fontWeight: 'bold' }}>Sort</p>
+              <p style={{ margin: "0", fontWeight: "bold" }}>Sort</p>
             </div>
             <FormControl className="pl-1">
               <RadioGroup
@@ -354,18 +432,18 @@ const Filter = () => {
                 name="radio-buttons-group2"
               >
                 <FormControlLabel
-                  value={'asd'}
+                  value={"asd"}
                   control={<Radio color="secondary" />}
                   label="Asd"
-                  checked={sortRadioOrder === 'asd'}
-                  onChange={e => handleSortRadioOrderChange(e)}
+                  checked={sortRadioOrder === "asd"}
+                  onChange={(e) => handleSortRadioOrderChange(e)}
                 />
                 <FormControlLabel
-                  value={'desd'}
+                  value={"desd"}
                   control={<Radio color="secondary" />}
                   label="Desd"
-                  checked={sortRadioOrder === 'desd'}
-                  onChange={e => handleSortRadioOrderChange(e)}
+                  checked={sortRadioOrder === "desd"}
+                  onChange={(e) => handleSortRadioOrderChange(e)}
                 />
               </RadioGroup>
             </FormControl>
@@ -377,25 +455,25 @@ const Filter = () => {
                 name="radio-buttons-group2"
               >
                 <FormControlLabel
-                  value={'price'}
+                  value={"price"}
                   control={<Radio color="secondary" />}
                   label="By Price"
-                  checked={sortRadioVal === 'price'}
-                  onChange={e => handleSortRadioValChange(e)}
+                  checked={sortRadioVal === "price"}
+                  onChange={(e) => handleSortRadioValChange(e)}
                 />
                 <FormControlLabel
-                  value={'rating'}
+                  value={"rating"}
                   control={<Radio color="secondary" />}
                   label="By Rating"
-                  checked={sortRadioVal === 'rating'}
-                  onChange={e => handleSortRadioValChange(e)}
+                  checked={sortRadioVal === "rating"}
+                  onChange={(e) => handleSortRadioValChange(e)}
                 />
                 <FormControlLabel
-                  value={'noOfReviews'}
+                  value={"noOfReviews"}
                   control={<Radio color="secondary" />}
                   label="By Reviews"
-                  checked={sortRadioVal === 'noOfReviews'}
-                  onChange={e => handleSortRadioValChange(e)}
+                  checked={sortRadioVal === "noOfReviews"}
+                  onChange={(e) => handleSortRadioValChange(e)}
                 />
               </RadioGroup>
             </FormControl>
@@ -429,6 +507,16 @@ const Filter = () => {
             </div>
           </div>
         </div>
+        <ScrollTop {...props}>
+          <Fab
+            color="secondary"
+            size="small"
+            aria-label="scroll back to top"
+            style={{ backgroundColor: "green" }}
+          >
+            <img src={uparrow} alt="" />
+          </Fab>
+        </ScrollTop>
       </section>
     </div>
   );
