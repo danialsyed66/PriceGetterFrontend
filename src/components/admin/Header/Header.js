@@ -13,7 +13,7 @@ export default function Header({ active, setHandleActive }) {
         setTitle("Products");
         break;
 
-      case "/seller/Prduct":
+      case "/seller/product":
         setTitle("New Product");
         break;
       case "/seller/Orders":

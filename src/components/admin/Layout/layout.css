@@ -8,8 +8,8 @@
   width: 100%;
 }
 .dashboardMainDiv .contentMainSec {
-  padding: 60px 60px;
   background-color: #f5f8fa;
   height: 84%;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }

@@ -1,12 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
-
-import MetaData from "../layout/MetaData";
-
-import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
-import { newProduct, clearErrors } from "../../actions/productActions";
-import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
 import Layout from "./Layout/Layout";
+import { clearErrors, newProduct } from "../../redux/actions/productActions";
+import { NEW_PRODUCT_RESET } from "../../redux/consts";
+import { MetaData } from "../layouts";
+import "../products/Home.css";
 
 const NewProduct = ({ history }) => {
   const [name, setName] = useState("");
@@ -33,23 +31,21 @@ const NewProduct = ({ history }) => {
     "Home",
   ];
 
-  const alert = useAlert();
   const dispatch = useDispatch();
 
   const { loading, error, success } = useSelector((state) => state.newProduct);
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
       dispatch(clearErrors());
     }
 
     if (success) {
       history.push("/admin/products");
-      alert.success("Product created successfully");
+
       dispatch({ type: NEW_PRODUCT_RESET });
     }
-  }, [dispatch, alert, error, success, history]);
+  }, [dispatch, error, success, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -94,15 +90,15 @@ const NewProduct = ({ history }) => {
       <MetaData title={"New Product"} />
       <Layout>
         <div className="row">
-          <div className="col-12 col-md-10">
+          <div className="col-12 ">
             <Fragment>
-              <div className="wrapper my-5">
+              <div className="wrapper ">
                 <form
                   className="shadow-lg"
                   onSubmit={submitHandler}
                   encType="multipart/form-data"
                 >
-                  <h1 className="mb-4">New Product</h1>
+                  <h1 className="mb-4">Fill all the fields</h1>
 
                   <div className="form-group">
                     <label htmlFor="name_field">Name</label>

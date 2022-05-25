@@ -35,11 +35,6 @@
   border-radius: 5px;
 }
 
-nav {
-  background-color: #8fbc8f;
-  padding: 1rem 1rem;
-}
-
 #search_btn {
   background-color: #febd69;
 }
@@ -330,13 +325,13 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5rem;
+  margin-top: 1rem;
 
   font-weight: 700;
 }
 
 .wrapper form {
-  padding: 2.5rem 3rem;
+  padding: 1rem;
 }
 
 .wrapper form .btn {

@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import DashboardIcon from "../../assets/images/dashboard";
 import AppointmentIcon from "../../assets/images/appointment";
 import BookIcon from "../../assets/images/bookIcon";
-import Prescription from "../../assets/images/prescription";
 import Triage from "../../assets/images/triage";
 import pricegetter from "../../assets/PriceGetter.png";
 import "./Sidebar.css";
@@ -19,12 +18,12 @@ function SideBar({ active, setHandleActive }) {
     {
       name: "Products",
       component: AppointmentIcon,
-      link: "/seller/products",
+      link: "/seller/allproduct",
     },
     {
       name: "Add Product",
       component: BookIcon,
-      link: "/seller/addproduct",
+      link: "/seller/product",
     },
     {
       name: "Orders",
