@@ -14,13 +14,14 @@ import axios from "../utils/axios";
 import fire from "../utils/swal";
 import { getHome } from "../redux/actions/homeActions";
 import { HANDLE_FAVOURITE_RESET } from "../redux/consts";
-import Guide from "./users/Guide";
-import Dashboard from "./admin/Dashboard";
-import Layout from "./admin/Layout/Layout";
+
 import NewProduct from "./admin/NewProduct";
+
+const Guide = lazy(() => import("./Guide"));
 const Home = lazy(() => import("./products/Home"));
 const Filter = lazy(() => import("./products/Filter"));
 const DetailPage = lazy(() => import("./products/DetailPage/DetailPage"));
+
 const SELLER = lazy(() => import("./users/login-signup/SELLER"));
 const Login = lazy(() => import("./users/login-signup/Login"));
 const Signup = lazy(() => import("./users/login-signup/Signup"));
@@ -36,16 +37,20 @@ const UpdateProfile = lazy(() => import("./users/UpdateProfile"));
 const ChangePassword = lazy(() => import("./users/ChangePassword"));
 const ForgotPassword = lazy(() => import("./users/ForgotPassword"));
 const ResetPassword = lazy(() => import("./users/ResetPassword"));
+const Wishlist = lazy(() => import("./users/Wishlist"));
+
 const Cart = lazy(() => import("./cart/Cart"));
 const Shipping = lazy(() => import("./cart/Shipping"));
 const ConfirmOrder = lazy(() => import("./cart/ConfirmOrder"));
 const Payment = lazy(() => import("./cart/Payment"));
 const Success = lazy(() => import("./cart/Success"));
+
 const MyOrders = lazy(() => import("./order/MyOrders"));
 const OrderDetails = lazy(() => import("./order/OrderDetails"));
 const Forum = lazy(() => import("./forums/Forum"));
 const PostPage = lazy(() => import("./forums/PostPage"));
-const Wishlist = lazy(() => import("./users/Wishlist"));
+
+const Dashboard = lazy(() => import("./admin/Dashboard"));
 
 const App = () => {
   const [stripeKey, setStripeKey] = useState("");
