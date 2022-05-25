@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Sidebar from './Sidebar';
 
 const Dashboard = () => {
   return (
