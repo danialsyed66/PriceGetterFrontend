@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import priceGetter from '../../../assets/PriceGetter.svg';
 import { MetaData } from '../../layouts';
 
-function ForgotPassword({ history }) {
+function ForgotPassword() {
   const [setEmail] = useState('');
   const loading = false;
   const navigate = useNavigate();

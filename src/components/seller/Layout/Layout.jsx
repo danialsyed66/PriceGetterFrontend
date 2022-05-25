@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Header from "../Header/Header";
-import Sidebar from "../Sidebar";
-import "./layout.css";
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Header from '../Header/Header';
+import Sidebar from '../Sidebar';
+import './layout.css';
 
 export default function Layout({ children }) {
   const [active, setHandleActive] = useState(false);
@@ -13,9 +13,8 @@ export default function Layout({ children }) {
 
   // redirecting unAuthorized user
   useEffect(() => {
-    auth === null && navigate("/");
-    return () => {};
-  }, []);
+    auth === null && navigate('/');
+  }, [auth, navigate]);
 
   // main retrun
   return (

@@ -1,34 +1,37 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Layout from "./Layout/Layout";
-import { clearErrors, newProduct } from "../../redux/actions/productActions";
-import { NEW_PRODUCT_RESET } from "../../redux/consts";
-import { MetaData } from "../layouts";
-import "../products/Home.css";
+import React, { Fragment, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Layout from './Layout/Layout';
+import { clearErrors, newProduct } from '../../redux/actions/productActions';
+import { NEW_PRODUCT_RESET } from '../../redux/consts';
+import { MetaData } from '../layouts';
+import '../products/Home.css';
+import { useNavigate } from 'react-router-dom';
 
-const NewProduct = ({ history }) => {
-  const [name, setName] = useState("");
+const NewProduct = () => {
+  const navigate = useNavigate();
+
+  const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
   const [stock, setStock] = useState(0);
-  const [seller, setSeller] = useState("");
+  const [seller, setSeller] = useState('');
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
 
   const categories = [
-    "Electronics",
-    "Cameras",
-    "Laptops",
-    "Accessories",
-    "Headphones",
-    "Food",
-    "Books",
-    "Clothes/Shoes",
-    "Beauty/Health",
-    "Sports",
-    "Outdoor",
-    "Home",
+    'Electronics',
+    'Cameras',
+    'Laptops',
+    'Accessories',
+    'Headphones',
+    'Food',
+    'Books',
+    'Clothes/Shoes',
+    'Beauty/Health',
+    'Sports',
+    'Outdoor',
+    'Home',
   ];
 
   const dispatch = useDispatch();
@@ -41,25 +44,25 @@ const NewProduct = ({ history }) => {
     }
 
     if (success) {
-      history.push("/admin/products");
+      navigate('/seller/products');
 
       dispatch({ type: NEW_PRODUCT_RESET });
     }
-  }, [dispatch, error, success, history]);
+  }, [dispatch, navigate, error, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.set("name", name);
-    formData.set("price", price);
-    formData.set("description", description);
-    formData.set("category", category);
-    formData.set("stock", stock);
-    formData.set("seller", seller);
+    formData.set('name', name);
+    formData.set('price', price);
+    formData.set('description', description);
+    formData.set('category', category);
+    formData.set('stock', stock);
+    formData.set('seller', seller);
 
     images.forEach((image) => {
-      formData.append("images", image);
+      formData.append('images', image);
     });
 
     dispatch(newProduct(formData));
@@ -87,7 +90,7 @@ const NewProduct = ({ history }) => {
 
   return (
     <Fragment>
-      <MetaData title={"New Product"} />
+      <MetaData title={'New Product'} />
       <Layout>
         <div className="row">
           <div className="col-12 ">

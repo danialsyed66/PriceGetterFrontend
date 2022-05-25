@@ -1,4 +1,4 @@
-import axios from "../../utils/axios";
+import axios from '../../utils/axios';
 
 import {
   ALL_PRODUCTS_REQUEST,
@@ -17,9 +17,9 @@ import {
   NEW_PRODUCT_REQUEST,
   NEW_PRODUCT_SUCCESS,
   NEW_PRODUCT_FAIL,
-} from "../consts";
+} from '../consts';
 
-export const getProducts = (filters) => async (dispatch, getState) => {
+export const getProducts = filters => async (dispatch, getState) => {
   try {
     dispatch({
       type: ALL_PRODUCTS_REQUEST,
@@ -37,21 +37,21 @@ export const getProducts = (filters) => async (dispatch, getState) => {
       discount,
     } = filters;
 
-    const seller = sellers?.join(",");
-    const category = categories?.join(",");
-    const sortQuery = sort?.join(",");
+    const seller = sellers?.join(',');
+    const category = categories?.join(',');
+    const sortQuery = sort?.join(',');
 
     const link = `/api/v1/products?page=${currentPage}
       &rating[gte]=${rating}
       &price[gte]=${priceRange[0]}
-      ${priceRange[1] ? `&price[lte]=${priceRange[1]}` : ""}
-      ${keyword ? `&keyword=${keyword}` : ""}
-      ${onSale ? `&onSale=true` : ""}
-      ${discount[0] ? `&discount[gte]=${discount[0]}` : ""}
-      ${discount[1] ? `&discount[lte]=${discount[1]}` : ""}
-      ${category.length ? `&category=${category}` : ""}
-      ${sortQuery.length ? `&sort=${sortQuery}` : ""}
-      ${seller.length ? `&seller=${seller}` : ""}`;
+      ${priceRange[1] ? `&price[lte]=${priceRange[1]}` : ''}
+      ${keyword ? `&keyword=${keyword}` : ''}
+      ${onSale ? `&onSale=true` : ''}
+      ${discount[0] ? `&discount[gte]=${discount[0]}` : ''}
+      ${discount[1] ? `&discount[lte]=${discount[1]}` : ''}
+      ${category.length ? `&category=${category}` : ''}
+      ${sortQuery.length ? `&sort=${sortQuery}` : ''}
+      ${seller.length ? `&seller=${seller}` : ''}`;
 
     const {
       data: { data },
@@ -66,7 +66,7 @@ export const getProducts = (filters) => async (dispatch, getState) => {
       return dispatch({
         type: ALL_PRODUCTS_FAIL,
         payload: {
-          error: "There are no products by this name",
+          error: 'There are no products by this name',
         },
       });
 
@@ -84,13 +84,13 @@ export const getProducts = (filters) => async (dispatch, getState) => {
     dispatch({
       type: ALL_PRODUCTS_FAIL,
       payload: {
-        error: error?.response?.data?.message || "Could not get all products",
+        error: error?.response?.data?.message || 'Could not get all products',
       },
     });
   }
 };
 
-export const getProductDetails = (id) => async (dispatch) => {
+export const getProductDetails = id => async dispatch => {
   try {
     dispatch({
       type: PRODUCT_DETAILS_REQUEST,
@@ -110,13 +110,13 @@ export const getProductDetails = (id) => async (dispatch) => {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
       payload: {
-        error: error?.response?.data?.message || "Could not get the product",
+        error: error?.response?.data?.message || 'Could not get the product',
       },
     });
   }
 };
 
-export const newReview = (productId, review) => async (dispatch) => {
+export const newReview = (productId, review) => async dispatch => {
   try {
     dispatch({
       type: NEW_REVIEW_REQUEST,
@@ -130,7 +130,7 @@ export const newReview = (productId, review) => async (dispatch) => {
     dispatch({
       type: NEW_REVIEW_SUCCESS,
       payload: {
-        success: data.status === "success" ? true : false,
+        success: data.status === 'success' ? true : false,
         message: data.message,
       },
     });
@@ -138,13 +138,13 @@ export const newReview = (productId, review) => async (dispatch) => {
     dispatch({
       type: NEW_REVIEW_FAIL,
       payload: {
-        error: error?.response?.data?.message || "Could not get the product",
+        error: error?.response?.data?.message || 'Could not get the product',
       },
     });
   }
 };
 
-export const deleteReview = (productId, reviewId) => async (dispatch) => {
+export const deleteReview = (productId, reviewId) => async dispatch => {
   try {
     dispatch({
       type: DELETE_REVIEW_REQUEST,
@@ -158,7 +158,7 @@ export const deleteReview = (productId, reviewId) => async (dispatch) => {
     dispatch({
       type: DELETE_REVIEW_SUCCESS,
       payload: {
-        success: data.status === "success" ? true : false,
+        success: data.status === 'success' ? true : false,
         message: data.message,
       },
     });
@@ -166,18 +166,18 @@ export const deleteReview = (productId, reviewId) => async (dispatch) => {
     dispatch({
       type: DELETE_REVIEW_FAIL,
       payload: {
-        error: error?.response?.data?.message || "Could not get the product",
+        error: error?.response?.data?.message || 'Could not get the product',
       },
     });
   }
 };
-export const newProduct = (productData) => async (dispatch) => {
+export const newProduct = productData => async dispatch => {
   try {
     dispatch({ type: NEW_PRODUCT_REQUEST });
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 

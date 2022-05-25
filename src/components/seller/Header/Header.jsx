@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 export default function Header({ active, setHandleActive }) {
   const path = useLocation().pathname;
 
-  const [title, setTitle] = useState("Dashboard");
+  const [title, setTitle] = useState('Dashboard');
   useEffect(() => {
     switch (path) {
-      case "/seller/dashboard":
-        setTitle("Seller Dashboard");
+      case '/seller/dashboard':
+        setTitle('Seller Dashboard');
         break;
-      case "/seller/allproduct":
-        setTitle("Products");
+      case '/seller/allproduct':
+        setTitle('Products');
         break;
 
-      case "/seller/product":
-        setTitle("New Product");
+      case '/seller/product':
+        setTitle('New Product');
         break;
-      case "/seller/Orders":
-        setTitle("Orders");
+      case '/seller/Orders':
+        setTitle('Orders');
         break;
       default:
-        setTitle("Dashboard");
+        setTitle('Dashboard');
         break;
     }
   }, [path]);
@@ -35,8 +35,8 @@ export default function Header({ active, setHandleActive }) {
             onClick={() => setHandleActive(!active)}
             className={
               active
-                ? " dashboardNavaBarButton activeSideBar "
-                : "dashboardNavaBarButton"
+                ? ' dashboardNavaBarButton activeSideBar '
+                : 'dashboardNavaBarButton'
             }
           >
             <div className="dashboardNavBarLine dashboardNavBarLine1"></div>

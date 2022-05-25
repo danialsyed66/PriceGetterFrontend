@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import priceGetter from '../../../assets/PriceGetter.svg';
 import { MetaData } from '../../layouts';
 
-function OtpVerify({ history }) {
+function OtpVerify() {
   const navigate = useNavigate();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
 

@@ -3,7 +3,7 @@ import priceGetter from '../../../assets/PriceGetter.svg';
 import { useNavigate } from 'react-router-dom';
 import { MetaData } from '../../layouts';
 
-const SetPassword = ({ history }) => {
+const SetPassword = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const handleSubmit = async e => {

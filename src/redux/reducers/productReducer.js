@@ -7,7 +7,7 @@ import {
   NEW_PRODUCT_SUCCESS,
   NEW_PRODUCT_REQUEST,
   NEW_PRODUCT_RESET,
-} from "../consts";
+} from '../consts';
 
 const reducer = (state = { product: {} }, { type, payload }) => {
   switch (type) {

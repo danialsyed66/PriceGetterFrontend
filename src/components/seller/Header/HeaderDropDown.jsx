@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function HeaderProfileImg() {
   return (
-    <div className="headerProfile" style={{ minHeight: "fit-content" }}>
-      <div className="dropDown" style={{ maxHeight: "auto !important" }}>
+    <div className="headerProfile" style={{ minHeight: 'fit-content' }}>
+      <div className="dropDown" style={{ maxHeight: 'auto !important' }}>
         <Link to="/">
           <div className="item">Home</div>
         </Link>

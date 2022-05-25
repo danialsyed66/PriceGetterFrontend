@@ -1,4 +1,4 @@
-import axios from "../../utils/axios";
+import axios from '../../utils/axios';
 
 import {
   LOGIN_REQUEST,
@@ -15,9 +15,9 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
   CLEAR_ERRORS,
-} from "../consts";
+} from '../consts';
 
-export const login = (userData) => async (dispatch) => {
+export const login = userData => async dispatch => {
   try {
     dispatch({
       type: LOGIN_REQUEST,
@@ -25,15 +25,15 @@ export const login = (userData) => async (dispatch) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
     const {
       data: { data, token },
-    } = await axios.post("/api/v1/login", userData, config);
+    } = await axios.post('/api/v1/login', userData, config);
 
-    localStorage.setItem("token", token);
+    localStorage.setItem('token', token);
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -47,26 +47,26 @@ export const login = (userData) => async (dispatch) => {
   }
 };
 
-export const socialLogin = () => async (dispatch) => {
+export const socialLogin = () => async dispatch => {
   try {
-    const config = { headers: { "Content-Type": "application/json" } };
+    const config = { headers: { 'Content-Type': 'application/json' } };
 
     const {
       data: {
         user: { id, displayName, emails, photos, provider, username },
       },
-    } = await axios.get("/api/v1/auth/login/success", config);
+    } = await axios.get('/api/v1/auth/login/success', config);
 
     let email;
-    if (provider === "google") email = emails[0].value;
-    if (provider === "twitter") email = `${username}@twitter.com`;
+    if (provider === 'google') email = emails[0].value;
+    if (provider === 'twitter') email = `${username}@twitter.com`;
 
-    await axios.get("/api/v1/auth/login/clear", config);
+    await axios.get('/api/v1/auth/login/clear', config);
 
     const {
       data: { data, token },
     } = await axios.post(
-      "/api/v1/auth/saveUser",
+      '/api/v1/auth/saveUser',
       {
         name: displayName,
         email,
@@ -77,7 +77,7 @@ export const socialLogin = () => async (dispatch) => {
       config
     );
 
-    localStorage.setItem("token", token);
+    localStorage.setItem('token', token);
 
     dispatch({
       type: SOCIAL_LOGIN_SUCCESS,
@@ -91,19 +91,19 @@ export const socialLogin = () => async (dispatch) => {
   }
 };
 
-export const register = (userData) => async (dispatch) => {
+export const register = userData => async dispatch => {
   try {
     dispatch({
       type: REGISTER_REQUEST,
     });
 
-    const config = { headers: { "Content-Type": "multipart/form-data" } };
+    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
     const {
       data: { data, token },
-    } = await axios.post("/api/v1/register", userData, config);
+    } = await axios.post('/api/v1/register', userData, config);
 
-    localStorage.setItem("token", token);
+    localStorage.setItem('token', token);
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -117,7 +117,7 @@ export const register = (userData) => async (dispatch) => {
   }
 };
 
-export const loadUser = () => async (dispatch) => {
+export const loadUser = () => async dispatch => {
   try {
     dispatch({
       type: LOAD_USER_REQUEST,
@@ -125,7 +125,7 @@ export const loadUser = () => async (dispatch) => {
 
     const {
       data: { data },
-    } = await axios.get("/api/v1/profile");
+    } = await axios.get('/api/v1/profile');
 
     dispatch({
       type: LOAD_USER_SUCCESS,
@@ -139,10 +139,10 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-export const logout = () => (dispatch) => {
+export const logout = () => dispatch => {
   try {
     // await axios.post('/api/v1/logout');
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
 
     dispatch({
       type: LOGOUT_SUCCESS,

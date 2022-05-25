@@ -1,44 +1,47 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import DashboardIcon from "../../assets/images/dashboard";
-import AppointmentIcon from "../../assets/images/appointment";
-import BookIcon from "../../assets/images/bookIcon";
-import Triage from "../../assets/images/triage";
-import pricegetter from "../../assets/PriceGetter.png";
-import "./Sidebar.css";
+import React, { useState, useEffect, useMemo } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import DashboardIcon from '../../assets/images/dashboard';
+import AppointmentIcon from '../../assets/images/appointment';
+import BookIcon from '../../assets/images/bookIcon';
+import Triage from '../../assets/images/triage';
+import pricegetter from '../../assets/PriceGetter.png';
+import './Sidebar.css';
 // doctor component
 function SideBar({ active, setHandleActive }) {
   // side bar items
-  const itemsData = [
-    {
-      component: DashboardIcon,
-      name: "Dashboard",
-      link: "/seller/dashboard",
-    },
-    {
-      name: "Products",
-      component: AppointmentIcon,
-      link: "/seller/allproduct",
-    },
-    {
-      name: "Add Product",
-      component: BookIcon,
-      link: "/seller/product",
-    },
-    {
-      name: "Orders",
-      component: Triage,
-      link: "/seller/orders",
-    },
-  ];
+  const itemsData = useMemo(
+    () => [
+      {
+        component: DashboardIcon,
+        name: 'Dashboard',
+        link: '/seller/dashboard',
+      },
+      {
+        name: 'Products',
+        component: AppointmentIcon,
+        link: '/seller/allproduct',
+      },
+      {
+        name: 'Add Product',
+        component: BookIcon,
+        link: '/seller/product',
+      },
+      {
+        name: 'Orders',
+        component: Triage,
+        link: '/seller/orders',
+      },
+    ],
+    []
+  );
 
   const [activeItem, setActiveItem] = useState(itemsData[0]);
   // make svg compoennt
   const makeSvgComponent = (Component, isActive) => {
-    const activeColorOne = "#01676B";
-    const activeColorTwo = "#FFF";
-    const disableColorOne = "#FFFFFF";
-    const disableColorTwo = "#01676b";
+    const activeColorOne = '#01676B';
+    const activeColorTwo = '#FFF';
+    const disableColorOne = '#FFFFFF';
+    const disableColorTwo = '#01676b';
     return (
       <Component
         colorOne={isActive ? activeColorOne : disableColorOne}
@@ -56,7 +59,7 @@ function SideBar({ active, setHandleActive }) {
     return () => {
       setActiveItem(itemsData[0]);
     };
-  }, [path]);
+  }, [itemsData, path]);
 
   // main return
 
@@ -64,7 +67,9 @@ function SideBar({ active, setHandleActive }) {
     <>
       <div className="sideBar sideBarDiv d-none d-md-block">
         <div className="centerDiv">
-          <img src={pricegetter} className="logo"></img>
+          <Link to="/">
+            <img src={pricegetter} className="logo" alt="logo"></img>
+          </Link>
         </div>
 
         <div className="itemsFlex">
@@ -78,15 +83,15 @@ function SideBar({ active, setHandleActive }) {
                     key={index}
                     className={
                       isActive
-                        ? "DashboardSideBarItem sideBarItemActive"
-                        : "DashboardSideBarItem"
+                        ? 'DashboardSideBarItem sideBarItemActive'
+                        : 'DashboardSideBarItem'
                     }
                   >
-                    <div style={{ width: "40px" }}>
+                    <div style={{ width: '40px' }}>
                       {item.component &&
                         makeSvgComponent(item.component, isActive)}
                     </div>
-                    <div className="title" style={{ color: "#01676b" }}>
+                    <div className="title" style={{ color: '#01676b' }}>
                       {item.name}
                     </div>
                   </div>
@@ -102,21 +107,21 @@ function SideBar({ active, setHandleActive }) {
         <div
           onClick={() => setHandleActive(false)}
           className={
-            active ? "sideBarModal sideBarModalActive" : "sideBarModal"
+            active ? 'sideBarModal sideBarModalActive' : 'sideBarModal'
           }
         ></div>
         <div
           className={
             active
-              ? "sideBarM sideBarDiv sideBarMActive"
-              : "sideBarM sideBarDiv"
+              ? 'sideBarM sideBarDiv sideBarMActive'
+              : 'sideBarM sideBarDiv'
           }
         >
-          <div className="centerDiv" style={{ marginBottom: "20rem" }}>
-            <img src="/images/logo.svg" className="logo"></img>
+          <div className="centerDiv" style={{ marginBottom: '20rem' }}>
+            <img src="/images/logo.svg" className="logo" alt=""></img>
           </div>
 
-          <div className="itemsFlex" style={{ marginTop: "20rem" }}>
+          <div className="itemsFlex" style={{ marginTop: '20rem' }}>
             <div className="w-100">
               {itemsData.map((item, index) => {
                 const isActive = activeItem.link === item.link;
@@ -130,11 +135,11 @@ function SideBar({ active, setHandleActive }) {
                       key={index}
                       className={
                         isActive
-                          ? "DashboardSideBarItem sideBarItemActive"
-                          : "DashboardSideBarItem"
+                          ? 'DashboardSideBarItem sideBarItemActive'
+                          : 'DashboardSideBarItem'
                       }
                     >
-                      <div style={{ width: "40px" }}>
+                      <div style={{ width: '40px' }}>
                         {item.component &&
                           makeSvgComponent(item.component, isActive)}
                       </div>

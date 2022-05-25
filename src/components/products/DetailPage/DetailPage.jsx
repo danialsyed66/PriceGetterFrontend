@@ -1,44 +1,44 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import "react-multi-carousel/lib/styles.css";
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import 'react-multi-carousel/lib/styles.css';
 
-import "./Detailpage.css";
-import "../Home.css";
+import './Detailpage.css';
+import '../Home.css';
 
-import ListReviews from "./ListReviews";
-import Navbar from "../../layouts/navbar/Navbar";
-import Footer from "../../layouts/footer/Footer";
+import ListReviews from './ListReviews';
+import Navbar from '../../layouts/navbar/Navbar';
+import Footer from '../../layouts/footer/Footer';
 import {
   getProductDetails,
   newReview,
-} from "../../../redux/actions/productActions";
-import { addToCart } from "./../../../redux/actions/cartActions";
-import { NEW_REVIEW_RESET } from "./../../../redux/consts";
-import fire from "./../../../utils/swal";
-import { Loader, MetaData } from "../../layouts";
-import Carousel from "react-multi-carousel";
-import Product from "../Product";
-import { Breadcrumbs } from "@mui/material";
+} from '../../../redux/actions/productActions';
+import { addToCart } from './../../../redux/actions/cartActions';
+import { NEW_REVIEW_RESET } from './../../../redux/consts';
+import fire from './../../../utils/swal';
+import { Loader, MetaData } from '../../layouts';
+import Carousel from 'react-multi-carousel';
+import Product from '../Product';
+import { Breadcrumbs } from '@mui/material';
 
 const DetailPage = () => {
-  const isImage = (url) =>
+  const isImage = url =>
     /http(|s):(.*?).(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const [sellectedImage, setSellectedImage] = useState("");
+  const [sellectedImage, setSellectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [userRating /* , setUserRating */] = useState(0);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
 
   const { loading, product, similar } = useSelector(
-    (state) => state.productDetails
+    state => state.productDetails
   );
 
   // const { isAuth } = useSelector((state) => state.auth);
   const { success: reviewSuccess, message: reviewMessage } = useSelector(
-    (state) => state.review
+    state => state.review
   );
 
   const {
@@ -77,7 +77,7 @@ const DetailPage = () => {
 
     dispatch(addToCart({ ...product, quantity }));
 
-    fire("Product added to cart!", "success");
+    fire('Product added to cart!', 'success');
   };
 
   // const setUserReview = () => {
@@ -108,7 +108,7 @@ const DetailPage = () => {
   //   }
   // };
 
-  const submitHandler = (e) => {
+  const submitHandler = e => {
     newReview(_id, {
       review: comment,
       rating: userRating,
@@ -148,7 +148,7 @@ const DetailPage = () => {
 
     if (!reviewSuccess) return;
 
-    fire(reviewSuccess, "success");
+    fire(reviewSuccess, 'success');
 
     dispatch({ type: NEW_REVIEW_RESET });
   }, [dispatch, id, reviewSuccess, reviewMessage]);
@@ -156,9 +156,9 @@ const DetailPage = () => {
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
       }}
     >
       <MetaData title="Product Details" />
@@ -171,7 +171,7 @@ const DetailPage = () => {
           <div className="p-2 m-5">
             <Breadcrumbs
               aria-label="breadcrumb"
-              style={{ backgroundColor: "white" }}
+              style={{ backgroundColor: 'white' }}
             >
               <Link underline="hover" color="inherit" to="/">
                 Home
@@ -182,8 +182,8 @@ const DetailPage = () => {
             </Breadcrumbs>
             <div className="row">
               <div className="col-md-1 offset-md-2">
-                <div className="boxs-img " style={{ cursor: "pointer" }}>
-                  {images?.map((image) => {
+                <div className="boxs-img " style={{ cursor: 'pointer' }}>
+                  {images?.map(image => {
                     if (isImage(image?.url)) {
                       return (
                         <div
@@ -202,12 +202,12 @@ const DetailPage = () => {
 
               <div
                 className="col-md-4 d-flex justify-content-center align-items-center"
-                style={{ height: "400px" }}
+                style={{ height: '400px' }}
               >
                 <div className=" d-flex flex-column justify-content-center align-items-center w-100">
                   <img
                     className="w-75"
-                    style={{ maxHeight: "350px" }}
+                    style={{ maxHeight: '350px' }}
                     src={sellectedImage}
                     alt=""
                   />
@@ -226,21 +226,21 @@ const DetailPage = () => {
                   ></div>
                 </div>
                 <span id="no_of_reviews">
-                  ({noOfReviews} {noOfReviews === 1 ? "Review" : "Reviews"})
+                  ({noOfReviews} {noOfReviews === 1 ? 'Review' : 'Reviews'})
                 </span>
                 <hr />
                 <p id="product_price">{`RS.${price}`}</p>
                 <hr />
-                {type !== "PriceGetter" ? (
+                {type !== 'PriceGetter' ? (
                   <>
                     Go To Site:
                     <img
-                      style={{ width: "80px", cursor: "pointer" }}
+                      style={{ width: '80px', cursor: 'pointer' }}
                       className="ml-3"
                       alt="seller pic"
                       src={product?.seller?.logo?.url}
                       onClick={() => {
-                        const newWindow = window.open(product.url, "_blank");
+                        const newWindow = window.open(product.url, '_blank');
                         if (newWindow) newWindow.opener = null;
                       }}
                     />
@@ -286,22 +286,22 @@ const DetailPage = () => {
                 <p>
                   Status:
                   <span id="stock_status">
-                    {stock > 0 ? "In Stock" : "Out of Stock"}
+                    {stock > 0 ? 'In Stock' : 'Out of Stock'}
                   </span>
                 </p>
                 <hr />
                 <p>
                   Delivery:
                   <span id="stock_status">
-                    {shippingCost > 0 ? "Paid" : "Free"}
+                    {shippingCost > 0 ? 'Paid' : 'Free'}
                   </span>
                 </p>
                 <hr />
                 <h4>Product Description</h4>
                 <p className="p_detail">
-                  {description?.split(",").map((val) => {
+                  {description?.split(',').map(val => {
                     return <p>{val}</p>;
-                  })}{" "}
+                  })}{' '}
                 </p>
               </div>
 
@@ -333,8 +333,8 @@ const DetailPage = () => {
                         <div className="modal-body">
                           <ul className="stars">
                             <li className="star">
-                              {" "}
-                              <i className="fa fa-star"></i>{" "}
+                              {' '}
+                              <i className="fa fa-star"></i>{' '}
                             </li>
                             <li className="star">
                               <i className="fa fa-star"></i>
@@ -355,7 +355,7 @@ const DetailPage = () => {
                             id="review"
                             className="form-control mt-3"
                             value={comment}
-                            onChange={(e) => setComment(e.target.value)}
+                            onChange={e => setComment(e.target.value)}
                           ></textarea>
 
                           <button
@@ -381,7 +381,7 @@ const DetailPage = () => {
               </div>
               <div className="col-md-12">
                 <Carousel responsive={responsive}>
-                  {similar?.similar?.map((prod) => (
+                  {similar?.similar?.map(prod => (
                     <Product col={10} key={prod._id} product={prod} />
                   ))}
                 </Carousel>
