@@ -1,22 +1,22 @@
-import React from "react";
-import { Footer, Navbar } from "../layouts";
-import job from "../../assets/joboffer.svg";
-import data from "../../assets/datahet.svg";
-import "./wishlist.css";
+import React from 'react';
+import { Footer, Navbar } from './layouts';
+import job from '../assets/joboffer.svg';
+import data from '../assets/datahet.svg';
+import './users/wishlist.css';
 
 const Guide = () => {
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
       }}
     >
       <Navbar />
       <div className="row mt-5">
         <div className="col-md-2 ">
-          <img className="m-auto" src={job} alt="" style={{ width: "200px" }} />
+          <img className="m-auto" src={job} alt="" style={{ width: '200px' }} />
         </div>
 
         <div className="col-md-8">
@@ -70,7 +70,7 @@ const Guide = () => {
             className="m-auto"
             src={data}
             alt=""
-            style={{ width: "200px" }}
+            style={{ width: '200px' }}
           />
         </div>
         <div className="col-md-12 mt-auto">
