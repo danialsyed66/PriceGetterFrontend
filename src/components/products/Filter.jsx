@@ -340,7 +340,10 @@ const Filter = props => {
       </div>
       <section id="products" className="container-fluid mt-5">
         <div className="row mt-4">
-          <aside className="col-md-2 sidebar mt-5">
+          <aside
+            className="col-md-2 sidebar mt-5"
+            style={{ borderRight: '1px solid grey' }}
+          >
             <h4 style={{ fontWeight: 'bold' }}>Filters</h4>
             <div className="radio-toolbar">
               <input

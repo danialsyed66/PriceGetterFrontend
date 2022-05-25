@@ -3,6 +3,7 @@ import { BsList } from 'react-icons/bs';
 import { ImCross } from 'react-icons/all';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import searchs from '../../../assets/search.svg';
 
 import './Navbar.css';
 import priceGetter from '../../../assets/headericon.svg';
@@ -36,15 +37,6 @@ const Menu = ({ path }) => {
         >
           Sales
         </div>
-      </p>
-
-      <p>
-        <Link
-          className={path === '/discounts' ? `nav-a nav-permanent ` : `nav-a`}
-          to="/login"
-        >
-          Discounts
-        </Link>
       </p>
       <p>
         <Link
@@ -184,13 +176,16 @@ const Navbar = () => {
             {path === '/' ? (
               <div />
             ) : (
-              <input
-                style={{ width: '300px', marginLeft: '10px' }}
-                type="text"
-                placeholder="What are u looking for today?"
-                className="form-control"
-                onChange={e => setSearch(e.target.value)}
-              />
+              <div className="form-control">
+                <input
+                  className="search"
+                  style={{ width: '300px', marginLeft: '10px', border: 'none' }}
+                  type="text"
+                  placeholder="What are u looking for today?"
+                  onChange={e => setSearch(e.target.value)}
+                />
+                <img src={searchs} alt="" />
+              </div>
             )}
           </div>
         </div>
