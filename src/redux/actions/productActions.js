@@ -30,7 +30,8 @@ export const getProducts = filters => async (dispatch, getState) => {
       sellers,
       categories,
       sort,
-      sale,
+      onSale,
+      discount,
     } = filters;
 
     const seller = sellers?.join(',');
@@ -42,7 +43,9 @@ export const getProducts = filters => async (dispatch, getState) => {
       &price[gte]=${priceRange[0]}
       ${priceRange[1] ? `&price[lte]=${priceRange[1]}` : ''}
       ${keyword ? `&keyword=${keyword}` : ''}
-      ${sale ? `&sale=true` : ''}
+      ${onSale ? `&onSale=true` : ''}
+      ${discount[0] ? `&discount[gte]=${discount[0]}` : ''}
+      ${discount[1] ? `&discount[lte]=${discount[1]}` : ''}
       ${category.length ? `&category=${category}` : ''}
       ${sortQuery.length ? `&sort=${sortQuery}` : ''}
       ${seller.length ? `&seller=${seller}` : ''}`;
@@ -52,18 +55,6 @@ export const getProducts = filters => async (dispatch, getState) => {
     } = await axios.get(link);
 
     const { products: prevProducts, filters: options } = getState();
-
-    // const { options: prevOptions } = prevProducts;
-
-    // let newReq = false;
-
-    // if (prevOptions) {
-    //   if (prevOptions.keyword !== keyword) newReq = true;
-    //   if (prevOptions.category !== category) newReq = true;
-    //   if (prevOptions.rating !== rating) newReq = true;
-    //   if (prevOptions.priceRange[0] !== priceRange[0]) newReq = true;
-    //   if (prevOptions.priceRange[1] !== priceRange[1]) newReq = true;
-    // }
 
     if (
       !(prevProducts.length + data.data.length === data.numOfDocs) &&

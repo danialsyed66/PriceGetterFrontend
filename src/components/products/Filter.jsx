@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import uparrow from "../../assets/arrow-up-short.svg";
-import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
+import React, { useEffect, useState, useRef, useCallback } from 'react';
+import uparrow from '../../assets/arrow-up-short.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   AppBar,
   Box,
@@ -14,14 +14,14 @@ import {
   Slider,
   useScrollTrigger,
   Zoom,
-} from "@mui/material";
+} from '@mui/material';
 
-import "./Home.css";
-import { Product } from ".";
-import { Navbar, Loader, CATEGORIES, SELLERS, MetaData } from "../layouts";
-import { getProducts } from "../../redux/actions/productActions";
-import { updateFilters } from "../../redux/actions/filterActions";
-import { useLocation } from "react-router-dom";
+import './Home.css';
+import { Product } from '.';
+import { Navbar, Loader, CATEGORIES, SELLERS, MetaData } from '../layouts';
+import { getProducts } from '../../redux/actions/productActions';
+import { setFilters, updateFilters } from '../../redux/actions/filterActions';
+import { useLocation } from 'react-router-dom';
 
 function ScrollTop(props) {
   const { children, window } = props;
@@ -34,15 +34,15 @@ function ScrollTop(props) {
     threshold: 100,
   });
 
-  const handleClick = (event) => {
+  const handleClick = event => {
     const anchor = (event.target.ownerDocument || document).querySelector(
-      "#back-to-top-anchor"
+      '#back-to-top-anchor'
     );
 
     if (anchor) {
       anchor.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
+        behavior: 'smooth',
+        block: 'center',
       });
     }
   };
@@ -52,7 +52,7 @@ function ScrollTop(props) {
       <Box
         onClick={handleClick}
         role="presentation"
-        sx={{ position: "fixed", bottom: 16, right: 16 }}
+        sx={{ position: 'fixed', bottom: 16, right: 16 }}
       >
         {children}
       </Box>
@@ -89,9 +89,10 @@ ElevationScroll.propTypes = {
   window: PropTypes.func,
 };
 
-const Filter = (props) => {
+const Filter = props => {
   const {
     onSale,
+    discount,
     page,
     price,
     leastRating,
@@ -100,11 +101,12 @@ const Filter = (props) => {
     sort,
     query,
     newReq,
-  } = useSelector((state) => state.filters);
+  } = useSelector(state => state.filters);
 
   const [hasMore, setHasMore] = useState(true);
 
   const [sale, setSale] = useState(onSale);
+  const [saleRange, setSaleRange] = useState(discount);
   const [currentPage, setCurrentPage] = useState(page);
   const [priceRange, setPriceRange] = useState(price);
   const [rating /*,setRating*/] = useState(leastRating);
@@ -113,6 +115,7 @@ const Filter = (props) => {
   const [sortObj, setSortObj] = useState({ val: sort[0], order: sort[1] });
 
   const [priceRadio, setPriceRadio] = useState(0);
+  const [saleRadio, setSaleRadio] = useState(0);
   const [sortRadioOrder, setSortRadioOrder] = useState(sortObj.order || 0);
   const [sortRadioVal, setSortRadioVal] = useState(sortObj.val || 0);
   const [categoriesCheckBox, setCategoriesCheckBox] = useState(
@@ -125,10 +128,28 @@ const Filter = (props) => {
   const observer = useRef();
   const dispatch = useDispatch();
   const { products, loading, totalProducts } = useSelector(
-    (state) => state.products
+    state => state.products
   );
   const length = products.length;
   // const { currentProduct } = useSelector(state => state.productDetails);
+
+  const clearFilters = () => {
+    dispatch(setFilters());
+
+    setSale(onSale);
+    setSaleRange(discount);
+    setCurrentPage(page);
+    setPriceRange([0, 500000]);
+    setSeller(sellers);
+    setCategory(categories);
+    setSortObj({ val: sort[0], order: sort[1] });
+    setPriceRadio(0);
+    setSaleRadio(0);
+    setSortRadioOrder(sortObj.order || 0);
+    setSortRadioVal(sortObj.val || 0);
+    setCategoriesCheckBox(CATEGORIES.map(({ val }) => category.includes(val)));
+    setSellerCheckBox(SELLERS.map(({ val }) => seller.includes(val)));
+  };
 
   const handleSliderChange = (e, newValue) => {
     setPriceRange(newValue);
@@ -136,17 +157,22 @@ const Filter = (props) => {
 
   const handlePriceRadioChange = (e, radioIndex) => {
     setPriceRadio(radioIndex);
-    setPriceRange(e.target.value.split(","));
+    setPriceRange(e.target.value.split(','));
   };
 
-  const handleSortRadioOrderChange = (e) => {
+  const handleSaleRadioChange = (e, radioIndex) => {
+    setSaleRadio(radioIndex);
+    setSaleRange(e.target.value.split(','));
+  };
+
+  const handleSortRadioOrderChange = e => {
     const { value } = e.target;
 
     setSortRadioOrder(value);
     setSortObj({ ...sortObj, order: value });
   };
 
-  const handleSortRadioValChange = (e) => {
+  const handleSortRadioValChange = e => {
     const { value } = e.target;
 
     setSortRadioVal(value);
@@ -163,7 +189,7 @@ const Filter = (props) => {
     return arr;
   };
 
-  const categoriesCheckBoxHandler = (pos) => {
+  const categoriesCheckBoxHandler = pos => {
     setCategoriesCheckBox(
       categoriesCheckBox.map((item, i) => (i === pos ? !item : item))
     );
@@ -171,7 +197,7 @@ const Filter = (props) => {
     setCategory(pushOrPullFromArray(category, CATEGORIES[pos].val));
   };
 
-  const sellerCheckBoxHandler = (pos) => {
+  const sellerCheckBoxHandler = pos => {
     setSellerCheckBox(
       sellerCheckBox.map((item, i) => (i === pos ? !item : item))
     );
@@ -183,7 +209,7 @@ const Filter = (props) => {
     return new URLSearchParams(useLocation().search);
   }
 
-  const nav = useRef(useQuery().get("nav"));
+  const nav = useRef(useQuery().get('nav'));
 
   useEffect(() => {
     if (nav.current) {
@@ -206,6 +232,7 @@ const Filter = (props) => {
           categories: category,
           sort: sortArr,
           onSale: sale,
+          discount: saleRange,
         })
       );
     }
@@ -221,21 +248,11 @@ const Filter = (props) => {
           categories: category,
           sort: sortArr,
           onSale: sale,
+          discount: saleRange,
         })
       );
 
-      // TODO Scroll to top
-      /* 
-
-
-
-
-
-
-
-
-
-       */
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 1000);
 
     return () => {
@@ -252,6 +269,7 @@ const Filter = (props) => {
     seller,
     sortObj,
     sale,
+    saleRange,
   ]);
 
   useEffect(() => {
@@ -264,9 +282,22 @@ const Filter = (props) => {
         sellers,
         categories,
         sort,
+        onSale,
+        discount,
       })
     );
-  }, [dispatch, page, query, price, leastRating, sellers, categories, sort]);
+  }, [
+    dispatch,
+    page,
+    query,
+    price,
+    leastRating,
+    sellers,
+    categories,
+    sort,
+    onSale,
+    discount,
+  ]);
 
   // useEffect(() => {
   //   if (!currentProduct) return;
@@ -281,14 +312,14 @@ const Filter = (props) => {
   }, [length, totalProducts]);
 
   const observerCallBack = useCallback(
-    (node) => {
+    node => {
       if (loading) return;
 
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting && hasMore) {
-          setCurrentPage((currentPage) => currentPage + 1);
+          setCurrentPage(currentPage => currentPage + 1);
         }
       });
 
@@ -296,10 +327,6 @@ const Filter = (props) => {
     },
     [loading, hasMore]
   );
-
-  useEffect(() => {
-    console.log(currentPage);
-  }, [currentPage]);
 
   return (
     <div>
@@ -314,25 +341,62 @@ const Filter = (props) => {
       <section id="products" className="container-fluid mt-5">
         <div className="row mt-4">
           <aside className="col-md-2 sidebar mt-5">
-            <h4 style={{ fontWeight: "bold" }}>Filters</h4>
+            <h4 style={{ fontWeight: 'bold' }}>Filters</h4>
             <div className="radio-toolbar">
               <input
                 type="radio"
                 id="radioApple"
                 name="radioFruit"
                 value="apple"
-                onClick={() => {
-                  setSale(!sale);
-                }}
-                checked={sale}
+                defaultChecked={sale}
+                onClick={() => setSale(!sale)}
               />
               <label htmlFor="radioApple">Sale</label>
             </div>
+            {sale && (
+              <FormControl className="pl-1">
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label1"
+                  defaultValue="female"
+                  name="radio-buttons-group1"
+                >
+                  <FormControlLabel
+                    value={[0, 25]}
+                    control={<Radio color="secondary" />}
+                    label="Upto 25% Sale"
+                    checked={saleRadio === 1}
+                    onChange={e => handleSaleRadioChange(e, 1)}
+                  />
+                  <FormControlLabel
+                    value={[25, 50]}
+                    control={<Radio color="secondary" />}
+                    label="25% - 50% Sale"
+                    checked={saleRadio === 2}
+                    onChange={e => handleSaleRadioChange(e, 2)}
+                  />
+                  <FormControlLabel
+                    value={[50, 75]}
+                    control={<Radio color="secondary" />}
+                    label="50% - 75% Sale"
+                    checked={saleRadio === 3}
+                    onChange={e => handleSaleRadioChange(e, 3)}
+                  />
+                  <FormControlLabel
+                    value={[75, 100]}
+                    control={<Radio color="secondary" />}
+                    label="More Than 75% Sale"
+                    checked={saleRadio === 4}
+                    onChange={e => handleSaleRadioChange(e, 4)}
+                  />
+                </RadioGroup>
+              </FormControl>
+            )}
+            <hr />
             <div className="mb-3 pl-3">
-              <p style={{ margin: "0", fontWeight: "bold" }}>Price</p>
+              <p style={{ margin: '0', fontWeight: 'bold' }}>Price</p>
               <Slider
                 color="secondary"
-                sx={{ width: "200px" }}
+                sx={{ width: '200px' }}
                 value={priceRange}
                 onChange={handleSliderChange}
                 valueLabelDisplay="auto"
@@ -350,42 +414,42 @@ const Filter = (props) => {
                   control={<Radio color="secondary" />}
                   label="Upto Rs. 1000"
                   checked={priceRadio === 1}
-                  onChange={(e) => handlePriceRadioChange(e, 1)}
+                  onChange={e => handlePriceRadioChange(e, 1)}
                 />
                 <FormControlLabel
                   value={[0, 5000]}
                   control={<Radio color="secondary" />}
                   label="Upto Rs. 5000"
                   checked={priceRadio === 2}
-                  onChange={(e) => handlePriceRadioChange(e, 2)}
+                  onChange={e => handlePriceRadioChange(e, 2)}
                 />
                 <FormControlLabel
                   value={[10000, 50000]}
                   control={<Radio color="secondary" />}
                   label="Rs. 10,000 - Rs. 50,000"
                   checked={priceRadio === 3}
-                  onChange={(e) => handlePriceRadioChange(e, 3)}
+                  onChange={e => handlePriceRadioChange(e, 3)}
                 />
                 <FormControlLabel
                   value={[50000, 100000]}
                   control={<Radio color="secondary" />}
                   label="Rs. 50,000 - Rs. 100,000"
                   checked={priceRadio === 4}
-                  onChange={(e) => handlePriceRadioChange(e, 4)}
+                  onChange={e => handlePriceRadioChange(e, 4)}
                 />
                 <FormControlLabel
                   value={[100000]}
                   control={<Radio color="secondary" />}
                   label={`Atleast Rs. 100,000`}
                   checked={priceRadio === 5}
-                  onChange={(e) => handlePriceRadioChange(e, 5)}
+                  onChange={e => handlePriceRadioChange(e, 5)}
                 />
               </RadioGroup>
             </FormControl>
             <hr />
 
             <div className="d-flex mb-2">
-              <p style={{ margin: "0", fontWeight: "bold" }}>Categorys</p>
+              <p style={{ margin: '0', fontWeight: 'bold' }}>Categorys</p>
             </div>
             {CATEGORIES.map(({ val }, i) => (
               <div className="d-flex mb-2" key={val}>
@@ -398,13 +462,13 @@ const Filter = (props) => {
                   checked={categoriesCheckBox[i]}
                   onChange={() => categoriesCheckBoxHandler(i)}
                 />
-                <p style={{ margin: "0" }}>{val}</p>
+                <p style={{ margin: '0' }}>{val}</p>
               </div>
             ))}
             <hr />
 
             <div className="d-flex mb-2">
-              <p style={{ margin: "0", fontWeight: "bold" }}>From Sites</p>
+              <p style={{ margin: '0', fontWeight: 'bold' }}>From Sites</p>
             </div>
             {SELLERS.map(({ val, text }, i) => (
               <div className="d-flex mb-2" key={val}>
@@ -417,13 +481,13 @@ const Filter = (props) => {
                   checked={sellerCheckBox[i]}
                   onChange={() => sellerCheckBoxHandler(i)}
                 />
-                <p style={{ margin: "0" }}>{text}</p>
+                <p style={{ margin: '0' }}>{text}</p>
               </div>
             ))}
             <hr />
 
             <div className="d-flex mb-2">
-              <p style={{ margin: "0", fontWeight: "bold" }}>Sort</p>
+              <p style={{ margin: '0', fontWeight: 'bold' }}>Sort</p>
             </div>
             <FormControl className="pl-1">
               <RadioGroup
@@ -432,51 +496,66 @@ const Filter = (props) => {
                 name="radio-buttons-group2"
               >
                 <FormControlLabel
-                  value={"asd"}
+                  value={'asd'}
                   control={<Radio color="secondary" />}
                   label="Asd"
-                  checked={sortRadioOrder === "asd"}
-                  onChange={(e) => handleSortRadioOrderChange(e)}
+                  checked={sortRadioOrder === 'asd'}
+                  onChange={e => handleSortRadioOrderChange(e)}
                 />
                 <FormControlLabel
-                  value={"desd"}
+                  value={'desd'}
                   control={<Radio color="secondary" />}
                   label="Desd"
-                  checked={sortRadioOrder === "desd"}
-                  onChange={(e) => handleSortRadioOrderChange(e)}
+                  checked={sortRadioOrder === 'desd'}
+                  onChange={e => handleSortRadioOrderChange(e)}
                 />
               </RadioGroup>
             </FormControl>
             <br />
             <FormControl className="pl-1">
               <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label2"
+                aria-labelledby="demo-radio-buttons-group-label3"
                 defaultValue="female"
-                name="radio-buttons-group2"
+                name="radio-buttons-group3"
               >
                 <FormControlLabel
-                  value={"price"}
+                  value={'price'}
                   control={<Radio color="secondary" />}
                   label="By Price"
-                  checked={sortRadioVal === "price"}
-                  onChange={(e) => handleSortRadioValChange(e)}
+                  checked={sortRadioVal === 'price'}
+                  onChange={e => handleSortRadioValChange(e)}
                 />
                 <FormControlLabel
-                  value={"rating"}
+                  value={'rating'}
                   control={<Radio color="secondary" />}
                   label="By Rating"
-                  checked={sortRadioVal === "rating"}
-                  onChange={(e) => handleSortRadioValChange(e)}
+                  checked={sortRadioVal === 'rating'}
+                  onChange={e => handleSortRadioValChange(e)}
                 />
                 <FormControlLabel
-                  value={"noOfReviews"}
+                  value={'noOfReviews'}
                   control={<Radio color="secondary" />}
                   label="By Reviews"
-                  checked={sortRadioVal === "noOfReviews"}
-                  onChange={(e) => handleSortRadioValChange(e)}
+                  checked={sortRadioVal === 'noOfReviews'}
+                  onChange={e => handleSortRadioValChange(e)}
                 />
+                {sale && (
+                  <FormControlLabel
+                    value={'discount'}
+                    control={<Radio color="secondary" />}
+                    label="By Discount"
+                    checked={sortRadioVal === 'discount'}
+                    onChange={e => handleSortRadioValChange(e)}
+                  />
+                )}
               </RadioGroup>
             </FormControl>
+
+            <hr />
+            <button className="btn btn-success" onClick={clearFilters}>
+              Clear Filters
+            </button>
+            <hr className="mb-5" />
           </aside>
           <div className="col-md-10">
             <h1 id="products_heading">Search Related Products</h1>
@@ -512,7 +591,7 @@ const Filter = (props) => {
             color="secondary"
             size="small"
             aria-label="scroll back to top"
-            style={{ backgroundColor: "green" }}
+            style={{ backgroundColor: 'green' }}
           >
             <img src={uparrow} alt="" />
           </Fab>

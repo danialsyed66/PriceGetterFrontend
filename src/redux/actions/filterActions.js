@@ -24,6 +24,8 @@ export const updateFilters = filters => (dispatch, getState) => {
     if (prevFilters?.leastRating !== filters?.leastRating) newReq = true;
     if (prevFilters?.price?.[0] !== filters?.price?.[0]) newReq = true;
     if (prevFilters?.price?.[1] !== filters?.price?.[1]) newReq = true;
+    if (prevFilters?.discount?.[0] !== filters?.discount?.[0]) newReq = true;
+    if (prevFilters?.discount?.[1] !== filters?.discount?.[1]) newReq = true;
     if (!arraysEqual(prevFilters?.sellers, filters?.sellers)) newReq = true;
     if (!arraysEqual(prevFilters?.categories, filters?.categories))
       newReq = true;

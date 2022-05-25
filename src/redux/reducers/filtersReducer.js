@@ -6,6 +6,7 @@ const reducer = (
     price: [0, 500000],
     leastRating: 0,
     onSale: false,
+    discount: [],
     sellers: [],
     categories: [],
     sort: [],
@@ -14,19 +15,33 @@ const reducer = (
 ) => {
   switch (type) {
     case SET_FILTERS:
-      return {
+      const setfilters = {
         page: 1,
         price: [0, 500000],
         leastRating: 0,
         onSale: false,
+        discount: [],
         sellers: [],
         categories: [],
         sort: [],
         ...payload,
       };
 
+      return {
+        ...setfilters,
+        discount: setfilters.onSale ? setfilters.discount : [],
+      };
+
     case UPDATE_FILTERS:
-      return { ...state, ...payload };
+      const updatefilters = {
+        ...state,
+        ...payload,
+      };
+
+      return {
+        ...updatefilters,
+        discount: updatefilters.onSale ? updatefilters.discount : [],
+      };
 
     default:
       return state;

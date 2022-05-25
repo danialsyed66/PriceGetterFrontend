@@ -11,15 +11,31 @@ import { logout } from '../../../redux/actions/authActions';
 import { setFilters } from '../../../redux/actions/filterActions';
 
 const Menu = ({ path }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { onSale } = useSelector(state => state.filters);
+
+  const handleNavigate = category => {
+    dispatch(setFilters({ onSale: true }));
+
+    navigate('/filter?nav=true');
+  };
+
   return (
     <>
       <p>
-        <Link
-          className={path === '/sales' ? `nav-a nav-permanent ` : `nav-a`}
-          to="/login"
+        <div
+          className={
+            (path === '/filter?nav=true' || path === '/filter') && onSale
+              ? `nav-a nav-permanent `
+              : `nav-a`
+          }
+          style={{ cursor: 'pointer' }}
+          onClick={handleNavigate}
         >
           Sales
-        </Link>
+        </div>
       </p>
 
       <p>

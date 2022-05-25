@@ -73,7 +73,7 @@ const Product = ({ product, col, callbackRef }) => {
                 onClick={e => handleFavourite(e, product._id)}
                 checked={isFavourite}
               />
-              {product.discount && (
+              {product.discount > 0 && (
                 <div
                   className="d-flex justify-content-center align-items-center"
                   style={{
@@ -94,7 +94,7 @@ const Product = ({ product, col, callbackRef }) => {
                       color: '#E61919',
                     }}
                   >
-                    {product.discount}
+                    {Math.round(product.discount)}%
                   </p>
                 </div>
               )}
