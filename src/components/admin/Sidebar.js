@@ -1,50 +1,154 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import ".././products/Home.css";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import DashboardIcon from "../../assets/images/dashboard";
+import AppointmentIcon from "../../assets/images/appointment";
+import BookIcon from "../../assets/images/bookIcon";
+import Prescription from "../../assets/images/prescription";
+import Triage from "../../assets/images/triage";
+import pricegetter from "../../assets/PriceGetter.png";
+import "./Sidebar.css";
+// doctor component
+function SideBar({ active, setHandleActive }) {
+  // side bar items
+  const itemsData = [
+    {
+      component: DashboardIcon,
+      name: "Dashboard",
+      link: "/seller/dashboard",
+    },
+    {
+      name: "Products",
+      component: AppointmentIcon,
+      link: "/seller/products",
+    },
+    {
+      name: "Add Product",
+      component: BookIcon,
+      link: "/seller/addproduct",
+    },
+    {
+      name: "Orders",
+      component: Triage,
+      link: "/seller/orders",
+    },
+  ];
 
-const Sidebar = () => {
+  const [activeItem, setActiveItem] = useState(itemsData[0]);
+  // make svg compoennt
+  const makeSvgComponent = (Component, isActive) => {
+    const activeColorOne = "#01676B";
+    const activeColorTwo = "#FFF";
+    const disableColorOne = "#FFFFFF";
+    const disableColorTwo = "#01676b";
+    return (
+      <Component
+        colorOne={isActive ? activeColorOne : disableColorOne}
+        colorTwo={isActive ? activeColorTwo : disableColorTwo}
+      />
+    );
+  };
+
+  // getting active path
+  const path = useLocation().pathname;
+  // setting current active tab
+  useEffect(() => {
+    const currnetItem = itemsData.find((el) => path === el.link);
+    if (currnetItem) setActiveItem(currnetItem);
+    return () => {
+      setActiveItem(itemsData[0]);
+    };
+  }, [path]);
+
+  // main return
+
   return (
-    <div>
-      <div className="row">
-        <div className="col-12">
-          <div className="sidebar-wrapper">
-            <nav id="sidebar">
-              <ul className="list-unstyled components">
-                <li>
-                  <Link to="/dashboard">
-                    <i className="fa fa-tachometer-alt"></i> Dashboard
-                  </Link>
-                </li>
+    <>
+      <div className="sideBar sideBarDiv d-none d-md-block">
+        <div className="centerDiv">
+          <img src={pricegetter} className="logo"></img>
+        </div>
 
-                <li>
-                  <Link to="/seller/products">
-                    <i className="fa fa-product-hunt"></i> All Products
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/seller/product">
-                    <i className="fa fa-plus"></i> Create Products
-                  </Link>
-                </li>
-
-                <li>
-                  <Link to="/seller/orders">
-                    <i className="fa fa-shopping-basket"></i> Orders
-                  </Link>
-                </li>
-
-                <li>
-                  <Link to="/seller/reviews">
-                    <i className="fa fa-users"></i> Review
-                  </Link>
-                </li>
-              </ul>
-            </nav>
+        <div className="itemsFlex">
+          <div className="w-100">
+            {itemsData.map((item, index) => {
+              const isActive = activeItem.link === item.link;
+              return (
+                <Link to={item.link}>
+                  <div
+                    onClick={() => setActiveItem(item)}
+                    key={index}
+                    className={
+                      isActive
+                        ? "DashboardSideBarItem sideBarItemActive"
+                        : "DashboardSideBarItem"
+                    }
+                  >
+                    <div style={{ width: "40px" }}>
+                      {item.component &&
+                        makeSvgComponent(item.component, isActive)}
+                    </div>
+                    <div className="title" style={{ color: "#01676b" }}>
+                      {item.name}
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
-    </div>
-  );
-};
 
-export default Sidebar;
+      {/* mobile Side Bar */}
+      <div className="d-block d-md-none">
+        <div
+          onClick={() => setHandleActive(false)}
+          className={
+            active ? "sideBarModal sideBarModalActive" : "sideBarModal"
+          }
+        ></div>
+        <div
+          className={
+            active
+              ? "sideBarM sideBarDiv sideBarMActive"
+              : "sideBarM sideBarDiv"
+          }
+        >
+          <div className="centerDiv" style={{ marginBottom: "20rem" }}>
+            <img src="/images/logo.svg" className="logo"></img>
+          </div>
+
+          <div className="itemsFlex" style={{ marginTop: "20rem" }}>
+            <div className="w-100">
+              {itemsData.map((item, index) => {
+                const isActive = activeItem.link === item.link;
+                return (
+                  <Link to={item.link}>
+                    <div
+                      onClick={() => {
+                        setActiveItem(item);
+                        setHandleActive(false);
+                      }}
+                      key={index}
+                      className={
+                        isActive
+                          ? "DashboardSideBarItem sideBarItemActive"
+                          : "DashboardSideBarItem"
+                      }
+                    >
+                      <div style={{ width: "40px" }}>
+                        {item.component &&
+                          makeSvgComponent(item.component, isActive)}
+                      </div>
+                      <div className="title">{item.name}</div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+export default SideBar;

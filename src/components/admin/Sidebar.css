@@ -1,0 +1,426 @@
+.sideBarDiv .logo {
+  margin-top: 0 !important;
+}
+.navIcons .icon {
+  width: 20px;
+}
+.navIcons .profileImg {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.centerDiv {
+  display: flex;
+  justify-content: center;
+}
+.sideBarDiv .itemsFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-top: 70px;
+  width: 100%;
+  height: 89%;
+}
+.sideBarDiv .icon {
+  width: 11px;
+}
+a:hover {
+  text-decoration: none;
+}
+.sideBarDiv .DashboardSideBarItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+}
+.sideBarDiv .sideBarItemActive .circleIcon {
+  background-color: #01676b;
+}
+.sideBarDiv .sideBarItemActive .title {
+  color: #01676b;
+}
+.sideBarDiv .DashboardSideBarItem:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.07);
+}
+.sideBarDiv .DashboardSideBarItem .title {
+  font: 14px poppins;
+  margin-left: 20px;
+}
+
+.dashboardNavaBarButton {
+  position: relative;
+  transform: translateZ(100px);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  width: 43px;
+  padding: 10px;
+
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+.dashboardNavaBarButton:hover {
+  transform: scale(1.2);
+}
+.dashboardNavBarLine {
+  display: block;
+  height: 2.5px;
+  width: 100%;
+  background-color: #1f1f1f;
+  margin-bottom: 4px;
+  border-radius: 2px;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity 0.2s ease-out;
+  transform: translateZ(0);
+}
+.headerSideBar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: auto;
+  min-width: 320px;
+  width: 100%;
+  transform: translateY(-150vh);
+  transition-delay: 0.6s;
+  -webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: 490;
+  background-color: #01676b;
+}
+
+.headerSideBarActive {
+  transform: translateY(0);
+}
+
+.sideBarItem {
+  color: #fff;
+  font-family: poppins;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.sideBarItemDiv {
+  padding: 24vw 10vw;
+}
+.headerSideBar .btnSignUp {
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+.headerSideBar .btnLogin {
+  width: 100%;
+  background-color: #afeaaa;
+  margin-bottom: 40px;
+  margin-left: 0;
+  font-size: 15px;
+}
+/* dashbord header css */
+.headerProfile {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.headerProfile .img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+.headerProfile .dropDown {
+  position: absolute;
+  width: 200px;
+  border: 1px solid #e7e7e9;
+  border-radius: 5px;
+  right: 0;
+  top: 40px;
+  opacity: 0;
+  max-height: 400px;
+  min-height: 180px;
+  -webkit-transform: translateY(30px);
+  transform: translateY(30px);
+  transition: all linear 0.3s;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  visibility: hidden;
+}
+.headerProfile:hover .dropDown {
+  opacity: 1;
+  transform: translateY(0px);
+  visibility: visible;
+  -webkit-transform: translateY(0px);
+}
+.headerProfile .dropDown .item {
+  color: #404041;
+}
+.headerProfile .dropDown .item:hover {
+  background-color: #f8f8f8;
+}
+.headerProfile .dropDown .divider {
+  background-color: #e7e7e9;
+  height: 1px;
+  margin-top: 20px;
+}
+
+/* headers end */
+
+.dashboardNavBar {
+  width: 100%;
+  z-index: 1000;
+  padding: 20px 40px;
+  box-shadow: var(--shadow);
+}
+.dashboardNavBar .navBrand {
+  font: 18px poppinsMd;
+  color: #01676b;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+}
+.dashboardNavBar .icon {
+  margin-right: 20px;
+}
+.sideBar {
+  width: 300px;
+  padding: 20px 20px;
+  box-shadow: var(--shadow);
+  height: 100%;
+}
+.sideBarM {
+  width: 230px;
+  padding: 40px 20px;
+  box-shadow: var(--shadow);
+  height: 100vh;
+  position: absolute;
+  transform: translateX(-100vw);
+  transition-delay: 0.6s;
+  -webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-color: #fff;
+  z-index: 9999;
+}
+.sideBarMActive {
+  transform: translateX(0px) !important;
+}
+.sideBarModal {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  transition-delay: 0.6s;
+  -webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 999;
+}
+.sideBarModalActive {
+  opacity: 1;
+  visibility: visible;
+}
+.opacityZero {
+  opacity: 0;
+}
+.navDropDownDiv {
+  position: relative;
+}
+.navDropDown {
+  position: absolute;
+  left: 0;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 5px 6px 18px rgba(0, 0, 0, 0.07);
+  padding: 18px;
+  width: 277px;
+}
+.navDropDown .item {
+  font: 14px poppins;
+  color: var(--colorBlack);
+  margin-bottom: 15px;
+}
+.navDropDown .item:hover {
+  font: 14px poppins;
+  color: var(--colorBlue);
+  margin-bottom: 15px;
+}
+
+/* Button Css */
+.navaBarButton {
+  position: relative;
+  transform: translateZ(100px);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  width: 43px;
+  padding: 10px;
+
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+.navaBarButton:hover {
+  transform: scale(1.2);
+}
+.navBarLine {
+  display: block;
+  height: 2.5px;
+  width: 100%;
+  background-color: var(--primaryBlue);
+  margin-bottom: 4px;
+  border-radius: 2px;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity 0.2s ease-out;
+  transform: translateZ(0);
+}
+.navBarLineActive {
+  background-color: #fff;
+}
+
+.activeSideBar {
+  position: fixed;
+  z-index: 500;
+  top: 20px;
+  right: 20px;
+}
+.activeSideBar > .navBarLine1,
+.activeSideBar:hover > .navBarLine1 {
+  transform: translateY(6px) rotateZ(-135deg);
+  background-color: #fff !important;
+}
+.activeSideBar > .navBarLine2,
+.activeSideBar:hover > .navBarLine2 {
+  opacity: 0;
+}
+.activeSideBar > .navBarLine3,
+.activeSideBar:hover > .navBarLine3 {
+  transform: translateY(-6px) rotateZ(135deg);
+  background-color: #fff !important;
+}
+
+.activeSideBar > .dashboardNavBarLine1,
+.activeSideBar:hover > .dashboardNavBarLine1 {
+  transform: translateY(6px) rotateZ(-135deg);
+  background-color: #fff !important;
+}
+.activeSideBar > .dashboardNavBarLine2,
+.activeSideBar:hover > .dashboardNavBarLine2 {
+  opacity: 0;
+}
+.activeSideBar > .dashboardNavBarLine3,
+.activeSideBar:hover > .dashboardNavBarLine3 {
+  transform: translateY(-6px) rotateZ(135deg);
+  background-color: #fff !important;
+}
+
+/* Button Css Ends */
+
+.sideBarDiv .logo {
+  margin-top: 20px;
+  width: 100px;
+}
+.navIcons .icon {
+  width: 20px;
+}
+.navIcons .profileImg {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.sideBarDiv .itemsFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-top: 70px;
+  width: 100%;
+  height: 89%;
+}
+.sideBarDiv .icon {
+  width: 11px;
+}
+.sideBarDiv .DashboardSideBarItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+}
+.sideBarDiv .sideBarItemActive .circleIcon {
+  background-color: #5ad1dd;
+}
+.sideBarDiv .sideBarItemActive .title {
+  color: #5ad1dd;
+}
+
+.sideBarDiv .DashboardSideBarItem .title {
+  font: 14px poppins;
+  text-decoration: none !important;
+  margin-left: 20px;
+}
+.sideBarDiv .DashboardSideBarItem .title :hover {
+  border: none;
+  text-decoration: none !important;
+  text-align: center;
+  text-decoration-line: none !important;
+}
+
+.dashboardNavaBarButton {
+  position: relative;
+  transform: translateZ(100px);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  width: 43px;
+  padding: 10px;
+
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+.dashboardNavaBarButton:hover {
+  transform: scale(1.2);
+}
+.dashboardNavBarLine {
+  display: block;
+  height: 2.5px;
+  width: 100%;
+  background-color: #1f1f1f;
+  margin-bottom: 4px;
+  border-radius: 2px;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity 0.2s ease-out;
+  transform: translateZ(0);
+}
+.headerSideBar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: auto;
+  min-width: 320px;
+  width: 100%;
+  transform: translateY(-150vh);
+  transition-delay: 0.6s;
+  -webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: 490;
+  background-color: #48afc9;
+}
+
+.headerSideBarActive {
+  transform: translateY(0);
+}
+.logo {
+  text-align: center;
+}

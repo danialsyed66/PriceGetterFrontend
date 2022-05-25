@@ -16,6 +16,7 @@ import { getHome } from "../redux/actions/homeActions";
 import { HANDLE_FAVOURITE_RESET } from "../redux/consts";
 import Guide from "./users/Guide";
 import Dashboard from "./admin/Dashboard";
+import Layout from "./admin/Layout/Layout";
 const Home = lazy(() => import("./products/Home"));
 const Filter = lazy(() => import("./products/Filter"));
 const DetailPage = lazy(() => import("./products/DetailPage/DetailPage"));
@@ -156,7 +157,9 @@ const App = () => {
             <Route path="/cart" exact element={<Cart />} />
             <Route path="/forums" exact element={<Forum />} />
             <Route path="/forums/post/:id" exact element={<PostPage />} />
-            <Route path="/dashboard" exact element={<Dashboard />} />
+            <Route path="/seller">
+              <Route path="dashboard" element={<Dashboard />} />
+            </Route>
             <Route
               path="/wishlist"
               exact
@@ -260,7 +263,6 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

@@ -1,0 +1,15 @@
+.dashboardMainDiv {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+.dashboardMainDiv .headerSec {
+  position: relative;
+  width: 100%;
+}
+.dashboardMainDiv .contentMainSec {
+  padding: 60px 60px;
+  background-color: #f5f8fa;
+  height: 84%;
+  overflow: auto;
+}
