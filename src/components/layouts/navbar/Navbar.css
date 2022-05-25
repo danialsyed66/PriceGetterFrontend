@@ -6,6 +6,10 @@
   padding: 0rem 4rem 0rem 2rem;
 }
 
+.search :focus,
+input:focus {
+  outline: none;
+}
 .gpt3__navbar-links {
   flex: 1;
   display: flex;

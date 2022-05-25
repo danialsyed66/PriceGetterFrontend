@@ -313,7 +313,10 @@ const Filter = (props) => {
       </div>
       <section id="products" className="container-fluid mt-5">
         <div className="row mt-4">
-          <aside className="col-md-2 sidebar mt-5">
+          <aside
+            className="col-md-2 sidebar mt-5"
+            style={{ borderRight: "1px solid grey" }}
+          >
             <h4 style={{ fontWeight: "bold" }}>Filters</h4>
             <div className="radio-toolbar">
               <input
@@ -431,20 +434,22 @@ const Filter = (props) => {
                 defaultValue="female"
                 name="radio-buttons-group2"
               >
-                <FormControlLabel
-                  value={"asd"}
-                  control={<Radio color="secondary" />}
-                  label="Asd"
-                  checked={sortRadioOrder === "asd"}
-                  onChange={(e) => handleSortRadioOrderChange(e)}
-                />
-                <FormControlLabel
-                  value={"desd"}
-                  control={<Radio color="secondary" />}
-                  label="Desd"
-                  checked={sortRadioOrder === "desd"}
-                  onChange={(e) => handleSortRadioOrderChange(e)}
-                />
+                <div className="d-flex ">
+                  <FormControlLabel
+                    value={"asd"}
+                    control={<Radio color="secondary" />}
+                    label="Asending"
+                    checked={sortRadioOrder === "asd"}
+                    onChange={(e) => handleSortRadioOrderChange(e)}
+                  />
+                  <FormControlLabel
+                    value={"desd"}
+                    control={<Radio color="secondary" />}
+                    label="Desending"
+                    checked={sortRadioOrder === "desd"}
+                    onChange={(e) => handleSortRadioOrderChange(e)}
+                  />
+                </div>
               </RadioGroup>
             </FormControl>
             <br />

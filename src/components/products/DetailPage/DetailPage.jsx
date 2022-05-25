@@ -204,7 +204,9 @@ const DetailPage = () => {
               </div>
               <div className="col-md-5 heaing_detail">
                 <h2>{name}</h2>
-                {discount && <p className="discount_bar p-1">{discount}%</p>}
+                {discount && (
+                  <p className="discount_bar p-1">{Math.floor(discount)}%</p>
+                )}
                 <hr />
                 <div className="rating-outer">
                   <div
