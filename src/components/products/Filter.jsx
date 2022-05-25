@@ -351,8 +351,9 @@ const Filter = props => {
                 id="radioApple"
                 name="radioFruit"
                 value="apple"
-                defaultChecked={sale}
+                checked={sale}
                 onClick={() => setSale(!sale)}
+                onChange={() => {}}
               />
               <label htmlFor="radioApple">Sale</label>
             </div>
@@ -451,42 +452,55 @@ const Filter = props => {
             </FormControl>
             <hr />
 
-            <div className="d-flex mb-2">
+            <div className="d-flex mb-3">
               <p style={{ margin: '0', fontWeight: 'bold' }}>Categorys</p>
             </div>
-            {CATEGORIES.map(({ val }, i) => (
-              <div className="d-flex mb-2" key={val}>
-                <Checkbox
-                  aria-label="checks"
-                  color="secondary"
-                  className="p-0"
-                  name={val}
-                  value={val}
-                  checked={categoriesCheckBox[i]}
-                  onChange={() => categoriesCheckBoxHandler(i)}
-                />
-                <p style={{ margin: '0' }}>{val}</p>
-              </div>
-            ))}
+            <FormControl>
+              {CATEGORIES.map(({ val }, i) => (
+                <div className="d-flex mb-2" key={val}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        aria-label="checks"
+                        color="secondary"
+                        className="p-0 ml-2"
+                        name={val}
+                        value={val}
+                        checked={categoriesCheckBox[i]}
+                        onChange={() => categoriesCheckBoxHandler(i)}
+                      />
+                    }
+                    label={val}
+                  />
+                </div>
+              ))}
+            </FormControl>
             <hr />
 
-            <div className="d-flex mb-2">
+            <div className="d-flex mb-3">
               <p style={{ margin: '0', fontWeight: 'bold' }}>From Sites</p>
             </div>
-            {SELLERS.map(({ val, text }, i) => (
-              <div className="d-flex mb-2" key={val}>
-                <Checkbox
-                  aria-label="checks"
-                  color="secondary"
-                  className="p-0"
-                  name={text}
-                  value={val}
-                  checked={sellerCheckBox[i]}
-                  onChange={() => sellerCheckBoxHandler(i)}
-                />
-                <p style={{ margin: '0' }}>{text}</p>
-              </div>
-            ))}
+
+            <FormControl>
+              {SELLERS.map(({ val, text }, i) => (
+                <div className="d-flex mb-2" key={val}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        aria-label="checks"
+                        color="secondary"
+                        className="p-0 ml-2"
+                        name={text}
+                        value={val}
+                        checked={sellerCheckBox[i]}
+                        onChange={() => sellerCheckBoxHandler(i)}
+                      />
+                    }
+                    label={text}
+                  />
+                </div>
+              ))}
+            </FormControl>
             <hr />
 
             <div className="d-flex mb-2">
