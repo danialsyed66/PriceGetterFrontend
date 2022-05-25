@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "react-multi-carousel/lib/styles.css";
 
@@ -19,6 +19,7 @@ import fire from "./../../../utils/swal";
 import { Loader, MetaData } from "../../layouts";
 import Carousel from "react-multi-carousel";
 import Product from "../Product";
+import { Breadcrumbs } from "@mui/material";
 
 const DetailPage = () => {
   const isImage = (url) =>
@@ -168,7 +169,17 @@ const DetailPage = () => {
       ) : (
         <>
           <div className="p-2 m-5">
-            <p style={{ fontWeight: "bold" }}>{`home/${category?.sub}`}</p>
+            <Breadcrumbs
+              aria-label="breadcrumb"
+              style={{ backgroundColor: "white" }}
+            >
+              <Link underline="hover" color="inherit" to="/">
+                Home
+              </Link>
+              <Link underline="hover" color="inherit" to="/">
+                {category?.search}
+              </Link>
+            </Breadcrumbs>
             <div className="row">
               <div className="col-md-1 offset-md-2">
                 <div className="boxs-img " style={{ cursor: "pointer" }}>
