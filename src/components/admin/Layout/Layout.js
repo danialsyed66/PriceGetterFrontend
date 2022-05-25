@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar";
-import Dashboard from "../Dashboard";
-
 import "./layout.css";
 
 export default function Layout({ children }) {
