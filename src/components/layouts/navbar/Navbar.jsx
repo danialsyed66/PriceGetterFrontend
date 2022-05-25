@@ -140,15 +140,14 @@ const Navbar = () => {
         <Link to="/profile" className="dropdown-item">
           Profile
         </Link>
-        {user.role === 'admin' ? (
-          <Link to="/dashboard" className="dropdown-item">
+        {['seller', 'seller-pending'].includes(user.role) && (
+          <Link to="/seller/dashboard" className="dropdown-item">
             Dashboard
           </Link>
-        ) : (
-          <Link to="/orders" className="dropdown-item">
-            Orders
-          </Link>
         )}
+        <Link to="/orders" className="dropdown-item">
+          Orders
+        </Link>
         <Link
           to="/"
           className="dropdown-item text-danger"
