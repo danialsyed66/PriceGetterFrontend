@@ -1,18 +1,20 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import PropTypes from "prop-types";
-import useScrollTrigger from "@mui/material/useScrollTrigger";
-import "./Home.css";
-import Product from "./Product";
-import { Category, Footer, Navbar, Header, Loader, MetaData } from "../layouts";
-import Zoom from "@mui/material/Zoom";
-import { AppBar } from "@mui/material";
-import Fab from "@mui/material/Fab";
-import Box from "@mui/material/Box";
-import uparrow from "../../assets/arrow-up-short.svg";
-import arrowright from "../../assets/arrow-right.svg";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import PropTypes from 'prop-types';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+import './Home.css';
+import Product from './Product';
+import { Category, Footer, Navbar, Header, Loader, MetaData } from '../layouts';
+import Zoom from '@mui/material/Zoom';
+import { AppBar } from '@mui/material';
+import Fab from '@mui/material/Fab';
+import Box from '@mui/material/Box';
+import uparrow from '../../assets/arrow-up-short.svg';
+import arrowright from '../../assets/arrow-right.svg';
+import { setFilters } from '../../redux/actions/filterActions';
+import { useNavigate } from 'react-router-dom';
 
 function ScrollTop(props) {
   const { children, window } = props;
@@ -25,15 +27,15 @@ function ScrollTop(props) {
     threshold: 100,
   });
 
-  const handleClick = (event) => {
+  const handleClick = event => {
     const anchor = (event.target.ownerDocument || document).querySelector(
-      "#back-to-top-anchor"
+      '#back-to-top-anchor'
     );
 
     if (anchor) {
       anchor.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
+        behavior: 'smooth',
+        block: 'center',
       });
     }
   };
@@ -43,7 +45,7 @@ function ScrollTop(props) {
       <Box
         onClick={handleClick}
         role="presentation"
-        sx={{ position: "fixed", bottom: 16, right: 16 }}
+        sx={{ position: 'fixed', bottom: 16, right: 16 }}
       >
         {children}
       </Box>
@@ -85,7 +87,7 @@ ElevationScroll.propTypes = {
   window: PropTypes.func,
 };
 
-const Home = (props) => {
+const Home = props => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -103,31 +105,46 @@ const Home = (props) => {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
-  const { home, loading } = useSelector((state) => state.home);
+  const { home, loading } = useSelector(state => state.home);
 
-  const renderCrouser = (object, text) => (
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleViewMore = (conditionFor, condition) => {
+    if (conditionFor === 'seller')
+      dispatch(setFilters({ sellers: [condition.seller] }));
+    if (conditionFor === 'category')
+      dispatch(setFilters({ categories: [condition['category.search']] }));
+
+    navigate('/filter?nav=true');
+  };
+
+  const renderCrouser = (renderFor, text, products, condition) => (
     <>
-      {object && (
+      {products && (
         <>
           <div className="col-md-12 ml-4">
             <h1 id="products_heading">{text}</h1>
           </div>
           <div className="col-md-12">
             <Carousel responsive={responsive}>
-              {object.map((prod) => (
+              {products.map(prod => (
                 <Product col={10} key={prod._id} product={prod} />
               ))}
-              <div
-                className={`col-sm-10 col-md-6 col-lg-10 box_pad`}
-                style={{ borderRadius: "20px" }}
-              >
-                <div className=" my-2 ">
-                  <div className="py-3  d-flex flex-column justify-content-center align-items-center">
-                    <img src={arrowright} alt="" />
-                    <p>View more</p>
+              {renderFor !== 'recommended' && (
+                <div
+                  className={`col-sm-10 col-md-6 col-lg-10 box_pad`}
+                  style={{ borderRadius: '20px', cursor: 'pointer' }}
+                  onClick={() => handleViewMore(renderFor, condition)}
+                >
+                  <div className=" my-2">
+                    <div className="py-3  d-flex flex-column justify-content-center align-items-center">
+                      <img src={arrowright} alt="" />
+                      <p>View more</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </Carousel>
           </div>
         </>
@@ -156,41 +173,110 @@ const Home = (props) => {
             <>
               {home?.recommended &&
                 renderCrouser(
-                  home?.recommended?.recommended,
-                  'Recommended for you!'
+                  'recommended',
+                  'Recommended for you!',
+                  home?.recommended?.recommended
                 )}
               {renderCrouser(
-                home?.categories?.books,
-                "Escape the real world with a Book!"
+                'category',
+                'Escape the real world with a Book!',
+                home?.categories?.books?.value,
+                home?.categories?.books?.condition
               )}
-              {renderCrouser(home?.categories?.food, "Food and Refreshments!")}
-              {renderCrouser(home?.categories?.clothes, "Clothes and Wears!")}
-              {renderCrouser(home?.categories?.cameras, "Cameras and Lens!")}
               {renderCrouser(
-                home?.categories?.laptops,
-                "New Laptops & Computers!"
+                'category',
+                'Food and Refreshments!',
+                home?.categories?.food?.value,
+                home?.categories?.food?.condition
               )}
-              {renderCrouser(home?.categories?.smartPhones, "Phone Offers!")}
-              {renderCrouser(home?.categories?.sports, "Dive into Sports!")}
-              {renderCrouser(home?.categories?.home, "Household Necessities!")}
               {renderCrouser(
-                home?.categories?.accessories,
-                "Accessories for you!"
+                'category',
+                'Clothes and Wears!',
+                home?.categories?.clothes?.value,
+                home?.categories?.clothes?.condition
               )}
-              {renderCrouser(home?.categories?.electronics, "Electronics")}
               {renderCrouser(
-                home?.categories?.outdoor,
-                "Take a step into the wild!"
+                'category',
+                'Cameras and Lens!',
+                home?.categories?.cameras?.value,
+                home?.categories?.cameras?.condition
               )}
-              {renderCrouser(home?.categories?.headphones, "Best Headphones!")}
+              {renderCrouser(
+                'category',
+                'New Laptops & Computers!',
+                home?.categories?.laptops?.value,
+                home?.categories?.laptops?.condition
+              )}
+              {renderCrouser(
+                'category',
+                'Phone Offers!',
+                home?.categories?.smartPhones?.value,
+                home?.categories?.smartPhones?.condition
+              )}
+              {renderCrouser(
+                'category',
+                'Dive into Sports!',
+                home?.categories?.sports?.value,
+                home?.categories?.sports?.condition
+              )}
+              {renderCrouser(
+                'category',
+                'Household Necessities!',
+                home?.categories?.home?.value,
+                home?.categories?.home?.condition
+              )}
+              {renderCrouser(
+                'category',
+                'Accessories for you!',
+                home?.categories?.accessories?.value,
+                home?.categories?.accessories?.condition
+              )}
+              {renderCrouser(
+                'category',
+                'Electronics',
+                home?.categories?.electronics?.value,
+                home?.categories?.electronics?.condition
+              )}
+              {renderCrouser(
+                'category',
+                'Take a step into the wild!',
+                home?.categories?.outdoor?.value,
+                home?.categories?.outdoor?.condition
+              )}
+              {renderCrouser(
+                'category',
+                'Best Headphones!',
+                home?.categories?.headphones?.value,
+                home?.categories?.headphones?.condition
+              )}
               <hr />
               <div className="col-md-12 ml-4">
                 <h1 id="products_heading">Products by Various Sellers</h1>
               </div>
-              {renderCrouser(home?.sellers?.daraz, "By Daraz")}
-              {renderCrouser(home?.sellers?.yayvo, "By Yayvo")}
-              {renderCrouser(home?.sellers?.iBucket, "By iBucket")}
-              {renderCrouser(home?.sellers?.goto, "By Goto")}
+              {renderCrouser(
+                'seller',
+                'By Daraz',
+                home?.sellers?.daraz?.value,
+                home?.sellers?.daraz?.condition
+              )}
+              {renderCrouser(
+                'seller',
+                'By Yayvo',
+                home?.sellers?.yayvo?.value,
+                home?.sellers?.yayvo?.condition
+              )}
+              {renderCrouser(
+                'seller',
+                'By iBucket',
+                home?.sellers?.iBucket?.value,
+                home?.sellers?.iBucket?.condition
+              )}
+              {renderCrouser(
+                'seller',
+                'By Goto',
+                home?.sellers?.goto?.value,
+                home?.sellers?.goto?.condition
+              )}
             </>
           )}
         </div>
@@ -199,7 +285,7 @@ const Home = (props) => {
             color="secondary"
             size="small"
             aria-label="scroll back to top"
-            style={{ backgroundColor: "green" }}
+            style={{ backgroundColor: 'green' }}
           >
             <img src={uparrow} alt="" />
           </Fab>

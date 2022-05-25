@@ -26,7 +26,7 @@ const Menu = ({ path }) => {
   return (
     <>
       <p>
-        <div
+        <span
           className={
             (path === '/filter?nav=true' || path === '/filter') && onSale
               ? `nav-a nav-permanent `
@@ -36,7 +36,7 @@ const Menu = ({ path }) => {
           onClick={handleNavigate}
         >
           Sales
-        </div>
+        </span>
       </p>
       <p>
         <Link
