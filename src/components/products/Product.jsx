@@ -18,7 +18,7 @@ const Product = ({ product, col, callbackRef }) => {
   const isImage = url =>
     /http(|s):(.*?).(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
 
-  product.images = product.images.filter(image => isImage(image.url));
+  product.images = product.images?.filter(image => isImage(image.url));
 
   useEffect(() => {
     // if (!user || !product) return;
@@ -109,15 +109,17 @@ const Product = ({ product, col, callbackRef }) => {
               />
             </div>
 
-            <img
-              style={{ borderRadius: '20px' }}
-              className="m-auto card-img-top lazy-img zoom-box pointer"
-              alt="product pic"
-              src={PriceGetter}
-              data-src={product.images[0]?.url}
-              ref={imgRef}
-              onClick={() => navigate(`/product/${product._id}`)}
-            />
+            {product.images && (
+              <img
+                style={{ borderRadius: '20px' }}
+                className="m-auto card-img-top lazy-img zoom-box pointer"
+                alt="product pic"
+                src={PriceGetter}
+                data-src={product.images[0]?.url}
+                ref={imgRef}
+                onClick={() => navigate(`/product/${product._id}`)}
+              />
+            )}
           </div>
           <div
             className="card-body d-flex flex-column pl-3"
