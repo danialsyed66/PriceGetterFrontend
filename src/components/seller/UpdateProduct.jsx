@@ -1,24 +1,15 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Layout from './layout/Layout';
-import { createProduct } from '../../redux/actions/sellerActions';
-import { CREATE_PRODUCT_RESET } from '../../redux/consts';
+import { updateProduct } from '../../redux/actions/sellerActions';
+import { getProductDetails } from '../../redux/actions/productActions';
+import { UPDATE_PRODUCT_RESET } from '../../redux/consts';
 import { Loader, MetaData } from '../layouts';
 import '../products/Home.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import fire from '../../utils/swal';
 
 const NewProduct = () => {
-  const navigate = useNavigate();
-
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState(0);
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
-  const [stock, setStock] = useState(0);
-  const [images, setImages] = useState([]);
-  const [imagesPreview, setImagesPreview] = useState([]);
-
   const categories = [
     'Accessories',
     // 'Health',
@@ -36,9 +27,31 @@ const NewProduct = () => {
     'Sports',
   ];
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const { id } = useParams();
+
+  const { product, loading: productLoading } = useSelector(
+    state => state.productDetails
+  );
   const { loading, message } = useSelector(state => state.seller);
+
+  const [name, setName] = useState(product.name);
+  const [price, setPrice] = useState(product.price);
+  const [description, setDescription] = useState(product.description);
+  const [category, setCategory] = useState(product.category?.search);
+  const [stock, setStock] = useState(product.stock);
+  const [images, setImages] = useState([]);
+  const [imagesPreview, setImagesPreview] = useState([]);
+
+  useEffect(() => {
+    setName(product.name);
+    setPrice(+product.price);
+    setDescription(product.description);
+    setCategory(product.category?.search);
+    setStock(+product.stock);
+  }, [product]);
 
   useEffect(() => {
     if (!message) return;
@@ -47,8 +60,12 @@ const NewProduct = () => {
 
     navigate('/seller/products');
 
-    dispatch({ type: CREATE_PRODUCT_RESET });
+    dispatch({ type: UPDATE_PRODUCT_RESET });
   }, [dispatch, navigate, message]);
+
+  useEffect(() => {
+    dispatch(getProductDetails(id));
+  }, [dispatch, id]);
 
   const submitHandler = e => {
     e.preventDefault();
@@ -64,7 +81,7 @@ const NewProduct = () => {
       formData.append('images', image);
     });
 
-    dispatch(createProduct(formData));
+    dispatch(updateProduct(formData, id));
   };
 
   const onChange = e => {
@@ -94,7 +111,7 @@ const NewProduct = () => {
         <div className="row">
           <div className="col-12 ">
             <div className="wrapper ">
-              {loading ? (
+              {loading || productLoading ? (
                 <Loader />
               ) : (
                 <form
@@ -198,7 +215,7 @@ const NewProduct = () => {
                     className="btn btn-block py-3"
                     disabled={loading ? true : false}
                   >
-                    CREATE
+                    UPDATE
                   </button>
                 </form>
               )}

@@ -9,7 +9,7 @@ export default function Header({ active, setHandleActive }) {
       case '/seller/dashboard':
         setTitle('Seller Dashboard');
         break;
-      case '/seller/allproduct':
+      case '/seller/products':
         setTitle('Products');
         break;
 
@@ -44,7 +44,7 @@ export default function Header({ active, setHandleActive }) {
             <div className="dashboardNavBarLine dashboardNavBarLine3"></div>
           </div>
         </div>
-        <h4 class="navBrand">{title}</h4>
+        <h4 className="navBrand">{title}</h4>
 
         <div className="flexCenter navIcons">{/* <HeaderProfileImg /> */}</div>
       </nav>

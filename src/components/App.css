@@ -103,3 +103,11 @@ a {
     padding: 4rem 2rem;
   }
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.underline:hover {
+  text-decoration: underline;
+}

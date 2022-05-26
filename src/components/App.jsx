@@ -50,6 +50,10 @@ const PostPage = lazy(() => import('./forums/PostPage'));
 
 const Dashboard = lazy(() => import('./seller/Dashboard'));
 const NewProduct = lazy(() => import('./seller/NewProduct'));
+const UpdateProduct = lazy(() => import('./seller/UpdateProduct'));
+const SellerProducts = lazy(() => import('./seller/SellerProducts'));
+const SellerOrders = lazy(() => import('./seller/SellerOrders'));
+const SellerOrder = lazy(() => import('./seller/SellerOrder'));
 
 const App = () => {
   const [stripeKey, setStripeKey] = useState('');
@@ -71,6 +75,7 @@ const App = () => {
   const { error: orderDetailsError } = useSelector(state => state.orderDetails);
   const { error: reviewError } = useSelector(state => state.review);
   const { error: forumsError } = useSelector(state => state.forums);
+  const { error: sellerError } = useSelector(state => state.seller);
 
   const { isAuth } = useSelector(state => state.auth);
   const { isUpdated } = useSelector(state => state.user);
@@ -88,6 +93,7 @@ const App = () => {
     if (orderDetailsError) fire(orderDetailsError);
     if (reviewError) fire(reviewError);
     if (forumsError) fire(forumsError);
+    if (sellerError) fire(sellerError);
 
     dispatch(clearErrors());
   }, [
@@ -104,6 +110,7 @@ const App = () => {
     orderDetailsError,
     reviewError,
     forumsError,
+    sellerError,
   ]);
 
   useEffect(() => {
@@ -174,6 +181,38 @@ const App = () => {
                 element={
                   <ProtectedRoute>
                     <NewProduct />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="product/:id"
+                element={
+                  <ProtectedRoute>
+                    <UpdateProduct />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="products"
+                element={
+                  <ProtectedRoute>
+                    <SellerProducts />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="orders"
+                element={
+                  <ProtectedRoute>
+                    <SellerOrders />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="orders/:id"
+                element={
+                  <ProtectedRoute>
+                    <SellerOrder />
                   </ProtectedRoute>
                 }
               />

@@ -21,8 +21,7 @@ const Category = () => {
         {icons.map(({ src, text, val }) => {
           return (
             <div
-              className="col-md-2 col-6 d-flex flex-column justify-content-center align-items-center py-2"
-              style={{ cursor: 'pointer' }}
+              className="col-md-2 col-6 d-flex flex-column justify-content-center align-items-center py-2 pointer"
               key={text}
               onClick={() => handleNavigate(val)}
             >

@@ -14,9 +14,6 @@ import {
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_FAIL,
   CLEAR_ERRORS,
-  NEW_PRODUCT_REQUEST,
-  NEW_PRODUCT_SUCCESS,
-  NEW_PRODUCT_FAIL,
 } from '../consts';
 
 export const getProducts = filters => async (dispatch, getState) => {
@@ -168,29 +165,6 @@ export const deleteReview = (productId, reviewId) => async dispatch => {
       payload: {
         error: error?.response?.data?.message || 'Could not get the product',
       },
-    });
-  }
-};
-export const newProduct = productData => async dispatch => {
-  try {
-    dispatch({ type: NEW_PRODUCT_REQUEST });
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    const { data } = await axios.post(`api/v1/products/`, productData, config);
-
-    dispatch({
-      type: NEW_PRODUCT_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: NEW_PRODUCT_FAIL,
-      payload: error.response.data.message,
     });
   }
 };

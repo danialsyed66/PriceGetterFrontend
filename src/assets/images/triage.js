@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function triage({ colorOne, colorTwo }) {
   return (
@@ -29,7 +29,7 @@ export default function triage({ colorOne, colorTwo }) {
         rx="0.42857"
         fill={colorTwo}
         stroke={colorTwo}
-        stroke-width="0.857141"
+        strokeWidth="0.857141"
       />
       <rect
         x="21.9999"
@@ -39,7 +39,7 @@ export default function triage({ colorOne, colorTwo }) {
         rx="0.42857"
         fill={colorTwo}
         stroke={colorTwo}
-        stroke-width="0.857141"
+        strokeWidth="0.857141"
       />
       <rect
         x="30.5714"
@@ -50,7 +50,7 @@ export default function triage({ colorOne, colorTwo }) {
         transform="rotate(90 30.5714 22.286)"
         fill={colorTwo}
         stroke={colorTwo}
-        stroke-width="0.857141"
+        strokeWidth="0.857141"
       />
       <rect
         x="18.2858"
@@ -61,7 +61,7 @@ export default function triage({ colorOne, colorTwo }) {
         transform="rotate(90 18.2858 22.286)"
         fill={colorTwo}
         stroke={colorTwo}
-        stroke-width="0.857141"
+        strokeWidth="0.857141"
       />
       <line
         x1="21.5"
@@ -69,7 +69,7 @@ export default function triage({ colorOne, colorTwo }) {
         x2="22.7857"
         y2="26.7852"
         stroke={colorTwo}
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <line
         x1="24.3569"
@@ -77,7 +77,7 @@ export default function triage({ colorOne, colorTwo }) {
         x2="24.4998"
         y2="26.7852"
         stroke={colorTwo}
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <defs>
         <filter
@@ -87,9 +87,9 @@ export default function triage({ colorOne, colorTwo }) {
           width="48"
           height="48"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"

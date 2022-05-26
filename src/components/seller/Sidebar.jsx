@@ -19,7 +19,7 @@ function SideBar({ active, setHandleActive }) {
       {
         name: 'Products',
         component: AppointmentIcon,
-        link: '/seller/allproduct',
+        link: '/seller/products',
       },
       {
         name: 'Add Product',
@@ -54,7 +54,7 @@ function SideBar({ active, setHandleActive }) {
   const path = useLocation().pathname;
   // setting current active tab
   useEffect(() => {
-    const currnetItem = itemsData.find((el) => path === el.link);
+    const currnetItem = itemsData.find(el => path === el.link);
     if (currnetItem) setActiveItem(currnetItem);
     return () => {
       setActiveItem(itemsData[0]);
@@ -77,7 +77,7 @@ function SideBar({ active, setHandleActive }) {
             {itemsData.map((item, index) => {
               const isActive = activeItem.link === item.link;
               return (
-                <Link to={item.link}>
+                <Link to={item.link} key={index}>
                   <div
                     onClick={() => setActiveItem(item)}
                     key={index}
@@ -126,7 +126,7 @@ function SideBar({ active, setHandleActive }) {
               {itemsData.map((item, index) => {
                 const isActive = activeItem.link === item.link;
                 return (
-                  <Link to={item.link}>
+                  <Link to={item.link} key={index}>
                     <div
                       onClick={() => {
                         setActiveItem(item);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-multi-carousel/lib/styles.css';
 
@@ -20,12 +20,12 @@ import { Loader, MetaData } from '../../layouts';
 import Carousel from 'react-multi-carousel';
 import Product from '../Product';
 import { Breadcrumbs } from '@mui/material';
+import { setFilters } from '../../../redux/actions/filterActions';
 
 const DetailPage = () => {
-  const isImage = url =>
-    /http(|s):(.*?).(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [sellectedImage, setSellectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -40,6 +40,9 @@ const DetailPage = () => {
   const { success: reviewSuccess, message: reviewMessage } = useSelector(
     state => state.review
   );
+
+  const isImage = url =>
+    /http(|s):(.*?).(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
 
   const {
     _id,
@@ -57,7 +60,7 @@ const DetailPage = () => {
     reviews,
     // createdAt,
     discount,
-    type,
+    pricegetter,
   } = product;
 
   const decreaseQuantity = () => {
@@ -114,6 +117,13 @@ const DetailPage = () => {
       rating: userRating,
     });
   };
+
+  const handleNavigate = category => {
+    dispatch(setFilters({ categories: [category] }));
+
+    navigate('/filter?nav=true');
+  };
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -176,9 +186,14 @@ const DetailPage = () => {
               <Link underline="hover" color="inherit" to="/">
                 Home
               </Link>
-              <Link underline="hover" color="inherit" to="/">
+              <div
+                underline="hover"
+                color="inherit"
+                className="pointer underline"
+                onClick={() => handleNavigate(category?.search)}
+              >
                 {category?.search}
-              </Link>
+              </div>
             </Breadcrumbs>
             <div className="row">
               <div className="col-md-1 offset-md-2">
@@ -231,7 +246,7 @@ const DetailPage = () => {
                 <hr />
                 <p id="product_price">{`RS.${price}`}</p>
                 <hr />
-                {type !== 'PriceGetter' ? (
+                {!pricegetter ? (
                   <>
                     Go To Site:
                     <img
@@ -299,8 +314,8 @@ const DetailPage = () => {
                 <hr />
                 <h4>Product Description</h4>
                 <p className="p_detail">
-                  {description?.split(',').map(val => {
-                    return <p>{val}</p>;
+                  {description?.split(',').map((val, i) => {
+                    return <span kay={i}>{val}</span>;
                   })}{' '}
                 </p>
               </div>

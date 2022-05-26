@@ -29,10 +29,9 @@ const Menu = ({ path }) => {
         <span
           className={
             (path === '/filter?nav=true' || path === '/filter') && onSale
-              ? `nav-a nav-permanent `
-              : `nav-a`
+              ? `nav-a nav-permanent pointer`
+              : `nav-a pointer`
           }
-          style={{ cursor: 'pointer' }}
           onClick={handleNavigate}
         >
           Sales

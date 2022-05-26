@@ -110,8 +110,8 @@ const Product = ({ product, col, callbackRef }) => {
             </div>
 
             <img
-              style={{ borderRadius: '20px', cursor: 'pointer' }}
-              className="m-auto card-img-top lazy-img zoom-box"
+              style={{ borderRadius: '20px' }}
+              className="m-auto card-img-top lazy-img zoom-box pointer"
               alt="product pic"
               src={PriceGetter}
               data-src={product.images[0]?.url}

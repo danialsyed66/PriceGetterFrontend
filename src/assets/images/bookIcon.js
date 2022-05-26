@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default function bookIcon({ colorOne, colorTwo }) {
   return (
@@ -12,7 +12,7 @@ export default function bookIcon({ colorOne, colorTwo }) {
       <g filter="url(#filter0_d)">
         <circle cx="24" cy="24" r="19" fill={colorOne} />
       </g>
-      <g clip-path="url(#clip0)">
+      <g clipPath="url(#clip0)">
         <path
           d="M27.523 17.0488H27.3897V17.7569C27.3897 17.9581 27.2366 18.1214 27.0479 18.1214C26.859 18.1214 26.7061 17.9581 26.7061 17.7569V17.0488H25.704V17.7569C25.704 17.9581 25.5508 18.1214 25.3622 18.1214C25.1733 18.1214 25.0204 17.9581 25.0204 17.7569V17.0488H24.0182V17.7569C24.0182 17.9581 23.8651 18.1214 23.6764 18.1214C23.4878 18.1214 23.3346 17.9581 23.3346 17.7569V17.0488H22.332V17.7569C22.332 17.9581 22.1789 18.1214 21.9902 18.1214C21.8016 18.1214 21.6484 17.9581 21.6484 17.7569V17.0488H20.6463V17.7569C20.6463 17.9581 20.4934 18.1214 20.3045 18.1214C20.1158 18.1214 19.9627 17.9581 19.9627 17.7569V17.0488H18.9605V17.7569C18.9605 17.9581 18.8076 18.1214 18.6187 18.1214C18.4301 18.1214 18.277 17.9581 18.277 17.7569V17.0488H18.1434C17.5129 17.0488 17 17.5958 17 18.2684V18.9927H28.6667V18.2684C28.6667 17.5958 28.1535 17.0488 27.523 17.0488V17.0488Z"
           fill={colorTwo}
@@ -66,9 +66,9 @@ export default function bookIcon({ colorOne, colorTwo }) {
           width="48"
           height="48"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"

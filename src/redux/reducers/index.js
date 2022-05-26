@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import productsReducer from './productsReducer';
-import productReducer, { newProductReducer } from './productReducer';
+import productReducer from './productReducer';
 import authReducer from './authReducer';
 import userReducer from './userReducer';
 import forgotPasswordReducer from './forgotPasswordReducer';
@@ -14,9 +14,10 @@ import reviewReducer from './reviewReducer';
 import homeReducer from './homeReducer';
 import filtersReducer from './filtersReducer';
 import forumsReducer from './forumsReducer';
+import sellerReducer from './sellerReducer';
 
 export default combineReducers({
-  newProduct: newProductReducer,
+  seller: sellerReducer,
   products: productsReducer,
   productDetails: productReducer,
   auth: authReducer,
