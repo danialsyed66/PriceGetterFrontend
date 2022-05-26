@@ -349,13 +349,14 @@ const Filter = props => {
               <input
                 type="radio"
                 id="radioApple"
-                name="radioFruit"
                 value="apple"
                 checked={sale}
                 onClick={() => setSale(!sale)}
                 onChange={() => {}}
               />
-              <label htmlFor="radioApple">Sale</label>
+              <label style={{ cursor: 'pointer' }} htmlFor="radioApple">
+                Sale Filters
+              </label>
             </div>
             {sale && (
               <FormControl className="pl-1">
