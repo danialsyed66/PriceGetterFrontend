@@ -144,11 +144,11 @@ const DetailPage = () => {
 
   useEffect(() => {
     if (images) {
-      if (isImage(images[0]?.url)) {
-        if (images?.length) setSellectedImage(images[0]?.url);
+      if (isImage(images?.[0]?.url)) {
+        if (images?.length) setSellectedImage(images?.[0]?.url);
       }
-      if (isImage(images[1]?.url)) {
-        if (images?.length) setSellectedImage(images[1]?.url);
+      if (isImage(images?.[1]?.url)) {
+        if (images?.length) setSellectedImage(images?.[1]?.url);
       }
     }
   }, [images]);

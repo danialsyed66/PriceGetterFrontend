@@ -115,7 +115,7 @@ const Product = ({ product, col, callbackRef }) => {
                 className="m-auto card-img-top lazy-img zoom-box pointer"
                 alt="product pic"
                 src={PriceGetter}
-                data-src={product.images[0]?.url}
+                data-src={product.images?.[0]?.url}
                 ref={imgRef}
                 onClick={() => navigate(`/product/${product._id}`)}
               />

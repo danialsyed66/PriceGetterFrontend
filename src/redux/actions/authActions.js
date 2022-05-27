@@ -70,7 +70,7 @@ export const socialLogin = () => async dispatch => {
       {
         name: displayName,
         email,
-        avatar: { url: photos[0].value },
+        avatar: { url: photos?.[0].value },
         provider,
         socialId: id,
       },

@@ -9,8 +9,8 @@ export function InputText({ field, form: { errors, touched }, ...props }) {
         variant={'outlined'}
         fullWidth
         inputProps={{ style: { backgroundColor: '#fff' } }}
-        error={touched[field.name] && Boolean(errors[field.name])}
-        helperText={touched[field.email] && errors[field.email]}
+        error={touched?.[field.name] && Boolean(errors?.[field.name])}
+        helperText={touched?.[field.email] && errors?.[field.email]}
         {...props}
         {...field}
       />

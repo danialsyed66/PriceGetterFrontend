@@ -194,7 +194,7 @@ const Filter = props => {
       categoriesCheckBox.map((item, i) => (i === pos ? !item : item))
     );
 
-    setCategory(pushOrPullFromArray(category, CATEGORIES[pos].val));
+    setCategory(pushOrPullFromArray(category, CATEGORIES?.[pos].val));
   };
 
   const sellerCheckBoxHandler = pos => {
@@ -202,7 +202,7 @@ const Filter = props => {
       sellerCheckBox.map((item, i) => (i === pos ? !item : item))
     );
 
-    setSeller(pushOrPullFromArray(seller, SELLERS[pos].val));
+    setSeller(pushOrPullFromArray(seller, SELLERS?.[pos].val));
   };
 
   function useQuery() {

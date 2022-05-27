@@ -40,12 +40,12 @@ export const getProducts = filters => async (dispatch, getState) => {
 
     const link = `/api/v1/products?page=${currentPage}
       &rating[gte]=${rating}
-      &price[gte]=${priceRange[0]}
-      ${priceRange[1] ? `&price[lte]=${priceRange[1]}` : ''}
+      &price[gte]=${priceRange?.[0]}
+      ${priceRange?.[1] ? `&price[lte]=${priceRange?.[1]}` : ''}
       ${keyword ? `&keyword=${keyword}` : ''}
       ${onSale ? `&onSale=true` : ''}
-      ${discount[0] ? `&discount[gte]=${discount[0]}` : ''}
-      ${discount[1] ? `&discount[lte]=${discount[1]}` : ''}
+      ${discount?.[0] ? `&discount[gte]=${discount?.[0]}` : ''}
+      ${discount?.[1] ? `&discount[lte]=${discount?.[1]}` : ''}
       ${category.length ? `&category=${category}` : ''}
       ${sortQuery.length ? `&sort=${sortQuery}` : ''}
       ${seller.length ? `&seller=${seller}` : ''}`;

@@ -48,7 +48,7 @@ const Wishlist = () => {
                   <div className="row">
                     <div className="col-4 col-lg-2">
                       <img
-                        src={images[0].url}
+                        src={images?.[0].url}
                         alt={name}
                         height="90"
                         width="115"
