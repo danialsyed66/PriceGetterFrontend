@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import priceGetter from '../../../assets/PriceGetter.svg';
 import { useNavigate } from 'react-router-dom';
+
+import priceGetter from '../../../assets/PriceGetter.svg';
+
 import { MetaData } from '../../layouts';
 
 const SetPassword = () => {

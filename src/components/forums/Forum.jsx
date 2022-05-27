@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Footer, Loader, MetaData, Navbar } from '../layouts';
 import Post from './Post';
+import PostForm from './PostForm';
+import { Footer, Loader, MetaData, Navbar } from '../layouts';
+import fire from '../../utils/swal';
 import { getPosts } from '../../redux/actions/forumsActions';
 import { DELETE_POST_RESET } from '../../redux/consts';
-import fire from '../../utils/swal';
-import PostForm from './PostForm';
 
 const Forum = () => {
   const [toggle, setToggle] = useState(false);

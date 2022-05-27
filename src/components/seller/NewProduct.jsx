@@ -1,12 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import '../products/Home.css';
 import Layout from './layout/Layout';
+import { Loader, MetaData } from '../layouts';
+import fire from '../../utils/swal';
 import { createProduct } from '../../redux/actions/sellerActions';
 import { CREATE_PRODUCT_RESET } from '../../redux/consts';
-import { Loader, MetaData } from '../layouts';
-import '../products/Home.css';
-import { useNavigate } from 'react-router-dom';
-import fire from '../../utils/swal';
 
 const NewProduct = () => {
   const navigate = useNavigate();

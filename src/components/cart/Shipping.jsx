@@ -3,10 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { countries } from 'countries-list';
 
-import MetaData from '../layouts/MetaData';
-import CheckoutSteps from '../layouts/CheckoutSteps';
+import { Footer, Navbar, MetaData, CheckoutSteps } from '../layouts';
 import { saveShippingInfo } from '../../redux/actions/cartActions';
-import { Footer, Navbar } from '../layouts';
 
 const Shipping = () => {
   const countryList = Object.values(countries);

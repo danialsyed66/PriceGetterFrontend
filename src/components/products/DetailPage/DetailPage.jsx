@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import Carousel from 'react-multi-carousel';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Breadcrumbs } from '@mui/material';
 import 'react-multi-carousel/lib/styles.css';
 
 import './Detailpage.css';
 import '../Home.css';
 
 import ListReviews from './ListReviews';
-import Navbar from '../../layouts/navbar/Navbar';
-import Footer from '../../layouts/footer/Footer';
+import Product from '../Product';
+import { Navbar, Footer, Loader, MetaData } from '../../layouts';
+import fire from './../../../utils/swal';
+import { addToCart } from './../../../redux/actions/cartActions';
+import { setFilters } from '../../../redux/actions/filterActions';
 import {
   getProductDetails,
   newReview,
 } from '../../../redux/actions/productActions';
-import { addToCart } from './../../../redux/actions/cartActions';
 import { NEW_REVIEW_RESET } from './../../../redux/consts';
-import fire from './../../../utils/swal';
-import { Loader, MetaData } from '../../layouts';
-import Carousel from 'react-multi-carousel';
-import Product from '../Product';
-import { Breadcrumbs } from '@mui/material';
-import { setFilters } from '../../../redux/actions/filterActions';
 
 const DetailPage = () => {
   const { id } = useParams();

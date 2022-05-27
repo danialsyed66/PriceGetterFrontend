@@ -1,7 +1,7 @@
 import React from 'react';
-import './forum.css';
 import { useDispatch, useSelector } from 'react-redux';
 
+import './forum.css';
 import { deleteComment } from '../../redux/actions/forumsActions';
 import printDate from '../../utils/printDate';
 

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import './Header.css';
 import ai from '../../../assets/ai-low.png';
+
 import { setFilters } from '../../../redux/actions/filterActions';
-import { useDispatch } from 'react-redux';
 
 const Header = () => {
   const [query, setQuery] = useState('');

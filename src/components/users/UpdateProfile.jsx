@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { MetaData, Loader, Navbar, Footer } from '../layouts';
+import fire from '../../utils/swal';
 import { updateProfile } from '../../redux/actions/userActions';
 import { loadUser } from '../../redux/actions/authActions';
 import { UPDATE_PROFILE_RESET } from '../../redux/consts';
-import fire from '../../utils/swal';
 
 const UpdateProfile = () => {
   const navigate = useNavigate();

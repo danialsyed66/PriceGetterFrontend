@@ -6,16 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import './Login.css';
-
 import eye from '../../../assets/eye.svg';
 import eyeslash from '../../../assets/eye-slash.svg';
 import priceGetter from '../../../assets/PriceGetter.svg';
 
-import { InputText } from './InputText';
-
-import { register } from '../../../redux/actions/authActions';
 import fire from '../../../utils/swal';
 import { Loader, MetaData } from '../../layouts';
+import { InputText } from './InputText';
+import { register } from '../../../redux/actions/authActions';
 
 const SignupPage = () => {
   const [avatar, setAvatar] = useState('');

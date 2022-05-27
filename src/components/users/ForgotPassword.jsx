@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { MetaData, Loader } from '../layouts';
+import fire from '../../utils/swal';
 import { forgotPassword } from '../../redux/actions/forgotPasswordActions';
 import { FORGOT_PASSWORD_RESET } from '../../redux/consts';
-import fire from '../../utils/swal';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');

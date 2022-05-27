@@ -1,17 +1,18 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { useDispatch, useSelector } from 'react-redux';
+
 import './App.css';
 import { Loader, NotFound } from './layouts';
+import axios from '../utils/axios';
+import fire from '../utils/swal';
 import {
   loadUser,
   clearErrors,
   socialLogin,
 } from '../redux/actions/authActions';
-import axios from '../utils/axios';
-import fire from '../utils/swal';
 import { getHome } from '../redux/actions/homeActions';
 import { HANDLE_FAVOURITE_RESET } from '../redux/consts';
 

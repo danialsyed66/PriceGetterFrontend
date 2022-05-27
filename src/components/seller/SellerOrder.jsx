@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { MetaData, Loader } from '../layouts';
-import { getOrderDetails } from '../../redux/actions/orderActions';
 import Layout from './layout/Layout';
-import { PROCESS_ORDER_RESET } from '../../redux/consts';
-import { processOrder } from '../../redux/actions/sellerActions';
+import { MetaData, Loader } from '../layouts';
 import fire from '../../utils/swal';
+import { getOrderDetails } from '../../redux/actions/orderActions';
+import { processOrder } from '../../redux/actions/sellerActions';
+import { PROCESS_ORDER_RESET } from '../../redux/consts';
 
 const MyOrders = () => {
   const { id } = useParams();

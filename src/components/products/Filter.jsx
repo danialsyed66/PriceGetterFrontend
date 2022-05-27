@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import uparrow from '../../assets/arrow-up-short.svg';
-import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import {
   AppBar,
   Box,
@@ -17,11 +17,12 @@ import {
 } from '@mui/material';
 
 import './Home.css';
+import uparrow from '../../assets/arrow-up-short.svg';
+
 import { Product } from '.';
 import { Navbar, Loader, CATEGORIES, SELLERS, MetaData } from '../layouts';
 import { getProducts } from '../../redux/actions/productActions';
 import { setFilters, updateFilters } from '../../redux/actions/filterActions';
-import { useLocation } from 'react-router-dom';
 
 function ScrollTop(props) {
   const { children, window } = props;

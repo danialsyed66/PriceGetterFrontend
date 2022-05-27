@@ -1,25 +1,24 @@
 import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 import { Button, FormControl, IconButton, Stack } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import './Login.css';
-
 import eye from '../../../assets/eye.svg';
 import eyeslash from '../../../assets/eye-slash.svg';
+import priceGetter from '../../../assets/PriceGetter.svg';
+
 import Facebook from '../../../utils/Facebook';
 import Twitter from '../../../utils/Twitter';
 import Google from '../../../utils/Google';
 import Done from '../../../utils/Done';
-
-import priceGetter from '../../../assets/PriceGetter.svg';
 import { InputText } from './InputText';
+import { Loader, MetaData } from '../../layouts';
+import fire from '../../../utils/swal';
 import { login } from '../../../redux/actions/authActions';
 import { SERVER_URI } from '../../../redux/consts';
-import fire from '../../../utils/swal';
-import { Loader, MetaData } from '../../layouts';
 
 const LoginPage = () => {
   const SignupSchema = Yup.object().shape({

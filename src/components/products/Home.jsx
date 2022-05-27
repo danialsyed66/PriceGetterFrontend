@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
 import PropTypes from 'prop-types';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { AppBar, Box, Fab, useScrollTrigger, Zoom } from '@mui/material';
+import 'react-multi-carousel/lib/styles.css';
+
 import './Home.css';
-import Product from './Product';
-import { Category, Footer, Navbar, Header, Loader, MetaData } from '../layouts';
-import Zoom from '@mui/material/Zoom';
-import { AppBar } from '@mui/material';
-import Fab from '@mui/material/Fab';
-import Box from '@mui/material/Box';
 import uparrow from '../../assets/arrow-up-short.svg';
 import arrowright from '../../assets/arrow-right.svg';
+
+import Product from './Product';
+import { Category, Footer, Navbar, Header, Loader, MetaData } from '../layouts';
 import { setFilters } from '../../redux/actions/filterActions';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 function ScrollTop(props) {
   const { children, window } = props;

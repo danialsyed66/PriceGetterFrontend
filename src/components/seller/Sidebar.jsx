@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+
+import './Sidebar.css';
 import DashboardIcon from '../../assets/images/dashboard';
 import AppointmentIcon from '../../assets/images/appointment';
 import BookIcon from '../../assets/images/bookIcon';
 import Triage from '../../assets/images/triage';
 import pricegetter from '../../assets/PriceGetter.png';
-import './Sidebar.css';
+
 // doctor component
 function SideBar({ active, setHandleActive }) {
   // side bar items

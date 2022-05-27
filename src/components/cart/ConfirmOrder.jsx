@@ -3,8 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import MetaData from '../layouts/MetaData';
-import CheckoutSteps from '../layouts/CheckoutSteps';
-import { Footer, Navbar } from '../layouts';
+import PriceGetter from '../../assets/PriceGetter.png';
+
+import { Footer, Navbar, CheckoutSteps } from '../layouts';
 
 const ConfirmOrder = () => {
   const navigate = useNavigate();
@@ -57,15 +58,15 @@ const ConfirmOrder = () => {
 
           <hr />
           <h4 className="mt-4">Your Cart Items:</h4>
-          {cartItems.map(({ _id, name, price, images, quantity }) => (
+          {cartItems.map(({ _id, name, price, images, quantity, category }) => (
             <Fragment key={_id}>
               <hr />
               <div className="cart-item my-1">
                 <div className="row">
                   <div className="col-4 col-lg-2">
                     <img
-                      src={images?.[0]?.url}
-                      alt="Laptop"
+                      src={images?.[0]?.url || PriceGetter}
+                      alt={category?.searh}
                       height="45"
                       width="65"
                     />

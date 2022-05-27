@@ -1,8 +1,10 @@
 import React from 'react';
-import { Footer, Navbar } from './layouts';
+
+import './users/wishlist.css';
 import job from '../assets/joboffer.svg';
 import data from '../assets/datahet.svg';
-import './users/wishlist.css';
+
+import { Footer, Navbar } from './layouts';
 
 const Guide = () => {
   return (

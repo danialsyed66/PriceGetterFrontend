@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { MetaData, Loader, Navbar, Footer } from '../layouts';
+import fire from '../../utils/swal';
 import { resetPassword } from '../../redux/actions/forgotPasswordActions';
 import { RESET_PASSWORD_RESET } from '../../redux/consts';
-import fire from '../../utils/swal';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');

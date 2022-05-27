@@ -1,13 +1,13 @@
 import React from 'react';
+
+import './Footer.css';
 import whatsapp from '../../../assets/whatsapp.svg';
 import email from '../../../assets/envelope.svg';
 import youtube from '../../../assets/youtube.svg';
-
 import linkdn from '../../../assets/linkedin.svg';
 import gameday from '../../../assets/gameday.svg';
 import wishlist from '../../../assets/tolly.svg';
 import facebook from '../../../assets/facebook.svg';
-import './Footer.css';
 
 const Footer = () => {
   return (

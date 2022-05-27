@@ -3,11 +3,12 @@ import { BsList } from 'react-icons/bs';
 import { ImCross } from 'react-icons/all';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import searchs from '../../../assets/search.svg';
 
 import './Navbar.css';
+import searchs from '../../../assets/search.svg';
 import priceGetter from '../../../assets/headericon.svg';
 import cart from '../../../assets/cart2.svg';
+
 import { logout } from '../../../redux/actions/authActions';
 import { setFilters } from '../../../redux/actions/filterActions';
 

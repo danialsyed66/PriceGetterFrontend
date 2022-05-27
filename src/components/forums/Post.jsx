@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Checkbox } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import './forum.css';
+import { useDispatch, useSelector } from 'react-redux';
 
+import './forum.css';
 import Like from '../../utils/Like';
 import {
   handleLike as handleLikeAction,

@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import { Loader } from '../../components/layouts';
-import { getDashboard } from '../../redux/actions/sellerActions';
 import Layout from './layout/Layout';
+import { getDashboard } from '../../redux/actions/sellerActions';
 
 const Dashboard = () => {
   const dispatch = useDispatch();

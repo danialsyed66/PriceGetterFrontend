@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import './layout.css';
 import Header from '../header/Header';
 import Sidebar from '../Sidebar';
-import './layout.css';
 
 export default function Layout({ children }) {
   const [active, setHandleActive] = useState(false);

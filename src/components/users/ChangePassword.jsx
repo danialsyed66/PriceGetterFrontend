@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { MetaData, Loader, Navbar, Footer } from '../layouts';
+import fire from '../../utils/swal';
 import { changePassword } from '../../redux/actions/userActions';
 import { loadUser } from '../../redux/actions/authActions';
 import { CHANGE_PASSWORD_RESET } from '../../redux/consts';
-import fire from '../../utils/swal';
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState('');

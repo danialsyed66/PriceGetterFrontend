@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+
 import '../products/Home.css';
-import MetaData from '../layouts/MetaData';
+import PriceGetter from '../../assets/PriceGetter.png';
+
+import { MetaData, Navbar, Footer } from '../layouts';
 import { removeFromCart, updateCart } from '../../redux/actions/cartActions';
-import Navbar from '../layouts/navbar/Navbar';
-import { Footer } from '../layouts';
-// import Footer from "../layouts/footer/Footer";
 
 const Cart = () => {
   const { cartItems } = useSelector(state => state.cart);
@@ -86,8 +86,8 @@ const Cart = () => {
                           <div className="row">
                             <div className="col-4 col-lg-2">
                               <img
-                                src={images?.[0]?.url}
-                                alt={'Laptop'}
+                                src={images?.[0]?.url || PriceGetter}
+                                alt={category?.search}
                                 height="90"
                                 width="115"
                               />

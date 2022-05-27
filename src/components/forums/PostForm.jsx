@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import './forum.css';
 import { useDispatch } from 'react-redux';
 import { addComment, addPost } from '../../redux/actions/forumsActions';

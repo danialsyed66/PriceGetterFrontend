@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { MDBDataTable } from 'mdbreact';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { MetaData, Loader } from '../layouts';
 import Layout from './layout/Layout';
+import { MetaData, Loader } from '../layouts';
 import { getSellerProducts } from '../../redux/actions/sellerActions';
 
 const MyOrders = () => {

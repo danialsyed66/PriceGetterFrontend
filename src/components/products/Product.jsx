@@ -2,10 +2,12 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 import { Checkbox } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { handleFavourite as handleFavouriteAction } from '../../redux/actions/userActions';
-import PriceGetter from '../../assets/PriceGetter.png';
-import Heart from '../../utils/Heart';
+
 import './Home.css';
+import PriceGetter from '../../assets/PriceGetter.png';
+
+import Heart from '../../utils/Heart';
+import { handleFavourite as handleFavouriteAction } from '../../redux/actions/userActions';
 
 const Product = ({ product, col, callbackRef }) => {
   const dispatch = useDispatch();
@@ -115,7 +117,7 @@ const Product = ({ product, col, callbackRef }) => {
                 className="m-auto card-img-top lazy-img zoom-box pointer"
                 alt="product pic"
                 src={PriceGetter}
-                data-src={product.images?.[0]?.url}
+                data-src={product.images?.[0]?.url || PriceGetter}
                 ref={imgRef}
                 onClick={() => navigate(`/product/${product._id}`)}
               />

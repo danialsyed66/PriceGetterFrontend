@@ -4,9 +4,10 @@ import { Button, FormControl } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 
 import './Login.css';
-import axios from '../../../utils/axios';
 import priceGetter from '../../../assets/PriceGetter.svg';
 import vector from '../../../assets/Vectors.svg';
+
+import axios from '../../../utils/axios';
 import { InputText } from './InputText';
 
 const SignupPage = () => {

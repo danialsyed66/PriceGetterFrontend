@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../utils/axios';
 import {
   useStripe,
   useElements,
@@ -10,11 +9,10 @@ import {
   CardCvcElement,
 } from '@stripe/react-stripe-js';
 
-import MetaData from '../layouts/MetaData';
-import CheckoutSteps from '../layouts/CheckoutSteps';
-import { createOrder } from '../../redux/actions/orderActions';
+import axios from '../../utils/axios';
 import fire from '../../utils/swal';
-import { Footer, Loader, Navbar } from '../layouts';
+import { Footer, Loader, Navbar, MetaData, CheckoutSteps } from '../layouts';
+import { createOrder } from '../../redux/actions/orderActions';
 
 const Payment = () => {
   const dispatch = useDispatch();

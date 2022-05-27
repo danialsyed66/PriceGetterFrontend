@@ -1,10 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './NotFound.css';
-import { Footer, Navbar } from '../';
 import priceGetter from '../../../assets/headericon.svg';
-import { Link } from 'react-router-dom';
-import MetaData from '../MetaData';
+
+import { Footer, Navbar, MetaData } from '../';
 
 const Forum = () => {
   return (

@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
-import './forum.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import './forum.css';
 import Back from './../../assets/arrow-left.svg';
 
-import { Footer, Loader, MetaData, Navbar } from '../layouts';
-import Comment from './Comment';
 import Post from './Post';
 import PostForm from './PostForm';
-import { getPost } from '../../redux/actions/forumsActions';
+import Comment from './Comment';
+import { Footer, Loader, MetaData, Navbar } from '../layouts';
 import fire from '../../utils/swal';
+import { getPost } from '../../redux/actions/forumsActions';
 
 const PostPage = () => {
   const { id } = useParams();

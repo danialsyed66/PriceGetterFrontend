@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import './wishlist.css';
 import wish from '../../assets/wishlist.svg';
 import heart from '../../assets/hearted.svg';
-import './wishlist.css';
+import PriceGetter from '../../assets/hearted.svg';
+
 import { Footer, Loader, MetaData, Navbar } from '../layouts';
-import { useDispatch, useSelector } from 'react-redux';
+import { loadUser } from '../../redux/actions/authActions';
 import {
   getFavourites,
   handleFavourite,
 } from '../../redux/actions/userActions';
-import { Link } from 'react-router-dom';
-import { loadUser } from '../../redux/actions/authActions';
 import { HANDLE_FAVOURITE_RESET } from '../../redux/consts';
 
 const Wishlist = () => {
@@ -41,15 +44,18 @@ const Wishlist = () => {
           <h1 className="my-5">My Wishlist</h1>
 
           {favourites?.map(
-            ({ _id, product: { images, name, price, _id: productId } }) => (
+            ({
+              _id,
+              product: { images, name, price, _id: productId, category },
+            }) => (
               <div key={_id} className="ml-3">
                 <hr />
                 <div className="cart-item">
                   <div className="row">
                     <div className="col-4 col-lg-2">
                       <img
-                        src={images?.[0].url}
-                        alt={name}
+                        src={images?.[0].url || PriceGetter}
+                        alt={category?.search}
                         height="90"
                         width="115"
                       />

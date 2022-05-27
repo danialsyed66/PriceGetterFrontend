@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { MetaData, Loader } from '../layouts';
 import Layout from './layout/Layout';
+import fire from '../../utils/swal';
+import printDate from '../../utils/printDate';
 import {
   getSellerOrders,
   processOrder,
 } from '../../redux/actions/sellerActions';
-import printDate from '../../utils/printDate';
 import { PROCESS_ORDER_RESET } from '../../redux/consts';
-import fire from '../../utils/swal';
 
 const MyOrders = () => {
   const dispatch = useDispatch();

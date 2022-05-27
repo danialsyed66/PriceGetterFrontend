@@ -1,13 +1,14 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import '../products/Home.css';
 import Layout from './layout/Layout';
+import { Loader, MetaData } from '../layouts';
+import fire from '../../utils/swal';
 import { updateProduct } from '../../redux/actions/sellerActions';
 import { getProductDetails } from '../../redux/actions/productActions';
 import { UPDATE_PRODUCT_RESET } from '../../redux/consts';
-import { Loader, MetaData } from '../layouts';
-import '../products/Home.css';
-import { useNavigate, useParams } from 'react-router-dom';
-import fire from '../../utils/swal';
 
 const NewProduct = () => {
   const categories = [
