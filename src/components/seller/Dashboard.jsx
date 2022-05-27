@@ -22,7 +22,7 @@ const Dashboard = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="row">
+        <div className="row p-5">
           <div className="col-12">
             <div className="row pr-4 mb-5">
               <div className="col-xl-12 col-sm-12 mb-3">

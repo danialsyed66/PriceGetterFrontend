@@ -52,7 +52,7 @@ const MyOrders = () => {
       id: product._id,
       name: product.name,
       price: `Rs. ${product.price}`,
-      discount: `${product.discount || 0}%`,
+      discount: `${Math.floor(product?.discount) || 0}%`,
       rating: product.rating,
       actions: (
         <>
