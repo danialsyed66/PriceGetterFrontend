@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 const ProtectedRoute = ({ isAuth, loading, children }) => {
   const navigate = useNavigate();
 
-  return <>{!loading && isAuth ? children : navigate('/login')}</>;
+  return <>{!loading && isAuth ? children : navigate('/login?check=true')}</>;
 };
 
 const mapStateToProps = ({ auth }) => ({

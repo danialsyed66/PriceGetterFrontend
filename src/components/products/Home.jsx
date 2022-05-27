@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -14,7 +14,7 @@ import Box from '@mui/material/Box';
 import uparrow from '../../assets/arrow-up-short.svg';
 import arrowright from '../../assets/arrow-right.svg';
 import { setFilters } from '../../redux/actions/filterActions';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function ScrollTop(props) {
   const { children, window } = props;
@@ -109,6 +109,18 @@ const Home = props => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+
+  const redirect = useQuery().get('redirect');
+
+  useEffect(() => {
+    if (!redirect) return;
+
+    navigate(-2);
+  }, [navigate, redirect]);
 
   const handleViewMore = (conditionFor, condition) => {
     if (conditionFor === 'seller')

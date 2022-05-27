@@ -48,7 +48,7 @@ const LoginPage = () => {
     return new URLSearchParams(useLocation().search);
   }
 
-  const redirect = useQuery().get('redirect');
+  const check = useQuery().get('check');
 
   const handleMouseDownPassword = event => {
     event.preventDefault();
@@ -58,13 +58,13 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (isAuth) {
-      if (redirect) return navigate(`/${redirect}`);
+      if (check) return navigate(`/?redirect=true`);
 
       fire('User Sign In Successfully!', 'success');
 
       navigate('/');
     }
-  }, [isAuth, navigate, redirect]);
+  }, [isAuth, navigate, check]);
 
   return (
     <div
