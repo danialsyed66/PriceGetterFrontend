@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const ProtectedRoute = ({ isAuth, loading, children }) => {
   const navigate = useNavigate();
 
-  return <>{!loading && isAuth ? children : navigate('/login?check=true')}</>;
+  useEffect(() => {
+    if (!loading && !isAuth) navigate('/login?check=true');
+  }, [navigate, loading, isAuth]);
+
+  return <>{!loading && isAuth ? children : null}</>;
 };
 
 const mapStateToProps = ({ auth }) => ({
