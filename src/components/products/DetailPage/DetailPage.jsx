@@ -30,7 +30,7 @@ const DetailPage = () => {
   const [userRating /* , setUserRating */] = useState(0);
   const [comment, setComment] = useState('');
 
-  const { loading, product, similar } = useSelector(
+  const { loading, product, similar, same } = useSelector(
     state => state.productDetails
   );
 
@@ -384,6 +384,68 @@ const DetailPage = () => {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div className="container mb-5">
+            <div className="row">
+              <div className="col-md-12 ml-4">
+                <h1 id="products_heading">Same Product on Various Sites</h1>
+              </div>
+              <div className="col-md-12">
+                {same?.same?.map(
+                  ({
+                    images,
+                    name,
+                    price,
+                    _id: productId,
+                    category,
+                    seller,
+                    url,
+                  }) => (
+                    <div
+                      key={_id}
+                      className="row d-flex justify-content-center"
+                    >
+                      <div className="col-8">
+                        <hr />
+                        <div className="cart-item">
+                          <div className="row">
+                            <div className="col-4 col-lg-2">
+                              <img
+                                src={images?.[0].url}
+                                alt={category?.search}
+                                height="90"
+                                width="115"
+                              />
+                            </div>
+
+                            <div className="col-5 col-lg-4">
+                              <Link to={`/product/${productId}`}>{name}</Link>
+                            </div>
+
+                            <div className="col-4 col-lg-2 mt-4 mt-lg-0">
+                              <p id="card_item_price">Rs. {price}</p>
+                            </div>
+
+                            <div className="col-4 col-lg-1 mt-4 mt-lg-0 pt-4 pl-5 ml-5">
+                              <img
+                                style={{ width: '60px', cursor: 'pointer' }}
+                                alt="seller pic"
+                                src={seller?.logo?.url}
+                                onClick={() => {
+                                  const newWindow = window.open(url, '_blank');
+                                  if (newWindow) newWindow.opener = null;
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <hr />
+                      </div>
+                    </div>
+                  )
+                )}
               </div>
             </div>
           </div>

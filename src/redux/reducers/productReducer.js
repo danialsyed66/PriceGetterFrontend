@@ -15,6 +15,7 @@ const reducer = (state = { product: {} }, { type, payload }) => {
         loading: false,
         product: payload.product,
         similar: payload.similar,
+        same: payload.same,
       };
     case PRODUCT_DETAILS_FAIL:
       return { ...state, loading: false, error: payload.error };
