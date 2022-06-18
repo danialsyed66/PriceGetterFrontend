@@ -80,6 +80,14 @@
   line-height: 32px;
   font-family: 'Roboto', sans-serif;
 }
+
+.no-products {
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 22px;
+  line-height: 26px;
+  font-family: 'Roboto', sans-serif;
+}
 .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked {
   color: red !important;
 }
