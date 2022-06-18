@@ -8,6 +8,7 @@ import { Loader, MetaData } from '../layouts';
 import fire from '../../utils/swal';
 import { createProduct } from '../../redux/actions/sellerActions';
 import { CREATE_PRODUCT_RESET } from '../../redux/consts';
+import reduceImage from '../../utils/reduceImage';
 
 const NewProduct = () => {
   const navigate = useNavigate();
@@ -68,24 +69,28 @@ const NewProduct = () => {
     dispatch(createProduct(formData));
   };
 
-  const onChange = e => {
+  const onChange = async e => {
     const files = Array.from(e.target.files);
 
     setImagesPreview([]);
     setImages([]);
 
-    files.forEach(file => {
+    for (let index = 0; index < files.length; index++) {
+      const file = files[index];
+
       const reader = new FileReader();
 
-      reader.onload = () => {
+      reader.onload = async () => {
         if (reader.readyState === 2) {
-          setImagesPreview(oldArray => [...oldArray, reader.result]);
-          setImages(oldArray => [...oldArray, reader.result]);
+          const reducedImage = await reduceImage(reader.result);
+
+          setImagesPreview(oldArray => [...oldArray, reducedImage]);
+          setImages(oldArray => [...oldArray, reducedImage]);
         }
       };
 
       reader.readAsDataURL(file);
-    });
+    }
   };
 
   return (

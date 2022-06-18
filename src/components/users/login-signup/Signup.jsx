@@ -14,6 +14,7 @@ import fire from '../../../utils/swal';
 import { Loader, MetaData } from '../../layouts';
 import { InputText } from './InputText';
 import { register } from '../../../redux/actions/authActions';
+import reduceImage from '../../../utils/reduceImage';
 
 const SignupPage = () => {
   const [avatar, setAvatar] = useState('');
@@ -23,12 +24,14 @@ const SignupPage = () => {
   const handleAvatarUpload = e => {
     const reader = new FileReader();
 
-    reader.onload = () => {
+    reader.onload = async () => {
       if (reader.readyState !== 2) return;
       if (!reader.result) return;
 
-      setAvatar(reader.result);
-      setAvatarPreview(reader.result);
+      const reducedImg = await reduceImage(reader.result);
+
+      setAvatar(reducedImg);
+      setAvatarPreview(reducedImg);
     };
 
     if (e.target.files?.[0]) reader.readAsDataURL(e.target.files?.[0]);
