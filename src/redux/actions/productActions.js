@@ -46,9 +46,9 @@ export const getProducts = filters => async (dispatch, getState) => {
       ${onSale ? `&onSale=true` : ''}
       ${discount?.[0] ? `&discount[gte]=${discount?.[0]}` : ''}
       ${discount?.[1] ? `&discount[lte]=${discount?.[1]}` : ''}
-      ${category.length ? `&category=${category}` : ''}
-      ${sortQuery.length ? `&sort=${sortQuery}` : ''}
-      ${seller.length ? `&seller=${seller}` : ''}`;
+      ${category?.length ? `&category=${category}` : ''}
+      ${sortQuery?.length ? `&sort=${sortQuery}` : ''}
+      ${seller?.length ? `&seller=${seller}` : ''}`;
 
     const {
       data: { data },
