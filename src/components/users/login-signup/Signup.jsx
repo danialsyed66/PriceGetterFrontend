@@ -19,7 +19,14 @@ import reduceImage from '../../../utils/reduceImage';
 const SignupPage = () => {
   const [avatar, setAvatar] = useState('');
   const [avatarPreview, setAvatarPreview] = useState('/default_avatar.jpg');
+  const [selectedFile, setSelectedFile] = useState();
+  const [isFilePicked, setIsFilePicked] = useState(false);
   const [seller, setSeller] = useState(false);
+
+  const changeHandlerFile = event => {
+    setSelectedFile(event.target.files[0]);
+    setIsFilePicked(true);
+  };
 
   const handleAvatarUpload = e => {
     const reader = new FileReader();
@@ -45,6 +52,7 @@ const SignupPage = () => {
     formData.set('password', password);
     if (seller) formData.set('role', seller);
     if (avatar) formData.set('avatar', avatar);
+    if (selectedFile) formData.set('file', selectedFile);
 
     dispatch(register(formData));
   };
@@ -276,6 +284,29 @@ const SignupPage = () => {
                   />
                   Seller
                 </label>
+                <div>
+                  {seller && (
+                    <>
+                      <p style={{ fontWeight: 'bold' }}>
+                        Upload Verified Document
+                      </p>
+                      <input
+                        type="file"
+                        name="file"
+                        className="mb-4"
+                        accept="application/pdf"
+                        onChange={changeHandlerFile}
+                      />
+                    </>
+                  )}
+                </div>
+                {isFilePicked ? (
+                  <div>
+                    <p>Filename: {selectedFile.name}</p>
+                  </div>
+                ) : (
+                  ''
+                )}
                 <div
                   style={{
                     width: '100%',
