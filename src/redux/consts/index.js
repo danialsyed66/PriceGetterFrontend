@@ -35,6 +35,11 @@ export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS';
 export const CHANGE_PASSWORD_FAIL = 'CHANGE_PASSWORD_FAIL';
 export const CHANGE_PASSWORD_RESET = 'CHANGE_PASSWORD_RESET';
 
+export const VERIFY_OTP_REQUEST = 'VERIFY_OTP_REQUEST';
+export const VERIFY_OTP_SUCCESS = 'VERIFY_OTP_SUCCESS';
+export const VERIFY_OTP_FAIL = 'VERIFY_OTP_FAIL';
+export const VERIFY_OTP_RESET = 'VERIFY_OTP_RESET';
+
 export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
 export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
 export const FORGOT_PASSWORD_FAIL = 'FORGOT_PASSWORD_FAIL';
@@ -145,5 +150,5 @@ export const DASHBOARD_FAIL = 'DASHBOARD_FAIL';
 
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
-// export const SERVER_URI = 'http://localhost:8000';
-export const SERVER_URI = 'https://price-getter-backend.herokuapp.com';
+export const SERVER_URI = 'http://localhost:8000';
+// export const SERVER_URI = 'https://price-getter-backend.herokuapp.com';

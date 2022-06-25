@@ -311,10 +311,10 @@ const SignupPage = () => {
                   <p
                     className="login_p"
                     onClick={() => {
-                      navigate('/forgetpassword');
+                      navigate('/forgotpassword');
                     }}
                   >
-                    ForgetPassword
+                    ForgotPassword
                   </p>
                 </div>
               </Form>

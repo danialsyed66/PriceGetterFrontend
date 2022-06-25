@@ -1,19 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import './Login.css';
 import priceGetter from '../../../assets/PriceGetter.svg';
 
-import { MetaData } from '../../layouts';
+import { Loader, MetaData } from '../../layouts';
+import fire from '../../../utils/swal';
+import { isValidEmail } from '../../../utils/validation';
+import { FORGOT_PASSWORD_RESET } from '../../../redux/consts';
+import { forgotPassword } from '../../../redux/actions/forgotPasswordActions';
 
 function ForgotPassword() {
-  const [setEmail] = useState('');
-  const loading = false;
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState('');
+
+  const { loading, mailSent, message } = useSelector(
+    state => state.forgotPassword
+  );
+  const { isAuth } = useSelector(state => state.auth);
+
+  useEffect(() => {
+    if (isAuth) return navigate('/');
+
+    if (mailSent) {
+      fire(message, 'success');
+
+      navigate('/otpverify');
+
+      dispatch({ type: FORGOT_PASSWORD_RESET });
+    }
+  }, [message, mailSent, navigate, dispatch, isAuth]);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if (!isValidEmail(email)) return fire('Your email is not valid.');
+
+    dispatch(forgotPassword(email));
+  };
 
   return (
     <>
-      {loading ? null : (
+      {loading ? (
+        <Loader />
+      ) : (
         <>
           <MetaData title="Forgot Password" />
 
@@ -34,6 +67,7 @@ function ForgotPassword() {
                   />
 
                   <h1
+                    className="mt-3"
                     style={{
                       textAlign: 'center',
                       fontSize: '25px',
@@ -43,13 +77,13 @@ function ForgotPassword() {
                       fontWeight: '900',
                     }}
                   >
-                    Forget Your Password?
+                    Forgot Your Password?
                   </h1>
                   <span className="mb-4 w-75" style={{ textAlign: 'center' }}>
                     Enter your email address, and we will send you a code to
                     verify your account and reset your password.
                   </span>
-                  <form className="w-75">
+                  <form className="w-75 mt-3" onSubmit={handleSubmit}>
                     <div className="form-group mb-3">
                       <label
                         htmlFor="exampleInputEmail1 w-100"
@@ -59,7 +93,8 @@ function ForgotPassword() {
                       </label>
 
                       <input
-                        type="text"
+                        type="email"
+                        required
                         onChange={e => {
                           setEmail(e.target.value);
                         }}
@@ -78,17 +113,25 @@ function ForgotPassword() {
                         color: '#FFFFFF',
                         backgroundColor: ' #3EE18F',
                       }}
-                      className="btn btn-light"
+                      className="btn btn-light mt-3"
                     >
                       Submit
                     </button>
-                    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                    {/* <div style={{ textAlign: 'center', marginTop: '20px' }}> */}
+                    <div className="d-flex justify-content-between px-3 mt-4">
                       <Link
                         className="login_p"
                         to="/login "
                         style={{ color: ' #3EE18F', fontWeight: 'bolder' }}
                       >
-                        Return to log in
+                        Return to log In
+                      </Link>
+                      <Link
+                        className="login_p"
+                        to="/otpverify "
+                        style={{ color: ' #3EE18F', fontWeight: 'bolder' }}
+                      >
+                        I have the OTP
                       </Link>
                     </div>
                   </form>

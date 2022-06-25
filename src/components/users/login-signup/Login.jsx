@@ -237,10 +237,10 @@ const LoginPage = () => {
                 <p
                   className="login_p"
                   onClick={() => {
-                    navigate('/forgetpassword');
+                    navigate('/forgotpassword');
                   }}
                 >
-                  ForgetPassword
+                  Forgot Password
                 </p>
               </Form>
             )}

@@ -7,6 +7,9 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
+  VERIFY_OTP_REQUEST,
+  VERIFY_OTP_SUCCESS,
+  VERIFY_OTP_FAIL,
   CLEAR_ERRORS,
 } from '../consts';
 
@@ -30,14 +33,14 @@ export const forgotPassword = email => async dispatch => {
   }
 };
 
-export const resetPassword = (token, userData) => async dispatch => {
+export const resetPassword = (otp, userData) => async dispatch => {
   try {
     dispatch({
       type: RESET_PASSWORD_REQUEST,
     });
 
     const { data } = await axios.patch(
-      `/api/v1/resetPassword/${token}`,
+      `/api/v1/resetPassword/${otp}`,
       userData
     );
 
@@ -48,6 +51,26 @@ export const resetPassword = (token, userData) => async dispatch => {
   } catch (error) {
     dispatch({
       type: RESET_PASSWORD_FAIL,
+      payload: error?.response?.data?.message,
+    });
+  }
+};
+
+export const verifyOtp = otp => async dispatch => {
+  try {
+    dispatch({
+      type: VERIFY_OTP_REQUEST,
+    });
+
+    const { data } = await axios.get(`/api/v1/verifyOtp/${otp}`);
+
+    dispatch({
+      type: VERIFY_OTP_SUCCESS,
+      payload: data.status === 'success' ? true : false,
+    });
+  } catch (error) {
+    dispatch({
+      type: VERIFY_OTP_FAIL,
       payload: error?.response?.data?.message,
     });
   }

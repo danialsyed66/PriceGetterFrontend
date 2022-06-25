@@ -24,18 +24,16 @@ const DetailPage = lazy(() => import('./products/DetailPage/DetailPage'));
 const SELLER = lazy(() => import('./users/login-signup/SELLER'));
 const Login = lazy(() => import('./users/login-signup/Login'));
 const Signup = lazy(() => import('./users/login-signup/Signup'));
-const ForgetPassword = lazy(() =>
+const ForgotPassword = lazy(() =>
   import('./users/login-signup/ForgotPassword')
 );
-const SetPassword = lazy(() => import('./users/login-signup/SetPassword'));
+const ResetPassword = lazy(() => import('./users/login-signup/ResetPassword'));
 const VerifyOtp = lazy(() => import('./users/login-signup/OtpVerify'));
 
 const ProtectedRoute = lazy(() => import('./layouts/ProtectedRoute'));
 const Profile = lazy(() => import('./users/Profile'));
 const UpdateProfile = lazy(() => import('./users/UpdateProfile'));
 const ChangePassword = lazy(() => import('./users/ChangePassword'));
-const ForgotPassword = lazy(() => import('./users/ForgotPassword'));
-const ResetPassword = lazy(() => import('./users/ResetPassword'));
 const Wishlist = lazy(() => import('./users/Wishlist'));
 
 const Cart = lazy(() => import('./cart/Cart'));
@@ -161,10 +159,9 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
             <Route path="/seller/add" element={<SELLER />} />
-            <Route path="/setpassword" element={<SetPassword />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
             <Route path="/otpverify" element={<VerifyOtp />} />
-            <Route path="/forgetpassword" element={<ForgetPassword />} />
-            <Route path="/password/forgot" exact element={<ForgotPassword />} />
+            <Route path="/resetpassword/:otp" element={<ResetPassword />} />
             <Route path="/cart" exact element={<Cart />} />
             <Route path="/forums" exact element={<Forum />} />
             <Route path="/forums/post/:id" exact element={<PostPage />} />
@@ -224,15 +221,6 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <Wishlist />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/password/reset/:token"
-              exact
-              element={
-                <ProtectedRoute>
-                  <ResetPassword />
                 </ProtectedRoute>
               }
             />
