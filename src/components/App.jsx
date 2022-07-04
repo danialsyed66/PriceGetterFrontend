@@ -165,11 +165,12 @@ const App = () => {
             <Route path="/cart" exact element={<Cart />} />
             <Route path="/forums" exact element={<Forum />} />
             <Route path="/forums/post/:id" exact element={<PostPage />} />
+
             <Route path="/seller">
               <Route
                 path="dashboard"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute isSeller>
                     <Dashboard />
                   </ProtectedRoute>
                 }
@@ -177,7 +178,7 @@ const App = () => {
               <Route
                 path="product"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute isSeller>
                     <NewProduct />
                   </ProtectedRoute>
                 }
@@ -185,7 +186,7 @@ const App = () => {
               <Route
                 path="product/:id"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute isSeller>
                     <UpdateProduct />
                   </ProtectedRoute>
                 }
@@ -193,7 +194,7 @@ const App = () => {
               <Route
                 path="products"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute isSeller>
                     <SellerProducts />
                   </ProtectedRoute>
                 }
@@ -201,7 +202,7 @@ const App = () => {
               <Route
                 path="orders"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute isSeller>
                     <SellerOrders />
                   </ProtectedRoute>
                 }
@@ -209,12 +210,13 @@ const App = () => {
               <Route
                 path="orders/:id"
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute isSeller>
                     <SellerOrder />
                   </ProtectedRoute>
                 }
               />
             </Route>
+
             <Route
               path="/wishlist"
               exact

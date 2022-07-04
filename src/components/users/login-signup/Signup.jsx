@@ -19,14 +19,11 @@ import reduceImage from '../../../utils/reduceImage';
 const SignupPage = () => {
   const [avatar, setAvatar] = useState('');
   const [avatarPreview, setAvatarPreview] = useState('/default_avatar.jpg');
-  const [selectedFile, setSelectedFile] = useState();
-  const [isFilePicked, setIsFilePicked] = useState(false);
+  const [document, setDocument] = useState('');
+  const [documentPreview, setDocumentPreview] = useState(
+    'https://freepngimg.com/thumb/success/6-2-success-png-image.png'
+  );
   const [seller, setSeller] = useState(false);
-
-  const changeHandlerFile = event => {
-    setSelectedFile(event.target.files[0]);
-    setIsFilePicked(true);
-  };
 
   const handleAvatarUpload = e => {
     const reader = new FileReader();
@@ -44,7 +41,28 @@ const SignupPage = () => {
     if (e.target.files?.[0]) reader.readAsDataURL(e.target.files?.[0]);
   };
 
+  const handleDocumentUpload = e => {
+    const reader = new FileReader();
+
+    reader.onload = async () => {
+      if (reader.readyState !== 2) return;
+      if (!reader.result) return;
+
+      const reducedImg = await reduceImage(reader.result);
+
+      setDocument(reducedImg);
+      setDocumentPreview(reducedImg);
+    };
+
+    if (e.target.files?.[0]) reader.readAsDataURL(e.target.files?.[0]);
+  };
+
   const handleSubmit = ({ name, email, password }) => {
+    if (seller && !document)
+      return fire(
+        'Please upload your Verification Document to Register as a Seller.'
+      );
+
     const formData = new FormData();
 
     formData.set('name', name);
@@ -52,7 +70,7 @@ const SignupPage = () => {
     formData.set('password', password);
     if (seller) formData.set('role', seller);
     if (avatar) formData.set('avatar', avatar);
-    if (selectedFile) formData.set('file', selectedFile);
+    if (seller && document) formData.set('verification', document);
 
     dispatch(register(formData));
   };
@@ -264,7 +282,7 @@ const SignupPage = () => {
                         name="avatar"
                         className="custom-file-input"
                         id="customFile"
-                        accept="images/*"
+                        accept="image/*"
                         onChange={handleAvatarUpload}
                       />
                       <label className="custom-file-label" htmlFor="customFile">
@@ -286,27 +304,40 @@ const SignupPage = () => {
                 </label>
                 <div>
                   {seller && (
-                    <>
-                      <p style={{ fontWeight: 'bold' }}>
+                    <div className="form-group">
+                      <label htmlFor="avatar_upload">
                         Upload Verified Document
-                      </p>
-                      <input
-                        type="file"
-                        name="file"
-                        className="mb-4"
-                        accept="application/pdf"
-                        onChange={changeHandlerFile}
-                      />
-                    </>
+                      </label>
+                      <div className="d-flex align-items-center">
+                        <div>
+                          <figure className="avatar mr-3 item-rtl">
+                            <img
+                              src={documentPreview}
+                              className="rounded-circle"
+                              alt="Avatar Preview"
+                            />
+                          </figure>
+                        </div>
+                        <div className="custom-file">
+                          <input
+                            type="file"
+                            name="avatar"
+                            className="custom-file-input"
+                            id="customFile"
+                            accept="image/*"
+                            onChange={handleDocumentUpload}
+                          />
+                          <label
+                            className="custom-file-label"
+                            htmlFor="customFile"
+                          >
+                            Choose Picture
+                          </label>
+                        </div>
+                      </div>
+                    </div>
                   )}
                 </div>
-                {isFilePicked ? (
-                  <div>
-                    <p>Filename: {selectedFile.name}</p>
-                  </div>
-                ) : (
-                  ''
-                )}
                 <div
                   style={{
                     width: '100%',

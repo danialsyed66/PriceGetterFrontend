@@ -6,10 +6,10 @@ import priceGetter from '../../../assets/headericon.svg';
 
 import { Footer, Navbar, MetaData } from '../';
 
-const Forum = () => {
+const Forum = ({ forSeller }) => {
   return (
     <>
-      <MetaData title="Not Found" />
+      <MetaData title={`${forSeller ? 'Not Authorized' : 'Not Found'}`} />
 
       <Navbar />
       <div className="site">
@@ -24,9 +24,13 @@ const Forum = () => {
         </div>
 
         <h1 className="h1">
-          404:
-          <small className="small">OOPS!!!</small>
-          <small className="small">Page Not Found!</small>
+          {`${forSeller ? '401:' : '404:'}`}
+          <small className="small">{`${
+            forSeller ? 'OOPS!!! You are Not' : 'OOPS!!!'
+          }`}</small>
+          <small className="small">{`${
+            forSeller ? 'Authorized by the Admin Yet!' : 'Page Not Found!'
+          }`}</small>
         </h1>
       </div>
       <Footer />

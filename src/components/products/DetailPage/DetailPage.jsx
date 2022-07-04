@@ -27,14 +27,14 @@ const DetailPage = () => {
 
   const [sellectedImage, setSellectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const [userRating /* , setUserRating */] = useState(0);
+  const [userRating, setUserRating] = useState(0);
   const [comment, setComment] = useState('');
 
   const { loading, product, similar, same } = useSelector(
     state => state.productDetails
   );
 
-  // const { isAuth } = useSelector((state) => state.auth);
+  const { isAuth } = useSelector(state => state.auth);
   const { success: reviewSuccess, message: reviewMessage } = useSelector(
     state => state.review
   );
@@ -81,33 +81,33 @@ const DetailPage = () => {
     fire('Product added to cart!', 'success');
   };
 
-  // const setUserReview = () => {
-  //   const stars = document.querySelectorAll(".star");
+  const setUserReview = () => {
+    const stars = document.querySelectorAll('.star');
 
-  //   stars?.forEach((star, index) => {
-  //     star.starValue = index + 1;
+    stars?.forEach((star, index) => {
+      star.starValue = index + 1;
 
-  //     ["click", "mouseover", "mouseout"].forEach((event) => {
-  //       star.addEventListener(event, showRatings);
-  //     });
-  //   });
+      ['click', 'mouseover', 'mouseout'].forEach(event => {
+        star.addEventListener(event, showRatings);
+      });
+    });
 
-  //   function showRatings(e) {
-  //     stars?.forEach((star, index) => {
-  //       if (e.type === "click")
-  //         if (index < this.starValue) {
-  //           star.classList.add("orange");
-  //           setUserRating(this.starValue);
-  //         } else star.classList.remove("orange");
+    function showRatings(e) {
+      stars?.forEach((star, index) => {
+        if (e.type === 'click')
+          if (index < this.starValue) {
+            star.classList.add('orange');
+            setUserRating(this.starValue);
+          } else star.classList.remove('orange');
 
-  //       if (e.type === "mouseover")
-  //         if (index < this.starValue) star.classList.add("yellow");
-  //         else star.classList.remove("yellow");
+        if (e.type === 'mouseover')
+          if (index < this.starValue) star.classList.add('yellow');
+          else star.classList.remove('yellow');
 
-  //       if (e.type === "mouseout") star.classList.remove("yellow");
-  //     });
-  //   }
-  // };
+        if (e.type === 'mouseout') star.classList.remove('yellow');
+      });
+    }
+  };
 
   const submitHandler = e => {
     newReview(_id, {
@@ -296,6 +296,60 @@ const DetailPage = () => {
                   </>
                 )}
                 <hr />
+                {pricegetter && (
+                  <>
+                    {isAuth ? (
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      // review button
+                      <button
+                        id="review_btn"
+                        type="button"
+                        className="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#ratingModal"
+                        onClick={setUserReview}
+                      >
+                        Submit Your Review
+                      </button>
+                    ) : (
+                      <div className="alert alert-danger" type="danger">
+                        Login to post your review.
+                      </div>
+                    )}
+                    <hr />
+                  </>
+                )}
                 <p>
                   Status:
                   <span id="stock_status">
@@ -320,6 +374,41 @@ const DetailPage = () => {
 
               <div className="row mt-2 mb-5">
                 <div className="rating w-50">
+                  {
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                    // review modal
+                  }
                   <div
                     className="modal fade"
                     id="ratingModal"

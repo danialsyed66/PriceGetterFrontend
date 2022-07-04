@@ -124,7 +124,7 @@ const UpdateProfile = () => {
                         name="avatar"
                         className="custom-file-input"
                         id="customFile"
-                        accept="images/*"
+                        accept="image/*"
                         onChange={handleAvatarUpload}
                       />
                       <label className="custom-file-label" htmlFor="customFile">
