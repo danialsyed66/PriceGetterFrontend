@@ -37,6 +37,11 @@ const MyOrders = () => {
         sort: 'asc',
       },
       {
+        label: 'Refund',
+        field: 'refund',
+        sort: 'asc',
+      },
+      {
         label: 'Actions',
         field: 'actions',
         sort: 'asc',
@@ -48,9 +53,21 @@ const MyOrders = () => {
       amount: `Rs. ${order.totalPrice}`,
       status:
         order.orderStatus && String(order.orderStatus).includes('Delivered') ? (
-          <p style={{ color: 'green' }}>{order.orderStatus}</p>
+          <p className="greenColor">{order.orderStatus}</p>
+        ) : order.refund.status === 'accepted' ? (
+          <p>Cancelled</p>
         ) : (
-          <p style={{ color: 'red' }}>{order.orderStatus}</p>
+          <p className="redColor">{order.orderStatus}</p>
+        ),
+      refund:
+        order.refund.status === 'accepted' ? (
+          <p className="greenColor">Accepted</p>
+        ) : order.refund.status === 'declined' ? (
+          <p className="redColor">Declined</p>
+        ) : order.refund.status === 'requested' ? (
+          <p className="yellowColor">Requested</p>
+        ) : (
+          <p>None</p>
         ),
       actions: (
         <>

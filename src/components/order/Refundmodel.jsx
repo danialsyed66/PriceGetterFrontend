@@ -1,11 +1,26 @@
-import React, { useRef, useState } from 'react';
-import { useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
 import styles from './modal.module.css';
 import x from '../../assets/x.svg';
+import fire from '../../utils/swal';
+import { refundRequest } from '../../redux/actions/orderActions';
 
 const Refundmodel = ({ modalStyle, show, onClose, backdropStyle, id }) => {
+  const dispatch = useDispatch();
+
   const [message, setMessage] = useState('');
   const modalRef = useRef(null);
+
+  const handleSubmit = () => {
+    if (!message || message === '') return fire('Message is required.');
+
+    onClose();
+
+    dispatch(refundRequest(id, message));
+    setMessage('');
+  };
+
   useEffect(() => {
     if (show) {
       modalRef.current.classList.add(styles.visible);
@@ -20,10 +35,18 @@ const Refundmodel = ({ modalStyle, show, onClose, backdropStyle, id }) => {
         style={backdropStyle}
         className={`${styles.modal__wrap}`}
         onClick={e => {
+          onClose();
+
           e.stopPropagation();
         }}
       >
-        <div style={modalStyle} className={styles.modal}>
+        <div
+          style={modalStyle}
+          className={styles.modal}
+          onClick={e => {
+            e.stopPropagation();
+          }}
+        >
           <div className="p-3">
             <img
               onClick={() => {
@@ -40,10 +63,14 @@ const Refundmodel = ({ modalStyle, show, onClose, backdropStyle, id }) => {
                 className="form-control mt-4"
                 id="exampleFormControlTextarea1"
                 rows="5"
+                value={message}
+                onChange={e => setMessage(e.target.value)}
               ></textarea>
             </div>
             <div className="d-flex">
-              <button className="btn btn-primary m-auto">Submit</button>
+              <button className="btn btn-primary m-auto" onClick={handleSubmit}>
+                Submit
+              </button>
             </div>
           </div>
         </div>

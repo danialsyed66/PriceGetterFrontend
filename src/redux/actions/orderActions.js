@@ -10,6 +10,9 @@ import {
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAIL,
+  ASK_REFUND_REQUEST,
+  ASK_REFUND_SUCCESS,
+  ASK_REFUND_FAIL,
   CLEAR_ERRORS,
 } from '../consts';
 
@@ -71,6 +74,28 @@ export const getOrderDetails = id => async dispatch => {
     dispatch({
       type: ORDER_DETAILS_FAIL,
       payload: error?.response?.data?.message,
+    });
+  }
+};
+
+export const refundRequest = (id, message) => async dispatch => {
+  try {
+    dispatch({
+      type: ASK_REFUND_REQUEST,
+    });
+
+    const {
+      data: { data },
+    } = await axios.patch(`/api/v1/orders/requestRefund/${id}`, { message });
+
+    dispatch({
+      type: ASK_REFUND_SUCCESS,
+      payload: data.order,
+    });
+  } catch (error) {
+    dispatch({
+      type: ASK_REFUND_FAIL,
+      payload: error?.response?.data?.error,
     });
   }
 };

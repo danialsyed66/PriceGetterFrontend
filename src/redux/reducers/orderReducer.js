@@ -9,6 +9,9 @@ import {
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAIL,
   CLEAR_ERRORS,
+  ASK_REFUND_REQUEST,
+  ASK_REFUND_SUCCESS,
+  ASK_REFUND_FAIL,
 } from '../consts';
 
 const reducer = (state = {}, { type, payload }) => {
@@ -63,12 +66,15 @@ export const orderDetailsReducer = (
 ) => {
   switch (type) {
     case ORDER_DETAILS_REQUEST:
+    case ASK_REFUND_REQUEST:
       return { ...state, loading: true };
 
     case ORDER_DETAILS_SUCCESS:
+    case ASK_REFUND_SUCCESS:
       return { ...state, loading: false, order: payload };
 
     case ORDER_DETAILS_FAIL:
+    case ASK_REFUND_FAIL:
       return {
         ...state,
         loading: false,
