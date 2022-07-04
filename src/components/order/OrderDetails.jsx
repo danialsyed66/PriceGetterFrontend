@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { MetaData, Loader, Footer, Navbar } from '../layouts';
 import { getOrderDetails } from '../../redux/actions/orderActions';
+import Refundmodel from './Refundmodel';
+import '../products/Home';
 
 const MyOrders = () => {
   const dispatch = useDispatch();
@@ -24,6 +26,7 @@ const MyOrders = () => {
   useEffect(() => {
     dispatch(getOrderDetails(id));
   }, [dispatch, id]);
+  const [show, setShow] = useState(false);
 
   return (
     <>
@@ -31,51 +34,75 @@ const MyOrders = () => {
 
       <Navbar />
 
-      <div className="container">
-        <h1 className="my-5">My Orders</h1>
+      <div
+        className="container"
+        onClick={() => {
+          setShow(false);
+        }}
+      >
+        <h1 className="mb-3">My Order</h1>
+        <Refundmodel show={show} onClose={() => setShow(false)} id={_id} />
 
         {loading ? (
           <Loader />
         ) : (
           <div className="row d-flex justify-content-between">
-            <div className="col-12 col-lg-8 mt-5 order-details">
-              <h1 className="my-5">Order # {_id}</h1>
+            <div className="col-12 col-lg-8 mt-1 order-details">
+              <div className="d-flex col-md-flex-row flex-1 justify-content-between align-items-center ">
+                <div>
+                  <h4 className="mb-4">Shipping Info</h4>
+                  <p>
+                    <b>Name:</b> {user?.name}
+                  </p>
+                  <p>
+                    <b>Phone:</b> {shippingInfo?.phoneNo}
+                  </p>
+                  <p className="mb-4">
+                    <b>Address:</b> {shippingInfo?.address},{' '}
+                    {shippingInfo?.city}, {shippingInfo?.postalCode},{' '}
+                    {shippingInfo?.country}
+                  </p>
+                  <p>
+                    <b>Amount:</b> Rs. {totalPrice}
+                  </p>
+                </div>
+                <hr />
+                <div>
+                  <h4 className="my-4">Payment</h4>
+                  <p
+                    style={{ margin: '0' }}
+                    className={isPaid ? 'greenColor' : 'redColor'}
+                  >
+                    <b>{isPaid ? 'PAID' : 'NOT PAID'}</b>
+                  </p>
 
-              <h4 className="mb-4">Shipping Info</h4>
-              <p>
-                <b>Name:</b> {user?.name}
-              </p>
-              <p>
-                <b>Phone:</b> {shippingInfo?.phoneNo}
-              </p>
-              <p className="mb-4">
-                <b>Address:</b> {shippingInfo?.address}, {shippingInfo?.city},{' '}
-                {shippingInfo?.postalCode}, {shippingInfo?.country}
-              </p>
-              <p>
-                <b>Amount:</b> Rs. {totalPrice}
-              </p>
+                  <h4 className="my-4">Order Status:</h4>
+                  <p
+                    style={{ margin: '0' }}
+                    className={
+                      orderStatus && String(orderStatus).includes('Delivered')
+                        ? 'greenColor'
+                        : 'redColor'
+                    }
+                  >
+                    <b>{orderStatus}</b>
+                  </p>
 
-              <hr />
+                  <h4 className="my-4">Order Items:</h4>
 
-              <h4 className="my-4">Payment</h4>
-              <p className={isPaid ? 'greenColor' : 'redColor'}>
-                <b>{isPaid ? 'PAID' : 'NOT PAID'}</b>
-              </p>
-
-              <h4 className="my-4">Order Status:</h4>
-              <p
-                className={
-                  orderStatus && String(orderStatus).includes('Delivered')
-                    ? 'greenColor'
-                    : 'redColor'
-                }
-              >
-                <b>{orderStatus}</b>
-              </p>
-
-              <h4 className="my-4">Order Items:</h4>
-
+                  <hr />
+                  <h4 className="my-4">Refund</h4>
+                  <button
+                    className="btn btn-primary"
+                    onClick={e => {
+                      e.stopPropagation();
+                      setShow(true);
+                    }}
+                  >
+                    Claim refund
+                  </button>
+                </div>
+              </div>
               <hr />
               <div className="cart-item my-1">
                 {orderItems?.map(item => (
