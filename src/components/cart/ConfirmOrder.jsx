@@ -22,14 +22,16 @@ const ConfirmOrder = () => {
     (acc, cur) => acc + cur.price * cur.quantity,
     0
   );
-  const shipping = +(subTotal > 200 ? 0 : 5).toFixed(2);
-  const tax = +(0.5 * subTotal).toFixed(2);
-  const total = +subTotal + shipping + tax;
+  // const shipping = +(subTotal > 200 ? 0 : 5).toFixed(2);
+  // const tax = +(0.5 * subTotal).toFixed(2);
+  // const total = +subTotal + shipping + tax;
+  const total = +subTotal;
 
   const proceedToPayment = () => {
     sessionStorage.setItem(
       'orderInfo',
-      JSON.stringify({ subTotal, shipping, tax, total })
+      // JSON.stringify({ subTotal, shipping, tax, total })
+      JSON.stringify({ subTotal, total })
     );
 
     navigate('/payment');
@@ -96,13 +98,13 @@ const ConfirmOrder = () => {
               Subtotal:{' '}
               <span className="order-summary-values">Rs. {subTotal}</span>
             </p>
-            <p>
+            {/* <p>
               Shipping:{' '}
               <span className="order-summary-values">Rs. {shipping}</span>
             </p>
             <p>
               Tax: <span className="order-summary-values">Rs. {tax}</span>
-            </p>
+            </p> */}
 
             <hr />
 
