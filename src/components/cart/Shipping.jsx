@@ -75,7 +75,8 @@ const Shipping = () => {
             <div className="form-group">
               <label htmlFor="phone_field">Phone No</label>
               <input
-                type="phone"
+                type="tel"
+                pattern="0[0-9]{10}"
                 id="phone_field"
                 className="form-control"
                 value={phoneNo}

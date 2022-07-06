@@ -55,6 +55,8 @@ const NewProduct = () => {
   const submitHandler = e => {
     e.preventDefault();
 
+    if (!category) return fire('Please select a category');
+
     const formData = new FormData();
     formData.set('name', name);
     formData.set('price', price);
@@ -118,17 +120,20 @@ const NewProduct = () => {
                       className="form-control"
                       value={name}
                       onChange={e => setName(e.target.value)}
+                      required
                     />
                   </div>
 
                   <div className="form-group">
                     <label htmlFor="price_field">Price</label>
                     <input
-                      type="text"
+                      type="number"
                       id="price_field"
                       className="form-control"
                       value={price}
                       onChange={e => setPrice(e.target.value)}
+                      min="1"
+                      required
                     />
                   </div>
 
@@ -140,6 +145,7 @@ const NewProduct = () => {
                       rows="8"
                       value={description}
                       onChange={e => setDescription(e.target.value)}
+                      required
                     ></textarea>
                   </div>
 
@@ -166,6 +172,8 @@ const NewProduct = () => {
                       className="form-control"
                       value={stock}
                       onChange={e => setStock(e.target.value)}
+                      min="0"
+                      required
                     />
                   </div>
 

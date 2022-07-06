@@ -10,7 +10,7 @@ import eye from '../../../assets/eye.svg';
 import eyeslash from '../../../assets/eye-slash.svg';
 import priceGetter from '../../../assets/PriceGetter.svg';
 
-import Facebook from '../../../utils/Facebook';
+// import Facebook from '../../../utils/Facebook';
 import Twitter from '../../../utils/Twitter';
 import Google from '../../../utils/Google';
 import Done from '../../../utils/Done';
@@ -28,9 +28,9 @@ const LoginPage = () => {
     password: Yup.string().required('please enter the password'),
   });
 
-  const handleFacebook = () => {
-    window.open(`${SERVER_URI}/api/v1/auth/facebook`, '_self');
-  };
+  // const handleFacebook = () => {
+  //   window.open(`${SERVER_URI}/api/v1/auth/facebook`, '_self');
+  // };
   const handleGoogle = () => {
     window.open(`${SERVER_URI}/api/v1/auth/google`, '_self');
   };
@@ -174,10 +174,10 @@ const LoginPage = () => {
                   <Button
                     style={{ width: '45%', margin: 'auto' }}
                     variant="outlined"
-                    startIcon={<Facebook />}
-                    onClick={handleFacebook}
+                    startIcon={<Twitter />}
+                    onClick={handleTwitter}
                   >
-                    Facebook
+                    Twitter
                   </Button>
                   <Button
                     sx={{ color: 'red', borderColor: 'red' }}
@@ -190,14 +190,14 @@ const LoginPage = () => {
                   </Button>
                 </div>
                 <div className="d-flex justify-content-center align-content-center mb-2 ">
-                  <Button
+                  {/* <Button
                     style={{ width: '45%', margin: 'auto' }}
                     variant="outlined"
-                    startIcon={<Twitter />}
-                    onClick={handleTwitter}
+                    startIcon={<Facebook />}
+                    onClick={handleFacebook}
                   >
-                    Twitter
-                  </Button>
+                    Facebook
+                  </Button> */}
                   <Button
                     sx={{ color: 'green', borderColor: 'green' }}
                     style={{ width: '45%', margin: 'auto' }}
