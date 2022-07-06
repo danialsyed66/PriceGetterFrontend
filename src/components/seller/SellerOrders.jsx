@@ -90,7 +90,7 @@ const MyOrders = () => {
         ) : order.refund.status === 'declined' ? (
           <p className="redColor">Declined</p>
         ) : order.refund.status === 'requested' ? (
-          <p className="yellowColor">Requested</p>
+          <p style={{ color: 'purple' }}>Requested</p>
         ) : (
           <p>None</p>
         ),

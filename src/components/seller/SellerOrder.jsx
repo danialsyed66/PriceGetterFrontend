@@ -13,6 +13,7 @@ import '../products/Home';
 const MyOrders = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [message, setMessage] = useState('');
 
   const { processed, loading: sellerLoading } = useSelector(
     state => state.seller
@@ -114,20 +115,37 @@ const MyOrders = () => {
                 </p>
               )}
               {refund?.status === 'accepted' && (
-                <p style={{ margin: '0' }} className={'greenColor'}>
-                  <b>Refunded</b>
-                </p>
+                <div className="d-flex">
+                  <p className="pr-3">Status:</p>
+                  <p style={{ margin: '0', color: 'green' }}>
+                    <b>Refunded</b>
+                  </p>
+                </div>
               )}
               {refund?.status === 'requested' && (
                 <>
-                  <p style={{ margin: '0' }} className={'yellowColor'}>
-                    <b>Requested</b>
-                  </p>
+                  <div className="d-flex">
+                    <p className="pr-3">Status:</p>
+                    <p style={{ margin: '0', color: 'purple' }}>
+                      <b>Requested</b>
+                    </p>
+                  </div>
+                  <br />
+                  <h4>Buyer Reason For Refund:</h4>
                   <p>{refund?.message}</p>
-                  <button className="btn btn-success">Accept</button>
-                  <button className="btn btn-danger">
-                    Decline (open modal)
-                  </button>
+                  <hr />
+                  <h4>Reason to Reject/Accept Refund</h4>
+                  <textarea
+                    className="form-control mt-4 mb-3"
+                    id="exampleFormControlTextarea1"
+                    rows="3"
+                    value={message}
+                    onChange={e => setMessage(e.target.value)}
+                  ></textarea>
+                  <div className="d-flex">
+                    <button className="btn btn-success mr-3">Accept</button>
+                    <button className="btn btn-danger">Decline</button>
+                  </div>
                 </>
               )}
               {refund?.status === 'declined' && (
