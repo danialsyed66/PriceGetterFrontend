@@ -57,6 +57,11 @@ const MyOrders = () => {
         sort: 'asc',
       },
       {
+        label: 'Refund',
+        field: 'refund',
+        sort: 'asc',
+      },
+      {
         label: 'Status',
         field: 'status',
         sort: 'asc',
@@ -79,19 +84,30 @@ const MyOrders = () => {
         ) : (
           <p style={{ color: 'red' }}>{order.orderStatus}</p>
         ),
+      refund:
+        order.refund.status === 'accepted' ? (
+          <p className="greenColor">Accepted</p>
+        ) : order.refund.status === 'declined' ? (
+          <p className="redColor">Declined</p>
+        ) : order.refund.status === 'requested' ? (
+          <p className="yellowColor">Requested</p>
+        ) : (
+          <p>None</p>
+        ),
       actions: (
         <>
           <Link to={`/seller/orders/${order._id}`} className="btn btn-primary">
             <i className="fa fa-eye"></i>
           </Link>
-          {order.orderStatus === 'Processing' && (
-            <button
-              className="btn btn-warning ml-2"
-              onClick={() => dispatch(processOrder(order._id))}
-            >
-              <i className="fa fa-check"></i>
-            </button>
-          )}
+          {order.orderStatus === 'Processing' &&
+            order.refund.status !== 'accepted' && (
+              <button
+                className="btn btn-warning ml-2"
+                onClick={() => dispatch(processOrder(order._id))}
+              >
+                <i className="fa fa-check"></i>
+              </button>
+            )}
         </>
       ),
     })),

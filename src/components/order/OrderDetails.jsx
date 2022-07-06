@@ -103,7 +103,7 @@ const MyOrders = () => {
                     </p>
                   )}
                   {refund?.status === 'requested' && (
-                    <p style={{ margin: '0', color: 'purple' }}>
+                    <p style={{ margin: '0' }} className={'yellowColor'}>
                       <b>Requested</b>
                     </p>
                   )}

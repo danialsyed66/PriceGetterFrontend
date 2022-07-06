@@ -8,6 +8,7 @@ import fire from '../../utils/swal';
 import { getOrderDetails } from '../../redux/actions/orderActions';
 import { processOrder } from '../../redux/actions/sellerActions';
 import { PROCESS_ORDER_RESET } from '../../redux/consts';
+import '../products/Home';
 
 const MyOrders = () => {
   const { id } = useParams();
@@ -26,6 +27,7 @@ const MyOrders = () => {
     totalPrice,
     orderStatus,
     user,
+    refund,
   } = order;
 
   const isPaid = paymentInfo?.status === 'succeeded';
@@ -61,7 +63,6 @@ const MyOrders = () => {
           <div className="row d-flex justify-content-between ml-5">
             <div className="col-12 col-lg-8 mt-5 order-details">
               <h1 className="my-5">Order # {_id}</h1>
-
               <h4 className="mb-4">Shipping Info</h4>
               <p>
                 <b>Name:</b> {user?.name}
@@ -76,16 +77,20 @@ const MyOrders = () => {
               <p>
                 <b>Amount:</b> Rs. {totalPrice}
               </p>
-
               <hr />
-
               <h4 className="my-4">Payment</h4>
               <p className={isPaid ? 'greenColor' : 'redColor'}>
                 <b>{isPaid ? 'PAID' : 'NOT PAID'}</b>
               </p>
-
               <h4 className="my-4">Order Status:</h4>
-              <p
+              {status && String(status).includes('Delivered') ? (
+                <p className="greenColor">{status}</p>
+              ) : refund?.status === 'accepted' ? (
+                <p>Cancelled</p>
+              ) : (
+                <p className="redColor">{status}</p>
+              )}
+              {/* <p
                 className={
                   status && String(status).includes('Delivered')
                     ? 'greenColor'
@@ -93,9 +98,8 @@ const MyOrders = () => {
                 }
               >
                 <b>{status}</b>
-              </p>
-
-              {status === 'Processing' && (
+              </p> */}
+              {status === 'Processing' && refund?.status !== 'accepted' && (
                 <button
                   className="btn btn-warning ml-2"
                   onClick={() => dispatch(processOrder(id))}
@@ -103,9 +107,38 @@ const MyOrders = () => {
                   <i className="fa fa-check"></i> Delivered
                 </button>
               )}
-
+              <h4 className="my-4">Refund:</h4>
+              {refund?.status === 'accepted' && (
+                <p style={{ margin: '0' }}>
+                  <b>None</b>
+                </p>
+              )}
+              {refund?.status === 'accepted' && (
+                <p style={{ margin: '0' }} className={'greenColor'}>
+                  <b>Refunded</b>
+                </p>
+              )}
+              {refund?.status === 'requested' && (
+                <>
+                  <p style={{ margin: '0' }} className={'yellowColor'}>
+                    <b>Requested</b>
+                  </p>
+                  <p>{refund?.message}</p>
+                  <button className="btn btn-success">Accept</button>
+                  <button className="btn btn-danger">
+                    Decline (open modal)
+                  </button>
+                </>
+              )}
+              {refund?.status === 'declined' && (
+                <>
+                  <p style={{ margin: '0' }} className={'redColor'}>
+                    <b>Declined</b>
+                  </p>
+                  <p>{refund?.message}</p>
+                </>
+              )}
               <h4 className="my-4">Order Items:</h4>
-
               <hr />
               <div className="cart-item my-1">
                 {orderItems?.map(item => (
