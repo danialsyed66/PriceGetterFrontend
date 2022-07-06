@@ -6,7 +6,7 @@ import Layout from './layout/Layout';
 import { MetaData, Loader } from '../layouts';
 import fire from '../../utils/swal';
 import { getOrderDetails } from '../../redux/actions/orderActions';
-import { processOrder } from '../../redux/actions/sellerActions';
+import { handleRefund, processOrder } from '../../redux/actions/sellerActions';
 import { PROCESS_ORDER_RESET } from '../../redux/consts';
 import '../products/Home';
 
@@ -31,7 +31,8 @@ const MyOrders = () => {
     refund,
   } = order;
 
-  const isPaid = paymentInfo?.status === 'succeeded';
+  const isPaid =
+    paymentInfo?.status === 'succeeded' || paymentInfo?.status === 'Succeeded';
 
   const [status, setStatus] = useState(orderStatus);
 
@@ -143,8 +144,29 @@ const MyOrders = () => {
                     onChange={e => setMessage(e.target.value)}
                   ></textarea>
                   <div className="d-flex">
-                    <button className="btn btn-success mr-3">Accept</button>
-                    <button className="btn btn-danger">Decline</button>
+                    <button
+                      className="btn btn-success mr-3"
+                      onClick={() => {
+                        dispatch(handleRefund(id));
+                        dispatch(getOrderDetails(id));
+                      }}
+                    >
+                      Accept
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => {
+                        if (!message || message === '')
+                          return fire('Message is required for refund decline');
+
+                        dispatch(
+                          handleRefund(id, { message, action: 'decline' })
+                        );
+                        dispatch(getOrderDetails(id));
+                      }}
+                    >
+                      Decline
+                    </button>
                   </div>
                 </>
               )}

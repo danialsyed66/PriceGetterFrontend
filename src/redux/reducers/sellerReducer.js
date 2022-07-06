@@ -21,6 +21,9 @@ import {
   DASHBOARD_REQUEST,
   DASHBOARD_SUCCESS,
   DASHBOARD_FAIL,
+  HANDLE_REFUND_REQUEST,
+  HANDLE_REFUND_SUCCESS,
+  HANDLE_REFUND_FAIL,
 } from '../consts';
 
 const reducer = (
@@ -34,6 +37,7 @@ const reducer = (
     case GET_SELLER_ORDERS_REQUEST:
     case PROCESS_ORDER_REQUEST:
     case DASHBOARD_REQUEST:
+    case HANDLE_REFUND_REQUEST:
       return {
         ...state,
         loading: true,
@@ -86,12 +90,23 @@ const reducer = (
         }),
       };
 
+    case HANDLE_REFUND_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        processed: true,
+        orders: state.orders.map(order =>
+          payload._id === order._id ? payload : order
+        ),
+      };
+
     case CREATE_PRODUCT_FAIL:
     case UPDATE_PRODUCT_FAIL:
     case GET_SELLER_PRODUCTS_FAIL:
     case GET_SELLER_ORDERS_FAIL:
     case PROCESS_ORDER_FAIL:
     case DASHBOARD_FAIL:
+    case HANDLE_REFUND_FAIL:
       return {
         ...state,
         loading: false,

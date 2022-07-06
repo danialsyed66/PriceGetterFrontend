@@ -20,6 +20,9 @@ import {
   DASHBOARD_REQUEST,
   DASHBOARD_SUCCESS,
   DASHBOARD_FAIL,
+  HANDLE_REFUND_REQUEST,
+  HANDLE_REFUND_SUCCESS,
+  HANDLE_REFUND_FAIL,
 } from '../consts';
 
 export const createProduct = productData => async dispatch => {
@@ -171,6 +174,32 @@ export const getDashboard = () => async dispatch => {
   } catch (error) {
     dispatch({
       type: DASHBOARD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const handleRefund = (id, actions) => async dispatch => {
+  try {
+    dispatch({ type: HANDLE_REFUND_REQUEST });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const {
+      data: { data },
+    } = await axios.patch(`api/v1/payment/refund/${id}`, actions, config);
+
+    dispatch({
+      type: HANDLE_REFUND_SUCCESS,
+      payload: data.order,
+    });
+  } catch (error) {
+    dispatch({
+      type: HANDLE_REFUND_FAIL,
       payload: error.response.data.message,
     });
   }

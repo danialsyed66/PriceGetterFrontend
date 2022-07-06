@@ -80,9 +80,11 @@ const MyOrders = () => {
       deliveredAt: order.deliveredAt ? printDate(order.deliveredAt) : '-',
       status:
         order.orderStatus && String(order.orderStatus).includes('Delivered') ? (
-          <p style={{ color: 'green' }}>{order.orderStatus}</p>
+          <p className="greenColor">{order.orderStatus}</p>
+        ) : order.refund.status === 'accepted' ? (
+          <p>Cancelled</p>
         ) : (
-          <p style={{ color: 'red' }}>{order.orderStatus}</p>
+          <p className="redColor">{order.orderStatus}</p>
         ),
       refund:
         order.refund.status === 'accepted' ? (
