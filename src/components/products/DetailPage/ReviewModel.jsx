@@ -1,20 +1,59 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import x from '../../../assets/x.svg';
+import { newReview } from '../../../redux/actions/productActions';
 import fire from '../../../utils/swal';
 import styles from './modal.module.css';
 
-const Refundmodel = ({ modalStyle, show, onClose, backdropStyle, id }) => {
+const ReviewModel = ({ modalStyle, show, onClose, backdropStyle, id }) => {
   const dispatch = useDispatch();
 
   const [message, setMessage] = useState('');
+  const [rating, setRating] = useState(0);
   const modalRef = useRef(null);
+
+  useEffect(() => {
+    const stars = document.querySelectorAll('.star');
+
+    stars?.forEach((star, index) => {
+      star.starValue = index + 1;
+
+      ['click', 'mouseover', 'mouseout'].forEach(event => {
+        star.addEventListener(event, showRatings);
+      });
+    });
+
+    function showRatings(e) {
+      stars?.forEach((star, index) => {
+        if (e.type === 'click')
+          if (index < this.starValue) {
+            star.classList.add('orange');
+            setRating(this.starValue);
+          } else star.classList.remove('orange');
+
+        if (e.type === 'mouseover')
+          if (index < this.starValue) star.classList.add('yellow');
+          else star.classList.remove('yellow');
+
+        if (e.type === 'mouseout') star.classList.remove('yellow');
+      });
+    }
+  }, []);
 
   const handleSubmit = () => {
     if (!message || message === '') return fire('Message is required.');
+    if (rating === 0) return fire('Please sellect a rating.');
 
     onClose();
 
+    dispatch(
+      newReview(id, {
+        review: message,
+        rating: rating,
+      })
+    );
+
+    setMessage('');
     setMessage('');
   };
 
@@ -92,4 +131,4 @@ const Refundmodel = ({ modalStyle, show, onClose, backdropStyle, id }) => {
   );
 };
 
-export default Refundmodel;
+export default ReviewModel;

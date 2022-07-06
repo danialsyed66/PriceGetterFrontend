@@ -14,12 +14,9 @@ import { Navbar, Footer, Loader, MetaData } from '../../layouts';
 import fire from './../../../utils/swal';
 import { addToCart } from './../../../redux/actions/cartActions';
 import { setFilters } from '../../../redux/actions/filterActions';
-import {
-  getProductDetails,
-  newReview,
-} from '../../../redux/actions/productActions';
+import { getProductDetails } from '../../../redux/actions/productActions';
 import { NEW_REVIEW_RESET } from './../../../redux/consts';
-import Refundmodel from './Refundmodel';
+import ReviewModel from './ReviewModel';
 
 const DetailPage = () => {
   const [show, setShow] = useState(false);
@@ -29,8 +26,6 @@ const DetailPage = () => {
 
   const [sellectedImage, setSellectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const [userRating, setUserRating] = useState(0);
-  const [comment, setComment] = useState('');
   const { loading, product, similar, same } = useSelector(
     state => state.productDetails
   );
@@ -82,42 +77,6 @@ const DetailPage = () => {
     fire('Product added to cart!', 'success');
   };
 
-  const setUserReview = () => {
-    setShow(true);
-    const stars = document.querySelectorAll('.star');
-
-    stars?.forEach((star, index) => {
-      star.starValue = index + 1;
-
-      ['click', 'mouseover', 'mouseout'].forEach(event => {
-        star.addEventListener(event, showRatings);
-      });
-    });
-
-    function showRatings(e) {
-      stars?.forEach((star, index) => {
-        if (e.type === 'click')
-          if (index < this.starValue) {
-            star.classList.add('orange');
-            setUserRating(this.starValue);
-          } else star.classList.remove('orange');
-
-        if (e.type === 'mouseover')
-          if (index < this.starValue) star.classList.add('yellow');
-          else star.classList.remove('yellow');
-
-        if (e.type === 'mouseout') star.classList.remove('yellow');
-      });
-    }
-  };
-
-  const submitHandler = e => {
-    newReview(_id, {
-      review: comment,
-      rating: userRating,
-    });
-  };
-
   const handleNavigate = category => {
     dispatch(setFilters({ categories: [category] }));
 
@@ -158,7 +117,7 @@ const DetailPage = () => {
 
     if (!reviewSuccess) return;
 
-    fire(reviewSuccess, 'success');
+    fire(reviewMessage, 'success');
 
     dispatch({ type: NEW_REVIEW_RESET });
   }, [dispatch, id, reviewSuccess, reviewMessage]);
@@ -301,44 +260,11 @@ const DetailPage = () => {
                 {pricegetter && (
                   <>
                     {isAuth ? (
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
-                      // review button
                       <button
                         id="review_btn"
                         type="button"
                         className="btn btn-primary"
-                        onClick={setUserReview}
+                        onClick={() => setShow(true)}
                       >
                         Submit Your Review
                       </button>
@@ -374,101 +300,11 @@ const DetailPage = () => {
 
               <div className="row mt-2 mb-5">
                 <div className="rating w-50">
-                  {
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                    // review modal
-                  }
-                  <Refundmodel
+                  <ReviewModel
                     show={show}
                     onClose={() => setShow(false)}
                     id={_id}
                   />
-                  {/* <div className="modal fade" id="ratingModal">
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <h5 className="modal-title" id="ratingModalLabel">
-                            Submit Review
-                          </h5>
-                          <button
-                            type="button"
-                            className="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                          >
-                            X
-                          </button>
-                        </div>
-                        <div className="modal-body">
-                          <ul className="stars">
-                            <li className="star">
-                              <i className="fa fa-star"></i>
-                            </li>
-                            <li className="star">
-                              <i className="fa fa-star"></i>
-                            </li>
-                            <li className="star">
-                              <i className="fa fa-star"></i>
-                            </li>
-                            <li className="star">
-                              <i className="fa fa-star"></i>
-                            </li>
-                            <li className="star">
-                              <i className="fa fa-star"></i>
-                            </li>
-                          </ul>
-
-                          <textarea
-                            name="review"
-                            id="review"
-                            className="form-control mt-3"
-                            value={comment}
-                            onChange={e => setComment(e.target.value)}
-                          ></textarea>
-
-                          <button
-                            className="btn my-3 float-right review-btn px-4 text-white"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                            onClick={submitHandler}
-                          >
-                            Submit
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
               </div>
             </div>
