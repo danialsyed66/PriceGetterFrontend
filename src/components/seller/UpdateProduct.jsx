@@ -84,13 +84,7 @@ const NewProduct = () => {
       formData.append('images', image);
     });
 
-    console.log(name);
-    console.log(description);
-    console.log(price);
-    console.log(stock);
-    console.log(category);
-
-    // dispatch(updateProduct(formData, id));
+    dispatch(updateProduct(formData, id));
   };
 
   const onChange = e => {
