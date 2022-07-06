@@ -19,8 +19,10 @@ import {
   newReview,
 } from '../../../redux/actions/productActions';
 import { NEW_REVIEW_RESET } from './../../../redux/consts';
+import Refundmodel from './Refundmodel';
 
 const DetailPage = () => {
+  const [show, setShow] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,7 +31,6 @@ const DetailPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [userRating, setUserRating] = useState(0);
   const [comment, setComment] = useState('');
-
   const { loading, product, similar, same } = useSelector(
     state => state.productDetails
   );
@@ -82,6 +83,7 @@ const DetailPage = () => {
   };
 
   const setUserReview = () => {
+    setShow(true);
     const stars = document.querySelectorAll('.star');
 
     stars?.forEach((star, index) => {
@@ -336,8 +338,6 @@ const DetailPage = () => {
                         id="review_btn"
                         type="button"
                         className="btn btn-primary"
-                        data-toggle="modal"
-                        data-target="#ratingModal"
                         onClick={setUserReview}
                       >
                         Submit Your Review
@@ -409,15 +409,13 @@ const DetailPage = () => {
                     // review modal
                     // review modal
                   }
-                  <div
-                    className="modal fade"
-                    id="ratingModal"
-                    tabIndex="-1"
-                    role="dialog"
-                    aria-labelledby="ratingModalLabel"
-                    aria-hidden="true"
-                  >
-                    <div className="modal-dialog" role="document">
+                  <Refundmodel
+                    show={show}
+                    onClose={() => setShow(false)}
+                    id={_id}
+                  />
+                  {/* <div className="modal fade" id="ratingModal">
+                    <div className="modal-dialog">
                       <div className="modal-content">
                         <div className="modal-header">
                           <h5 className="modal-title" id="ratingModalLabel">
@@ -429,14 +427,13 @@ const DetailPage = () => {
                             data-dismiss="modal"
                             aria-label="Close"
                           >
-                            <span aria-hidden="true">&times;</span>
+                            X
                           </button>
                         </div>
                         <div className="modal-body">
                           <ul className="stars">
                             <li className="star">
-                              {' '}
-                              <i className="fa fa-star"></i>{' '}
+                              <i className="fa fa-star"></i>
                             </li>
                             <li className="star">
                               <i className="fa fa-star"></i>
@@ -471,7 +468,7 @@ const DetailPage = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
