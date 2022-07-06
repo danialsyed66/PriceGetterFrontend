@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import x from '../../../assets/x.svg';
+import fire from '../../../utils/swal';
 import styles from './modal.module.css';
-import x from '../../assets/x.svg';
-import fire from '../../utils/swal';
-import { refundRequest } from '../../redux/actions/orderActions';
 
 const Refundmodel = ({ modalStyle, show, onClose, backdropStyle, id }) => {
   const dispatch = useDispatch();
@@ -16,7 +15,6 @@ const Refundmodel = ({ modalStyle, show, onClose, backdropStyle, id }) => {
 
     onClose();
 
-    dispatch(refundRequest(id, message));
     setMessage('');
   };
 
@@ -55,9 +53,25 @@ const Refundmodel = ({ modalStyle, show, onClose, backdropStyle, id }) => {
               src={x}
               alt=""
             />
-
+            <ul className="stars">
+              <li className="star">
+                <i className="fa fa-star"></i>
+              </li>
+              <li className="star">
+                <i className="fa fa-star"></i>
+              </li>
+              <li className="star">
+                <i className="fa fa-star"></i>
+              </li>
+              <li className="star">
+                <i className="fa fa-star"></i>
+              </li>
+              <li className="star">
+                <i className="fa fa-star"></i>
+              </li>
+            </ul>
             <div className="p-2">
-              <h3>State your reason for Refund</h3>
+              <h3>Your Review</h3>
               <textarea
                 className="form-control mt-4"
                 id="exampleFormControlTextarea1"
