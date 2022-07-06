@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { MetaData, Loader, Footer, Navbar } from '../layouts';
 import { getOrderDetails } from '../../redux/actions/orderActions';
-import Refundmodel from './Refundmodel';
+import Refundmodel from '../order/Refundmodel';
 import '../products/Home';
 
 const MyOrders = () => {
@@ -18,12 +18,10 @@ const MyOrders = () => {
     totalPrice,
     orderStatus,
     user,
-    refund,
   } = order;
   const { id } = useParams();
 
-  const isPaid =
-    paymentInfo?.status === 'succeeded' || paymentInfo?.status === 'Succeeded';
+  const isPaid = paymentInfo?.status === 'succeeded';
 
   useEffect(() => {
     dispatch(getOrderDetails(id));
@@ -87,45 +85,24 @@ const MyOrders = () => {
                         : 'redColor'
                     }
                   >
-                    <b>
-                      {refund?.status === 'accepted' &&
-                      orderStatus === 'Processing'
-                        ? 'Cancelled'
-                        : orderStatus}
-                    </b>
+                    <b>{orderStatus}</b>
                   </p>
+
+                  <h4 className="my-4">Order Items:</h4>
 
                   <hr />
                   <h4 className="my-4">Refund</h4>
-                  {refund?.status === 'accepted' && (
-                    <p style={{ margin: '0' }} className={'greenColor'}>
-                      <b>Refunded</b>
-                    </p>
-                  )}
-                  {refund?.status === 'requested' && (
-                    <p style={{ margin: '0', color: 'purple' }}>
-                      <b>Requested</b>
-                    </p>
-                  )}
-                  {refund?.status === 'declined' && (
-                    <p style={{ margin: '0' }} className={'redColor'}>
-                      <b>Declined</b>
-                    </p>
-                  )}
-                  {refund?.status === 'none' && (
-                    <button
-                      className="btn btn-primary"
-                      onClick={e => {
-                        e.stopPropagation();
-                        setShow(true);
-                      }}
-                    >
-                      Claim refund
-                    </button>
-                  )}
+                  <button
+                    className="btn btn-primary"
+                    onClick={e => {
+                      e.stopPropagation();
+                      setShow(true);
+                    }}
+                  >
+                    Claim refund
+                  </button>
                 </div>
               </div>
-              <h4 className="my-4">Order Items:</h4>
               <hr />
               <div className="cart-item my-1">
                 {orderItems?.map(item => (
