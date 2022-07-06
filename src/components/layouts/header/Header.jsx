@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import './Header.css';
-import ai from '../../../assets/ai-low.png';
+// import ai from '../../../assets/ai-low.png';
+import ai from '../../../assets/ai-lower.png';
 
 import { setFilters } from '../../../redux/actions/filterActions';
 

@@ -13,6 +13,7 @@ const Forum = () => {
   const dispatch = useDispatch();
 
   const { loading, posts, message } = useSelector(state => state.forums);
+  const { isAuth } = useSelector(state => state.auth);
 
   useEffect(() => {
     dispatch(getPosts());
@@ -41,17 +42,21 @@ const Forum = () => {
           <p className="lead">
             <i className="fas fa-user" /> Welcome to the community.
           </p>
-          {toggle || (
-            <button
-              className="btn_post"
-              onClick={() => {
-                setToggle(true);
-              }}
-            >
-              Create a Post
-            </button>
+          {isAuth && (
+            <>
+              {toggle || (
+                <button
+                  className="btn_post"
+                  onClick={() => {
+                    setToggle(true);
+                  }}
+                >
+                  Create a Post
+                </button>
+              )}
+              {toggle && <PostForm />}
+            </>
           )}
-          {toggle && <PostForm />}
 
           <div className="posts">
             {posts.map(post => (

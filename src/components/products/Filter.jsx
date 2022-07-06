@@ -137,19 +137,19 @@ const Filter = props => {
   const clearFilters = () => {
     dispatch(setFilters());
 
-    setSale(onSale);
-    setSaleRange(discount);
-    setCurrentPage(page);
+    setSale(false);
+    setSaleRange([]);
+    setCurrentPage(1);
     setPriceRange([0, 500000]);
-    setSeller(sellers);
-    setCategory(categories);
-    setSortObj({ val: sort[0], order: sort[1] });
+    setSeller([]);
+    setCategory([]);
+    setSortObj({});
     setPriceRadio(0);
     setSaleRadio(0);
-    setSortRadioOrder(sortObj.order || 0);
-    setSortRadioVal(sortObj.val || 0);
-    setCategoriesCheckBox(CATEGORIES.map(({ val }) => category.includes(val)));
-    setSellerCheckBox(SELLERS.map(({ val }) => seller.includes(val)));
+    setSortRadioOrder(0);
+    setSortRadioVal(0);
+    setCategoriesCheckBox(CATEGORIES.map(({ val }) => false));
+    setSellerCheckBox(SELLERS.map(({ val }) => false));
   };
 
   const handleSliderChange = (e, newValue) => {

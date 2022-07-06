@@ -61,6 +61,8 @@ const UpdateProfile = () => {
     if (avatar) formData.set('avatar', avatar);
 
     dispatch(updateProfile(formData));
+
+    navigate('/profile');
   };
 
   return (
