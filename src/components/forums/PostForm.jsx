@@ -37,16 +37,7 @@ const PostForm = ({ forComment, postId }) => {
           required
         ></textarea>
         <div className="post_forum">
-          {forComment ? (
-            ''
-          ) : (
-            <>
-              <p style={{ color: 'grey', margin: '0' }}>
-                Attach picture for post
-              </p>{' '}
-              <input type="file" />
-            </>
-          )}
+          {forComment ? '' : <></>}
           <input type="submit" value="Submit" className="btn btn-dark my-1" />
         </div>
       </form>
