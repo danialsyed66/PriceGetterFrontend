@@ -1,6 +1,6 @@
 # PriceGetterFrontend
 
-To run this project Node and npm is required.
+To run this project Node and npm are required.
 
 ## Installation:
 
