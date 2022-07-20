@@ -1,15 +1,19 @@
 # PriceGetterFrontend
 
-# To run this project Node and npm is required.
+To run this project Node and npm is required.
 
-# Installation:
+## Installation:
 
+```
 npm i
+```
 
-# To Start the App:
+## To Start the App:
 
+```
 npm run dev
+```
 
-# To Visit App:
+## To Visit App:
 
 http://localhost:3000/
