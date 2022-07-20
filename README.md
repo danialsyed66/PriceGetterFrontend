@@ -17,3 +17,7 @@ npm run dev
 ## To Visit App:
 
 > http://localhost:3000/
+
+## Live Link:
+
+> https://price-getter.netlify.app/
